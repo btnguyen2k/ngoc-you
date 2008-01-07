@@ -1,4 +1,5 @@
 <?php
+session_start();
 define("NGOC.YOU", 1);
 require_once 'includes/includeSetup.php';
 require_once 'includes/config.php';
