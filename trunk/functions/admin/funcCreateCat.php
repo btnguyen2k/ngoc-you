@@ -36,6 +36,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	if ( $catName == "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_CATEGORY_NAME'];
 	} else {
+		$parent = getCategory($catParentId);
+		$cat = createCategory($catName, $catDesc, $parent);
 		header('Location: admin.php?'.GET_PARAM_ACTION.'='.ACTION_CAT_MANAGEMENT);
 		return;	
 	}

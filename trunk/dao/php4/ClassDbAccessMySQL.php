@@ -75,6 +75,26 @@ class DbAccessMySQL extends DbAccess {
 		mysql_free_result($resultSet);
 		return $result;
 	}
+	
+	function getCategory($id) {
+		$id+=0;
+		if ( $id < 1 ) return NULL;
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_CATEGORY." WHERE cid={catId}";
+		$sql = str_replace('{catId}', $id);
+		$this->logSql($sql);					
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('Invalid query: ' . mysql_error());
+		}
+		$cat = NULL;
+		if ( $row = mysql_fetch_assoc($resultSet) ) {
+			$cat = new Category();
+			$cat->populate($row);						
+		}
+		mysql_free_result($resultSet);
+		return $cat;
+	}
 	/* Category and Entry-related functions */
 	
 	/* User and Group-related functions */
