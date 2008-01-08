@@ -13,4 +13,7 @@ define("LANGUAGE", "en");
 
 define("APPLICATION_NAME", "NgocYou");
 
+$phpVersion = phpversion();
+define("PHP_MAJOR_VERSION", intval($phpVersion));
+
 ?>
