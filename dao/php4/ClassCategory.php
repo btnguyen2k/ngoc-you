@@ -56,6 +56,17 @@ class Category {
 		$this->desc = $value;
 	}
 	
+	function populate($tblRow) {
+		$this->id = $tblRow['cid']+0;
+		$this->parentId = $tblRow['cparentId']+0;
+		$this->position = $tblRow['cposition']+0;
+		$this->name = $tblRow['cname'];
+		if ( $this->name != NULL ) $this->name = trim($this->name);
+		$this->desc = $tblRow['cdesc'];
+		if ( $this->desc != NULL ) $this->desc = trim($this->desc);
+		$this->children = Array();
+	}
+	
 	function asChild($cat, $sortChildren=true) {
 		//check if $cat is an instance of Category class
 		if ( PHP_MAJOR_VERSION >= 5 ) {

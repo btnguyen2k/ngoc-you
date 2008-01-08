@@ -3,9 +3,11 @@ require_once 'includes/denyDirectInclude.php';
 
 class DbAccess {
 	var $dbConn;
+	var $sqlLog;
 	
 	function DbAccess() {
 		$this->dbConn = NULL;
+		$this->sqlLog = Array();
 	}
 	
 	function getDbConn() {
@@ -17,6 +19,14 @@ class DbAccess {
 	
 	function createDbConn() {
 		die("Sub-class must override this method!");
+	}
+	
+	function logSql($sql) {
+		$this->sqlLog[] = $sql;
+	}
+	
+	function getSqlLog() {
+		return $this->sqlLog;
 	}
 }
 ?>
