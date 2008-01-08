@@ -1,19 +1,12 @@
 <?php
-require_once 'includes/denyDirectInclude.php';
+require_once 'templates/'.TEMPLATE.'/header.php';
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Traditional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><?= $PAGE['pageTitle'] ?></title>
-</head>
-<body>
 <center><h1>Admin - Login</h1></center>
 <?php $_FORM = $PAGE['form']; ?>
 <form method="POST" action="<?= $_FORM['action'] ?>">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
 	<tr>
-		<td colspan="2"><font color="#FF0000"><?= $_FORM['errorMessage'] ?></font></td>
+		<td colspan="2" class=".errorMessage"><?= $_FORM['errorMessage'] ?></td>
 	</tr>
 	<tr>
 		<td><?= $LANG['LOGIN_NAME'] ?>:</td>
@@ -29,5 +22,6 @@ require_once 'includes/denyDirectInclude.php';
 	</tr>
 	</table>
 </form>
-</body>
-</html>
+<?php
+require_once 'templates/'.TEMPLATE.'/footer.php';
+?>

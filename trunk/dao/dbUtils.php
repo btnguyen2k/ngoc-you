@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 
 define("TABLE_USER", "nyuser");
+define("TABLE_GROUP", "nygroup");
+define("TABLE_CATEGORY", "nycategory");
+define("TABLE_ENTRY", "nyentry");
 
 $DBACCESS = null;
 
@@ -18,17 +21,34 @@ function getDbConn() {
 	return $DBACCESS->getDbConn();	
 }
 
+/* Category and entry-related functions */
 function getAllCategories() {
 	global $DBACCESS; 
 	return $DBACCESS->getAllCategories($id);
+}
+
+function countCategories() {
+	global $DBACCESS; 
+	return $DBACCESS->countCategories();
+}
+
+function countEntries() {
+	global $DBACCESS; 
+	return $DBACCESS->countEntries();
 }
 
 function getCategory($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getCategory($id);
 }
+/* Category and entry-related functions */
 
 /* User account-related functions */
+function countUsers() {
+	global $DBACCESS; 
+	return $DBACCESS->countUsers();
+}
+
 function getUser($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getUser($id);
