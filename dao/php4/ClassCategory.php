@@ -58,7 +58,7 @@ class Category {
 	
 	function populate($tblRow) {
 		$this->id = $tblRow['cid']+0;
-		$this->parentId = $tblRow['cparentId']+0;
+		$this->parentId = $tblRow['cparentid']+0;
 		$this->position = $tblRow['cposition']+0;
 		$this->name = $tblRow['cname'];
 		if ( $this->name != NULL ) $this->name = trim($this->name);
@@ -67,7 +67,7 @@ class Category {
 		$this->children = Array();
 	}
 	
-	function asChild($cat, $sortChildren=true) {
+	function addChild($cat, $sortChildren=true) {
 		//check if $cat is an instance of Category class
 		if ( PHP_MAJOR_VERSION >= 5 ) {
 			if ( !($cat instanceof Category) ) return NULL;

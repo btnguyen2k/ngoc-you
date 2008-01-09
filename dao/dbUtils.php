@@ -37,14 +37,14 @@ function createCategory($name, $desc, $parent=NULL) {
 	return $DBACCESS->createCategory($name, $desc, $parent);
 }
 
-function getAllCategories() {
-	global $DBACCESS; 
-	return $DBACCESS->getAllCategories($id);
-}
-
 function getCategory($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getCategory($id);
+}
+
+function getCategoryTree() {
+	global $DBACCESS; 
+	return $DBACCESS->getCategoryTree();
 }
 /* Category and entry-related functions */
 

@@ -11,7 +11,13 @@
 		<td>
 			<select name="<?= $_FORM['fieldCategoryParentId'] ?>">
 				<option value="0">---</option>
-				
+				<?php
+				foreach ( $PAGE['categories'] as $cat ) {
+				?>
+					<option value="<?= $cat->getId() ?>"><?= htmlentities($cat->getName()) ?></option>
+				<?php
+				}
+				?>
 			</select>
 		</td>
 	</tr>

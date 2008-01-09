@@ -1,12 +1,18 @@
 <?php
 require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
+require_once 'includes/inmemoryCaching.php';
+
 require_once 'ClassDbAccess.php';
 
 require_once 'ClassUser.php';
 require_once 'ClassCategory.php';
 
-class DbAccessMySQL extends DbAccess {
+define("CACHE_KEY_CATEGORIES_LIST", "CATEGORIES_LIST");
+define("CACHE_KEY_CATEGORIES_MAP", "CATEGORIES_MAP");
+define("CACHE_KEY_CATEGORIES_TREE", "CATEGORIES_TREE");
+
+class DbAccessMySQL extends DbAccess {	
 	function createDbConn() {
 		$dbServer = DB_SERVER.":".DB_PORT;
 		$conn = mysql_connect($dbServer, DB_USER, DB_PASSWORD);
@@ -69,22 +75,41 @@ class DbAccessMySQL extends DbAccess {
 			die('['.get_class($this).'.createCategory()] Invalid query: ' . mysql_error());
 		}
 		$id = mysql_insert_id($conn);
+		$this->_renewCategoryCache();
 		return $this->getCategory($id);
 	}
 	
-	function getAllCategories() {
+	function getCategory($id) {
+		$id+=0;
+		$this->_loadCategories();
+		$catsMap = cacheGetEntry(CACHE_KEY_CATEGORIES_MAP);
+		return $catsMap != NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
+	}
+	
+	function getCategoryTree() {
+		$this->_loadCategories();
+		$catsTree = cacheGetEntry(CACHE_KEY_CATEGORIES_TREE);
+		return $catsTree != NULL ? $catsTree : Array();
+	}
+	
+	function _loadCategories() {
+		$catsList = cacheGetEntry(CACHE_KEY_CATEGORIES_LIST);
+		if ( $catsList != NULL ) return;
+
 		$conn = getDbConn();
-		$result = Array();
+		$catsList = Array();
 		$catsMap = Array();
+		$catsTree = Array();
 		$sql = "SELECT * FROM ".TABLE_CATEGORY." ORDER BY cparentid, cposition DESC";
 		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
-			die('['.get_class($this).'.getAllCategories()] Invalid query: ' . mysql_error());
+			die('['.get_class($this).'._loadCategories()] Invalid query: ' . mysql_error());
 		}
 		while ( $row = mysql_fetch_assoc($resultSet) ) {
 			$cat = new Category();
 			$cat->populate($row);
+			$catsList[] = $cat;
 			$id = $cat->getId();
 			$parentId = $cat->getParentId();
 			$catsMap[$id] = $cat;
@@ -92,31 +117,19 @@ class DbAccessMySQL extends DbAccess {
 				$catsMap[$parentId]->addChild($cat);
 			}			
 			if ( $parentId < 1 ) {
-				$result[] = $cat;
+				$catsTree[] = $cat;
 			}
 		}
 		mysql_free_result($resultSet);
-		return $result;
+		cacheSetEntry(CACHE_KEY_CATEGORIES_LIST, $catsList);
+		cacheSetEntry(CACHE_KEY_CATEGORIES_MAP, $catsMap);
+		cacheSetEntry(CACHE_KEY_CATEGORIES_TREE, $catsTree);
 	}
 	
-	function getCategory($id) {
-		$id+=0;
-		if ( $id < 1 ) return NULL;
-		$conn = getDbConn();
-		$sql = "SELECT * FROM ".TABLE_CATEGORY." WHERE cid={catId}";
-		$sql = str_replace('{catId}', $id, $sql);
-		$this->logSql($sql);					
-		$resultSet = mysql_query($sql, $conn);
-		if ( !$resultSet ) {
-			die('['.get_class($this).'.getCategory()] Invalid query: ' . mysql_error());
-		}
-		$cat = NULL;
-		if ( $row = mysql_fetch_assoc($resultSet) ) {
-			$cat = new Category();
-			$cat->populate($row);						
-		}
-		mysql_free_result($resultSet);
-		return $cat;
+	function _renewCategoryCache() {
+		cacheRemoveEntry(CACHE_KEY_CATEGORIES_LIST);
+		cacheRemoveEntry(CACHE_KEY_CATEGORIES_MAP);
+		cacheRemoveEntry(CACHE_KEY_CATEGORIES_TREE);
 	}
 	/* Category and Entry-related functions */
 	
