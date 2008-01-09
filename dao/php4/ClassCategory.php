@@ -106,8 +106,9 @@ class Category {
 	}
 }
 
+//sort descendingly
 function __cmpChild($a, $b) {
 	if ( $a->getPosition() == $b->getPosition() ) return 0;
-	return $a->getPosition() < $b->getPosition() ? -1 : 1;
+	return $a->getPosition() < $b->getPosition() ? 1 : -1;
 }
 ?>
