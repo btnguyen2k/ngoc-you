@@ -22,11 +22,6 @@ function getDbConn() {
 }
 
 /* Category and entry-related functions */
-function getAllCategories() {
-	global $DBACCESS; 
-	return $DBACCESS->getAllCategories($id);
-}
-
 function countCategories() {
 	global $DBACCESS; 
 	return $DBACCESS->countCategories();
@@ -35,6 +30,16 @@ function countCategories() {
 function countEntries() {
 	global $DBACCESS; 
 	return $DBACCESS->countEntries();
+}
+
+function createCategory($name, $desc, $parent=NULL) {
+	global $DBACCESS; 
+	return $DBACCESS->createCategory($name, $desc, $parent);
+}
+
+function getAllCategories() {
+	global $DBACCESS; 
+	return $DBACCESS->getAllCategories($id);
 }
 
 function getCategory($id) {

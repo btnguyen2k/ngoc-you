@@ -100,6 +100,10 @@ class Category {
 		}
 		usort($this->children, "__cmpChild");
 	}
+
+	function getNumChildren() {
+		return count($this->children);
+	}
 }
 
 function __cmpChild($a, $b) {

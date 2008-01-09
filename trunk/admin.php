@@ -25,6 +25,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/admin/funcLogin.php';	
 } elseif ( $ACTION == ACTION_CREATE_CAT ) {
 	require_once 'functions/admin/funcCreateCat.php';
+} elseif ( $ACTION == ACTION_CAT_MANAGEMENT ) {
+	require_once 'functions/admin/funcCatManagement.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';
 }
