@@ -92,6 +92,29 @@ class DbAccessMySQL extends DbAccess {
 		return $catsTree != NULL ? $catsTree : Array();
 	}
 	
+	function updateCategory($cat) {
+		$conn = getDbConn();
+		$sql = "UPDATE ".TABLE_CATEGORY
+			." SET cparentId={parentId}, cposition={catPosition}, cname='{catName}', cdesc='{catDescription}'"
+			." WHERE cid={catId}";
+		$sql = str_replace('{catId}', $cat->getId(), $sql);
+		$sql = str_replace('{catName}', 
+			mysql_real_escape_string($cat->getName(), $conn), $sql);
+		$sql = str_replace('{catDescription}',
+			mysql_real_escape_string($cat->getDescription(), $conn), $sql);
+		$sql = str_replace('{catPosition}', $cat->getPosition(), $sql);
+		if ( $cat->getParentId() < 1 ) {
+			$sql = str_replace('{parentId}', 'NULL', $sql);
+		} else {
+			$sql = str_replace('{parentId}', $cat->getParentId(), $sql);
+		}
+		$this->logSql($sql);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.updateCategory()] Invalid query: ' . mysql_error());
+		}
+		$this->_renewCategoryCache();
+	}
+	
 	function _loadCategories() {
 		$catsList = cacheGetEntry(CACHE_KEY_CATEGORIES_LIST);
 		if ( $catsList != NULL ) return;

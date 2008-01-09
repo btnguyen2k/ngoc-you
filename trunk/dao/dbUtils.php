@@ -46,6 +46,11 @@ function getCategoryTree() {
 	global $DBACCESS; 
 	return $DBACCESS->getCategoryTree();
 }
+
+function updateCategory($cat) {
+	global $DBACCESS; 
+	return $DBACCESS->updateCategory($cat);
+}
 /* Category and entry-related functions */
 
 /* User account-related functions */

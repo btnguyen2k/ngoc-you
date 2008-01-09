@@ -5,6 +5,7 @@ $LANG['LOGIN_NAME'] = 'Login Name';
 $LANG['PASSWORD'] = 'Password';
 $LANG['LOGIN'] = 'Login';
 $LANG['LOGOUT'] = 'Logout';
+$LANG['UPDATE'] = 'Update';
 $LANG['OK'] = 'Ok';
 $LANG['CANCEL'] = 'Cancel';
 $LANG['YES'] = 'Yes';
