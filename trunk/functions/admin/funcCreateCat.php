@@ -1,4 +1,3 @@
-
 <?php
 require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
@@ -10,7 +9,7 @@ define("FORM_FIELD_CAT_DESC", "desc");
 
 $PAGE = Array();
 $PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Create Category';
-$PAGE['categories'] = getAllCategories();
+$PAGE['categoryTree'] = getCategoryTree();
 $PAGE['form'] = Array();
 $PAGE['form']['action'] = 'admin.php?'.GET_PARAM_ACTION.'='.ACTION_CREATE_CAT;
 $PAGE['form']['fieldCategoryParentId'] = FORM_FIELD_PARENT_CAT_ID;

@@ -12,9 +12,10 @@
 			<select name="<?= $_FORM['fieldCategoryParentId'] ?>">
 				<option value="0">---</option>
 				<?php
-				foreach ( $PAGE['categories'] as $cat ) {
+				foreach ( $PAGE['categoryTree'] as $cat ) {
 				?>
-					<option value="<?= $cat->getId() ?>"><?= htmlentities($cat->getName()) ?></option>
+					<option <?=$cat->getId()==$_FORM['valueParentCategoryId']?"selected":""?>
+						value="<?= $cat->getId() ?>"><?= htmlentities($cat->getName()) ?></option>
 				<?php
 				}
 				?>
