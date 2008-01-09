@@ -5,11 +5,7 @@ require_once 'dao/dbUtils.php';
 
 $PAGE = Array();
 $PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Category Management';
-
-$PAGE['content'] = Array();
-$PAGE['content']['numCategories'] = countCategories();
-$PAGE['content']['numEntries'] = countEntries();
-$PAGE['content']['numUsers'] = countUsers();
+$PAGE['categoryTree'] = getCategoryTree();
 
 require_once 'templates/'.TEMPLATE.'/admin/pageCatManagement.php';
 ?>

@@ -1,27 +1,39 @@
-
 <?php
 require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
 define("FORM_FIELD_PARENT_CAT_ID", "parentId");
+define("FORM_FIELD_CAT_ID", "id");
 define("FORM_FIELD_CAT_NAME", "name");
 define("FORM_FIELD_CAT_DESC", "desc");
 
+$id = 0;
+if ( isset($_POST[FORM_FIELD_CAT_ID]) ) {
+	$id = $_GET[FORM_FIELD_CAT_ID] + 0;
+} elseif ( isset($_GET[GET_PARAM_CATEGORY]) ) {
+	$id = $_GET[GET_PARAM_CATEGORY] + 0;
+}
+$cat = getCategory($id);
+
 $PAGE = Array();
-$PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Create Category';
-$PAGE['categories'] = getAllCategories();
+$PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Edit Category';
+$PAGE['categoryTree'] = getCategoryTree();
+$PAGE['category'] = $cat;
 $PAGE['form'] = Array();
-$PAGE['form']['action'] = 'admin.php?'.GET_PARAM_ACTION.'='.ACTION_CREATE_CAT;
+$PAGE['form']['action'] = 'admin.php?'.GET_PARAM_ACTION.'='.ACTION_EDIT_CAT;
+$PAGE['form']['fieldCategoryId'] = FORM_FIELD_CAT_ID;
 $PAGE['form']['fieldCategoryParentId'] = FORM_FIELD_PARENT_CAT_ID;
 $PAGE['form']['fieldCategoryName'] = FORM_FIELD_CAT_NAME;
 $PAGE['form']['fieldCategoryDescription'] = FORM_FIELD_CAT_DESC;
-$PAGE['form']['valueCategoryName'] = '';
-$PAGE['form']['valueCategoryDescription'] = '';
-$PAGE['form']['valueParentCategoryId'] = 0;
+$PAGE['form']['valueCategoryId'] = $id;
+$PAGE['form']['valueParentCategoryId'] = $cat != NULL ? $cat->getParentId() : 0;
+$PAGE['form']['valueCategoryName'] = $cat != NULL ? $cat->getName() : '';
+$PAGE['form']['valueCategoryDescription'] = $cat != NULL ? $cat->getDescription() : '';
 $PAGE['form']['errorMessage'] = '';
 
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+	/*
 	$catName = isset($_POST[FORM_FIELD_CAT_NAME])
 		? $_POST[FORM_FIELD_CAT_NAME] : "";
 	$catDesc = isset($_POST[FORM_FIELD_CAT_DESC])
@@ -42,7 +54,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		header('Location: admin.php?'.GET_PARAM_ACTION.'='.ACTION_CAT_MANAGEMENT);
 		return;	
 	}
+	*/
 }
 
-require_once 'templates/'.TEMPLATE.'/admin/pageCreateCat.php';
+require_once 'templates/'.TEMPLATE.'/admin/pageEditCat.php';
 ?>
