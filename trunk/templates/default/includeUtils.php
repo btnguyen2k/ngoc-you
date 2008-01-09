@@ -3,7 +3,7 @@ require_once 'includes/denyDirectInclude.php';
 function __createCatUrlDelete($cat) {
 	$url = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_DELETE_CAT;
 	$url .= '&'.GET_PARAM_CATEGORY.'='.$cat->getId();
-	return url;
+	return $url;
 }
 
 function __createCatUrlEdit($cat) {

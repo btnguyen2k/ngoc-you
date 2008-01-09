@@ -34,6 +34,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/admin/funcCatManagement.php';
 } elseif ( $ACTION == ACTION_CREATE_CAT ) {
 	require_once 'functions/admin/funcCreateCat.php';
+} elseif ( $ACTION == ACTION_DELETE_CAT ) {
+	require_once 'functions/admin/funcDeleteCat.php';
 } elseif ( $ACTION == ACTION_EDIT_CAT ) {
 	require_once 'functions/admin/funcEditCat.php';
 } else {
