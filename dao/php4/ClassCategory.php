@@ -17,7 +17,7 @@ class Category {
 	}
 	
 	function getId() {
-		return $this->id;
+		return $this->id+0;
 	}
 	
 	function setId($value) {
@@ -25,7 +25,7 @@ class Category {
 	}
 	
 	function getParentId() {
-		return $this->parentId;
+		return $this->parentId+0;
 	}
 	
 	function setParentId($value) {
@@ -33,7 +33,7 @@ class Category {
 	}
 	
 	function getPosition() {
-		return $this->position;
+		return $this->position+0;
 	}
 	
 	function setPosition($value) {
