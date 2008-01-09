@@ -23,6 +23,7 @@ $LANG['ADMIN_NUMBER_OF_USERS'] = 'Number of user accounts';
 $LANG['ADMIN_TITLE'] = 'Administration Section';
 $LANG['ADMIN_TITLE_INDEX'] = 'Site Statistics';
 $LANG['ADMIN_TITLE_CREATE_CATEGORY'] = 'Create New Category';
+$LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
 
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';
