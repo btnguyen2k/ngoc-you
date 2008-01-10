@@ -37,6 +37,11 @@ function createCategory($name, $desc, $parent=NULL) {
 	return $DBACCESS->createCategory($name, $desc, $parent);
 }
 
+function deleteCategory($id) {
+	global $DBACCESS; 
+	$DBACCESS->deleteCategory($id);
+}
+
 function getCategory($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getCategory($id);
@@ -49,7 +54,7 @@ function getCategoryTree() {
 
 function updateCategory($cat) {
 	global $DBACCESS; 
-	return $DBACCESS->updateCategory($cat);
+	$DBACCESS->updateCategory($cat);
 }
 /* Category and entry-related functions */
 

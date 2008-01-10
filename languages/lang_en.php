@@ -21,11 +21,15 @@ $LANG['CATEGORY_NAME'] = 'Name';
 $LANG['CATEGORY_DESCRIPTION'] = 'Description';
 $LANG['CATEGORY_PARENT'] = 'Parent';
 
+$LANG['MY_PROFILE'] = 'My Profile';
+
 $LANG['ADMIN_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['ADMIN_CREATE_CATEGORY'] = 'Create Category';
 $LANG['ADMIN_NUMBER_OF_CATEGORIES'] = 'Number of categories';
 $LANG['ADMIN_NUMBER_OF_ENTRIES'] = 'Total number of entries';
 $LANG['ADMIN_NUMBER_OF_USERS'] = 'Number of user accounts';
+
+$LANG['CONFIRM_DELETE_CATEGORY'] = 'Are you sure you want to delete the following category?';
 
 $LANG['ADMIN_TITLE'] = 'Administration Section';
 $LANG['ADMIN_TITLE_INDEX'] = 'Site Statistics';
@@ -37,4 +41,5 @@ $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';
 $LANG['ERROR_CATEGORY_NOT_FOUND'] = 'Error: Category not found!';
+$LANG['ERROR_CATEGORY_HAS_CHILDREN'] = 'Error: Action is not allowed - category contains sub-categories!';
 ?>
