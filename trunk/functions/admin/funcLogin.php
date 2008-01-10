@@ -23,7 +23,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	if ( $user == NULL || !$user->authenticate($password) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
 	} else {
-		$_SESSION[SESSION_ADMIN_ACCOUNT] = $user->getId();
+		$_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
 		header('Location: admin.php');
 		return;
 	}

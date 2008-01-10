@@ -79,6 +79,16 @@ class DbAccessMySQL extends DbAccess {
 		return $this->getCategory($id);
 	}
 	
+	function deleteCategory($id) {
+		$conn = getDbConn();
+		$id+=0;
+		$sql = "DELETE FROM ".TABLE_CATEGORY." WHERE cid={catId}";
+		$sql = str_replace("{catId}", $id, $sql);
+		$this->logSql($sql);
+		mysql_query($sql, $conn);
+		$this->_renewCategoryCache();
+	}
+	
 	function getCategory($id) {
 		$id+=0;
 		$this->_loadCategories();
@@ -171,6 +181,24 @@ class DbAccessMySQL extends DbAccess {
 		}
 		mysql_free_result($resultSet);
 		return $result;
+	}
+	
+	function getUser($id) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_USER." WHERE uid={userId}";
+		$sql = str_replace('{userId}', $id+0, $sql);
+		$this->logSql($sql);					
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getUser()] Invalid query: ' . mysql_error());
+		}
+		$user = NULL;
+		if ( $row = mysql_fetch_assoc($resultSet) ) {
+			$user = new User();
+			$user->populate($row);						
+		}
+		mysql_free_result($resultSet);
+		return $user;
 	}
 	
 	function getUserByLoginName($loginName) {

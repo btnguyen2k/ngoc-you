@@ -6,7 +6,7 @@ require_once 'templates/'.TEMPLATE.'/header.php';
 <form method="POST" action="<?= $_FORM['action'] ?>">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
 	<tr>
-		<td colspan="2" class=".errorMessage"><?= $_FORM['errorMessage'] ?></td>
+		<td colspan="2" class="errorMessage"><?= $_FORM['errorMessage'] ?></td>
 	</tr>
 	<tr>
 		<td><?= $LANG['LOGIN_NAME'] ?>:</td>
