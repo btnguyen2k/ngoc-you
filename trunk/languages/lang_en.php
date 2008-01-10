@@ -15,10 +15,16 @@ $LANG['EDIT'] = 'Edit';
 $LANG['DELETE'] = 'Delete';
 $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
+$LANG['CHANGE'] = 'Change';
 
 $LANG['HOME'] = 'Home';
 $LANG['MY_PROFILE'] = 'My Profile';
 $LANG['ADMIN_SECTION'] = 'Administration Section';
+
+$LANG['USER_ID'] = 'User Id';
+$LANG['LOGIN_NAME'] = 'Login Name';
+$LANG['EMAIL'] = 'Email';
+$LANG['FULL_NAME'] = 'Full name';
 
 $LANG['CATEGORY'] = 'Category';
 $LANG['CATEGORY_NAME'] = 'Name';
