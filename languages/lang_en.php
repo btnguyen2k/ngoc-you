@@ -16,12 +16,14 @@ $LANG['DELETE'] = 'Delete';
 $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
 
+$LANG['HOME'] = 'Home';
+$LANG['MY_PROFILE'] = 'My Profile';
+$LANG['ADMIN_SECTION'] = 'Administration Section';
+
 $LANG['CATEGORY'] = 'Category';
 $LANG['CATEGORY_NAME'] = 'Name';
 $LANG['CATEGORY_DESCRIPTION'] = 'Description';
 $LANG['CATEGORY_PARENT'] = 'Parent';
-
-$LANG['MY_PROFILE'] = 'My Profile';
 
 $LANG['ADMIN_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['ADMIN_CREATE_CATEGORY'] = 'Create Category';
@@ -37,6 +39,9 @@ $LANG['ADMIN_TITLE_CREATE_CATEGORY'] = 'Create New Category';
 $LANG['ADMIN_TITLE_DELETE_CATEGORY'] = 'Delete Category';
 $LANG['ADMIN_TITLE_EDIT_CATEGORY'] = 'Edit Category';
 $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
+
+$LANG['MY_PROFILE_TITLE'] = 'My Profile';
+$LANG['MY_PROFILE_TITLE_INDEX'] = 'Summary';
 
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';

@@ -25,8 +25,7 @@ if ( !isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
 	$ACTION = ACTION_LOGIN;
 } else {
 	 $CURRENT_USER = getUser($_SESSION[SESSION_CURRENT_USER_ID]);
-	 if ( $CURRENT_USER == NULL 
-	 		|| $CURRENT_USER->getGroupId() != GROUP_ADMINISTRATOR ) {
+	 if ( $CURRENT_USER == NULL ) {
 	 	$ACTION = ACTION_LOGIN;
 	 }
 }
@@ -44,6 +43,6 @@ if ( $ACTION == ACTION_LOGIN ) {
 } elseif ( $ACTION == ACTION_EDIT_CAT ) {
 	require_once 'functions/admin/funcEditCat.php';
 } else {
-	require_once 'functions/admin/funcIndex.php';
+	require_once 'functions/myprofile/funcIndex.php';
 }
 ?>
