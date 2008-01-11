@@ -40,6 +40,7 @@ $LANG['ADMIN_NUMBER_OF_USERS'] = 'Number of user accounts';
 $LANG['CONFIRM_DELETE_CATEGORY'] = 'Are you sure you want to delete the following category?';
 
 $LANG['ADMIN_TITLE'] = 'Administration Section';
+$LANG['ADMIN_TITLE_LOGIN'] = 'Login';
 $LANG['ADMIN_TITLE_INDEX'] = 'Site Statistics';
 $LANG['ADMIN_TITLE_CREATE_CATEGORY'] = 'Create New Category';
 $LANG['ADMIN_TITLE_DELETE_CATEGORY'] = 'Delete Category';
@@ -47,6 +48,7 @@ $LANG['ADMIN_TITLE_EDIT_CATEGORY'] = 'Edit Category';
 $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
 
 $LANG['MY_PROFILE_TITLE'] = 'My Profile';
+$LANG['MY_PROFILE_TITLE_LOGIN'] = 'Login';
 $LANG['MY_PROFILE_TITLE_INDEX'] = 'Summary';
 
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
