@@ -3,6 +3,10 @@ require_once 'includes/denyDirectInclude.php';
 $LANG = Array();
 $LANG['LOGIN_NAME'] = 'Login Name';
 $LANG['PASSWORD'] = 'Password';
+$LANG['CURRENT_PASSWORD'] = 'Current Password';
+$LANG['NEW_PASSWORD'] = 'New Password';
+$LANG['CONFIRMED_NEW_PASSWORD'] = 'Confirmed New Password';
+$LANG['COFIRMED_PASSWORD'] = 'Confirmed Password';
 $LANG['LOGIN'] = 'Login';
 $LANG['LOGOUT'] = 'Logout';
 $LANG['UPDATE'] = 'Update';
@@ -50,6 +54,14 @@ $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['MY_PROFILE_TITLE'] = 'My Profile';
 $LANG['MY_PROFILE_TITLE_LOGIN'] = 'Login';
 $LANG['MY_PROFILE_TITLE_INDEX'] = 'Summary';
+$LANG['MY_PROFILE_TITLE_CHANGE_EMAIL'] = 'Change Email';
+$LANG['MY_PROFILE_TITLE_CHANGE_FULL_NAME'] = 'Change Full Name';
+$LANG['MY_PROFILE_TITLE_CHANGE_PASSWORD'] = 'Change Password';
+
+$LANG['MY_PROFILE_MANAGEMENT'] = 'My Profile Management';
+$LANG['MY_PROFILE_CHANGE_EMAIL'] = 'Change Email';
+$LANG['MY_PROFILE_CHANGE_FULL_NAME'] = 'Change Full Name';
+$LANG['MY_PROFILE_CHANGE_PASSWORD'] = 'Change Password';
 
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';
