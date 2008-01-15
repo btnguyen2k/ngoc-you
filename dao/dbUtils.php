@@ -78,5 +78,10 @@ function getUserByLoginName($loginName) {
 	global $DBACCESS; 
 	return $DBACCESS->getUserByLoginName($loginName);
 }
+
+function updateUser($user) {
+	global $DBACCESS; 
+	$DBACCESS->updateUser($user);
+}
 /* User account-related functions */
 ?>

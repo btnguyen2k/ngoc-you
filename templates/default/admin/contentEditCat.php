@@ -26,7 +26,7 @@ if ( $_CAT == NULL ) {
 						if ( $cat->getId() != $_CAT->getId() ) {
 					?>
 							<option <?=$cat->getId()==$_FORM['valueParentCategoryId']?"selected":""?>
-								value="<?=$cat->getId()?>"><?=htmlentities($cat->getName())?></option>
+								value="<?=$cat->getId()?>"><?=htmlspecialchars($cat->getName())?></option>
 					<?php
 						}
 					}
@@ -37,13 +37,13 @@ if ( $_CAT == NULL ) {
 		<tr>
 			<td><?=$LANG['CATEGORY_NAME']?>:</td>
 			<td><input class="textbox_blue" name="<?=$_FORM['fieldCategoryName']?>" 
-				value="<?=htmlentities($_FORM['valueCategoryName'])?>" type="text" style="width: 256px"></td>
+				value="<?=htmlspecialchars($_FORM['valueCategoryName'])?>" type="text" style="width: 256px"></td>
 		</tr>
 		<tr>
 			<td><?=$LANG['CATEGORY_DESCRIPTION']?>:</td>
 			<td>
 				<textarea class="textbox_blue" name="<?=$_FORM['fieldCategoryDescription']?>"
-					cols="4" style="width: 256px"><?=htmlentities($_FORM['valueCategoryDescription'])?></textarea>
+					cols="4" style="width: 256px"><?=htmlspecialchars($_FORM['valueCategoryDescription'])?></textarea>
 			</td>
 		</tr>
 		<tr>

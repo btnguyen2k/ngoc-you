@@ -21,13 +21,13 @@ if ( $_CAT == NULL ) {
 		</tr>
 		<tr>
 			<td><?=$LANG['CATEGORY_NAME']?>:</td>
-			<td><input class="textbox_disabled" disabled="disabled" value="<?=htmlentities($_CAT->getName())?>" type="text" style="width: 256px"></td>
+			<td><input class="textbox_disabled" disabled="disabled" value="<?=htmlspecialchars($_CAT->getName())?>" type="text" style="width: 256px"></td>
 		</tr>
 		<tr>
 			<td><?=$LANG['CATEGORY_DESCRIPTION']?>:</td>
 			<td>
 				<textarea class="textbox_disabled" disabled="disabled"
-					cols="4" style="width: 256px"><?=htmlentities($_CAT->getDescription())?></textarea>
+					cols="4" style="width: 256px"><?=htmlspecialchars($_CAT->getDescription())?></textarea>
 			</td>
 		</tr>
 		<tr>

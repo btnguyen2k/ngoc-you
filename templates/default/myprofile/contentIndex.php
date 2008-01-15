@@ -28,7 +28,7 @@
 		<?=$LANG['FULL_NAME']?>
 	</td>
 	<td width="40%" class="contentCell_1" align="center">
-		<?=htmlentities($CURRENT_USER->getFullName())?>
+		<?=htmlspecialchars($CURRENT_USER->getFullName())?>
 	</td>
 	<td width="20%" class="contentCell_1" align="center">
 		<a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_CHANGE_FULL_NAME?>"><?=$LANG['CHANGE']?></a>
@@ -39,7 +39,7 @@
 		<?=$LANG['EMAIL']?>
 	</td>
 	<td width="40%" class="contentCell_1" align="center">
-		<?=htmlentities($CURRENT_USER->getEmail())?>
+		<?=htmlspecialchars($CURRENT_USER->getEmail())?>
 	</td>
 	<td width="20%" class="contentCell_1" align="center">
 		<a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_CHANGE_EMAIL?>"><?=$LANG['CHANGE']?></a>

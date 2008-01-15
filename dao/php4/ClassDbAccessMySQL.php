@@ -218,6 +218,27 @@ class DbAccessMySQL extends DbAccess {
 		mysql_free_result($resultSet);
 		return $user;
 	}
+	
+	function updateUser($user) {
+		$conn = getDbConn();
+		$sql = "UPDATE ".TABLE_USER
+			." SET uloginname='{loginName}', upassword='{password}', uemail='{email}', ufullname='{fullName}'"
+			." WHERE uid={userId}";
+		$sql = str_replace('{loginName}', 
+			mysql_real_escape_string($user->getLoginName(), $conn), $sql);
+		$sql = str_replace('{password}', 
+			mysql_real_escape_string($user->getPassword(), $conn), $sql);
+		$sql = str_replace('{email}', 
+			mysql_real_escape_string($user->getEmail(), $conn), $sql);
+		$sql = str_replace('{fullName}', 
+			mysql_real_escape_string($user->getFullName(), $conn), $sql);
+		$sql = str_replace('{userId}', $user->getId(), $sql);
+		$this->logSql($sql);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.updateUser()] Invalid query: ' . mysql_error());
+		}
+		$this->_renewCategoryCache();
+	}
 	/* User and Group-related functions */
 }
 ?>
