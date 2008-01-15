@@ -29,6 +29,7 @@ $LANG['USER_ID'] = 'User Id';
 $LANG['LOGIN_NAME'] = 'Login Name';
 $LANG['EMAIL'] = 'Email';
 $LANG['FULL_NAME'] = 'Full name';
+$LANG['NEW_FULL_NAME'] = 'New full name';
 
 $LANG['CATEGORY'] = 'Category';
 $LANG['CATEGORY_NAME'] = 'Name';
@@ -67,4 +68,11 @@ $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';
 $LANG['ERROR_CATEGORY_NOT_FOUND'] = 'Error: Category not found!';
 $LANG['ERROR_CATEGORY_HAS_CHILDREN'] = 'Error: Action is not allowed - category contains sub-categories!';
+$LANG['ERROR_PASSWORD_NOT_MATCH'] = 'Error: Password does not match!';
+$LANG['ERROR_CONFIRMED_PASSWORD_NOT_MATCH'] = 'Error: Password does not match the confirmed one!';
+$LANG['ERROR_EMPTY_NEW_PASSWORD'] = 'Error: New password is empty!';
+$LANG['ERROR_EMPTY_NEW_FULL_NAME'] = 'Error: Full name is empty!';
+
+$LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
+$LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';
 ?>

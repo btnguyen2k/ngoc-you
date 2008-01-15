@@ -19,7 +19,7 @@ function __displayCat($cat, $indent=0) {
 			echo "&nbsp; &nbsp; "; 
 		}
 		?>
-		+ <a href="<?=__createCatUrlEdit($cat)?>"><?=htmlentities($cat->getName())?></a>
+		+ <a href="<?=__createCatUrlEdit($cat)?>"><?=htmlspecialchars($cat->getName())?></a>
 	</td>
 	<td width="10%" class="contentCell_1" align="center">
 		<a href="<?=__createCatUrlEdit($cat)?>"><?=$LANG['EDIT']?></a>
