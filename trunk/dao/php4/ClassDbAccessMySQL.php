@@ -201,10 +201,30 @@ class DbAccessMySQL extends DbAccess {
 		return $user;
 	}
 	
+	function getUserByEmail($email) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_USER." WHERE uemail='{email}'";
+		$sql = str_replace('{email}', 
+			mysql_real_escape_string(strtolower($email), $conn), $sql);
+		$this->logSql($sql);					
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getUserByEmail()] Invalid query: ' . mysql_error());
+		}
+		$user = NULL;
+		if ( $row = mysql_fetch_assoc($resultSet) ) {
+			$user = new User();
+			$user->populate($row);						
+		}
+		mysql_free_result($resultSet);
+		return $user;
+	}
+	
 	function getUserByLoginName($loginName) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_USER." WHERE uloginname='{loginName}'";
-		$sql = str_replace('{loginName}', mysql_real_escape_string($loginName, $conn), $sql);
+		$sql = str_replace('{loginName}', 
+			mysql_real_escape_string(strtolower($loginName), $conn), $sql);
 		$this->logSql($sql);					
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
@@ -225,11 +245,11 @@ class DbAccessMySQL extends DbAccess {
 			." SET uloginname='{loginName}', upassword='{password}', uemail='{email}', ufullname='{fullName}'"
 			." WHERE uid={userId}";
 		$sql = str_replace('{loginName}', 
-			mysql_real_escape_string($user->getLoginName(), $conn), $sql);
+			mysql_real_escape_string(strtolower($user->getLoginName()), $conn), $sql);
 		$sql = str_replace('{password}', 
 			mysql_real_escape_string($user->getPassword(), $conn), $sql);
 		$sql = str_replace('{email}', 
-			mysql_real_escape_string($user->getEmail(), $conn), $sql);
+			mysql_real_escape_string(strtolower($user->getEmail()), $conn), $sql);
 		$sql = str_replace('{fullName}', 
 			mysql_real_escape_string($user->getFullName(), $conn), $sql);
 		$sql = str_replace('{userId}', $user->getId(), $sql);

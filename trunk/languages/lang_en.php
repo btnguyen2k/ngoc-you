@@ -28,6 +28,8 @@ $LANG['ADMIN_SECTION'] = 'Administration Section';
 $LANG['USER_ID'] = 'User Id';
 $LANG['LOGIN_NAME'] = 'Login Name';
 $LANG['EMAIL'] = 'Email';
+$LANG['NEW_EMAIL'] = 'New Email';
+$LANG['COFIRMED_NEW_EMAIL'] = 'Confirmed New Email';
 $LANG['FULL_NAME'] = 'Full name';
 $LANG['NEW_FULL_NAME'] = 'New full name';
 
@@ -72,7 +74,11 @@ $LANG['ERROR_PASSWORD_NOT_MATCH'] = 'Error: Password does not match!';
 $LANG['ERROR_CONFIRMED_PASSWORD_NOT_MATCH'] = 'Error: Password does not match the confirmed one!';
 $LANG['ERROR_EMPTY_NEW_PASSWORD'] = 'Error: New password is empty!';
 $LANG['ERROR_EMPTY_NEW_FULL_NAME'] = 'Error: Full name is empty!';
+$LANG['ERROR_EMPTY_NEW_EMAIL'] = 'Error: New email is empty!';
+$LANG['ERROR_CONFIRMED_EMAIL_NOT_MATCH'] = 'Error: Email does not match the confirmed one!';
+$LANG['ERROR_EMAIL_ALREADY_EXISTS'] = 'Error: This email has been registered by another user!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';
+$LANG['INFO_EMAIL_CHANGED'] = 'Information: Email has been changed successfully!'
 ?>
