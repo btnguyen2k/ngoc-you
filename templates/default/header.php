@@ -7,6 +7,7 @@ require_once 'includeUtils.php';
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><?= $PAGE['pageTitle'] ?></title>
+<link href="<?= 'templates/'.TEMPLATE.'/' ?>style_butter.css.php" type="text/css" rel="stylesheet">
 <link href="<?= 'templates/'.TEMPLATE.'/' ?>style.css" type="text/css" rel="stylesheet">
 </head>
 <body>

@@ -7,6 +7,7 @@ $PAGE = Array();
 $PAGE['pageTitle'] = APPLICATION_NAME.' - Index';
 
 $PAGE['content'] = Array();
+$PAGE['categoryTree'] = getCategoryTree();
 
 require_once 'templates/'.TEMPLATE.'/pageIndex.php';
 ?>
