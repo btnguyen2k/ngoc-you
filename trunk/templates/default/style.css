@@ -2,15 +2,9 @@ BODY { font-family: Arial; font-size: 12px; margin: 4px; }
 
 FORM { margin: 0px; }
 
-HR { height: 1px; color: #0065FF; }
-
 TD { font-size: 12px; }
 
 SELECT { font-size: 11px; }
-
-A:link { color: #009010; text-decoration: none; }
-A:visited { color: #009010; text-decoration: none; }
-A:hover { color: #FF0000; text-decoration: underline; }
 
 .column_left { width: 200px; margin-right: 8px; }
 .column_right { width: 200px; margin-left: 8px; }
