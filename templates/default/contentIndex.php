@@ -11,7 +11,7 @@ function _displayTopCat($cat) {
 		<td class="topLvlCatTitle" align="center"><?=htmlspecialchars($cat->getName())?></td>
 	</tr>
 	<tr>
-		<td>
+		<td class="catList">
 			<?php
 			if ( $cat->getNumChildren() > 0 ) {
 				foreach ( $cat->getChildren() as $child ) {
@@ -28,31 +28,36 @@ function _displayTopCat($cat) {
 }
 
 function _displaySubCat($cat) {
-	echo $cat->getName();
+	echo '<a href="'.$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_CAT;
+	echo '?'.GET_PARAM_CATEGORY.'='.$cat->getId().'">'.$cat->getName().'</a>';
 	echo " ";
 }
 ?>
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
 <tr>
-	<td valign="top" width="50%">
-		<?php
-		$hasCat = false;
-		for ( $i = 0, $n = count($PAGE['categoryTree']); $i < $n; $i+=2 ) {
-			_displayTopCat($PAGE['categoryTree'][$i]);
-			$hasCat = true;
+	<?php
+	$_NUM_CATS = count($PAGE['categoryTree']);
+	if ( $_NUM_CATS <= 0 ) {
+		echo '&nbsp;';
+	} else {	
+		$_NUM_COLS = 3;	
+		$_COL_WIDTHS = Array();
+		$totalWidth = 0;
+		for ( $i = 0; $i < $_NUM_COLS-1; $i++ ) {
+			$temp = intval(100/$_NUM_COLS);
+			$totalWidth += $temp;
+			$_COL_WIDTHS[] = $temp;		
 		}
-		if ( !$hasCat ) echo "&nbsp;";
-		?>
-	</td>
-	<td valign="top" width="50%">
-		<?php
-		$hasCat = false;
-		for ( $i = 1, $n = count($PAGE['categoryTree']); $i < $n; $i+=2 ) {
-			_displayTopCat($PAGE['categoryTree'][$i]);
-			$hasCat = true;
+		$_COL_WIDTHS[] = 100 - $totalWidth;
+		for ( $it = 0; $it < $_NUM_COLS; $it++ ) {
+			$colWidth = $_COL_WIDTHS[$it];
+			echo '<td valign="top" width="'.$colWidth.'%">';
+			for ( $i = $it; $i < $_NUM_CATS; $i+=$_NUM_COLS ) {
+				_displayTopCat($PAGE['categoryTree'][$i]);
+			}
+			echo '</td>';
 		}
-		if ( !$hasCat ) echo "&nbsp;";
-		?>
-	</td>
+	}
+	?>
 </tr>
 </table>

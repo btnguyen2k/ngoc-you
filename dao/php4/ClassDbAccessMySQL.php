@@ -66,7 +66,7 @@ class DbAccessMySQL extends DbAccess {
 			$sql = str_replace('{catPosition}', $parent->getNumChildren(), $sql);
 			$sql = str_replace('{parentId}', $parent->getId(), $sql);
 		} else {
-			$pos = count($this->getAllCategories());
+			$pos = count($this->getCategoryTree());
 			$sql = str_replace('{catPosition}', $pos, $sql);
 			$sql = str_replace('{parentId}', 'NULL', $sql);
 		}

@@ -29,6 +29,9 @@ HR { height: 1px; color: <?=$colorHR?>; }
 A:link { color: <?=$colorLink?>; text-decoration: none; }
 A:visited { color: <?=$colorLinkVisited?>; text-decoration: none; }
 A:hover { color: <?=$colorLinkHover?>; text-decoration: underline; }
+.catList A:link { color: #000000; text-decoration: underline; }
+.catList A:visited { color: #000000; text-decoration: underline; }
+.catList A:hover { color: <?=$colorLink?>; text-decoration: none; }
 
 .pageMainTitle {
 	font-weight: bold;
