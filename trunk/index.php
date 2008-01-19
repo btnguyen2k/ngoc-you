@@ -11,11 +11,18 @@ define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_VIEW_CAT", 'viewCat');
 
+$CURRENT_USER = NULL;
+if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
+	$CURRENT_USER = getUser($_SESSION[SESSION_CURRENT_USER_ID]);
+}
+
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:DEFAULT_ACTION;
 $ACTION = strtolower(trim($ACTION));
 
 if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/funcLogin.php';	
+} elseif ( $ACTION == ACTION_LOGOUT ) {
+	require_once 'functions/funcLogout.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

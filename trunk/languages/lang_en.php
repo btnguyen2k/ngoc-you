@@ -21,6 +21,8 @@ $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
 $LANG['CHANGE'] = 'Change';
 
+$LANG['WELCOME'] = 'Welcome {0}!';
+
 $LANG['HOME'] = 'Home';
 $LANG['MY_PROFILE'] = 'My Profile';
 $LANG['ADMIN_SECTION'] = 'Administration Section';
