@@ -1,7 +1,7 @@
 <ul>
 	<li><a href="index.php"><?=$LANG['HOME']?></a>
 	<?php
-	if ( $CURRENT_USER != NULL ) {
+	if ( isset($CURRENT_USER) && $CURRENT_USER != NULL ) {
 	?>
 		<li><a href="index.php"><?=$LANG['MY_PROFILE']?></a>
 	<?php
