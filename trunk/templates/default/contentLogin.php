@@ -23,7 +23,10 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input type="submit" value="<?= $LANG['LOGIN'] ?>"></td>
+		<td>
+			<input type="submit" value="<?= $LANG['LOGIN'] ?>">
+			<input onclick='location.href="index.php"' type="button" value="<?=$LANG['CANCEL']?>">
+		</td>
 	</tr>
 	</table>
 </form>
