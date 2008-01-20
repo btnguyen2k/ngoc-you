@@ -20,6 +20,7 @@ $LANG['DELETE'] = 'Delete';
 $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
 $LANG['CHANGE'] = 'Change';
+$LANG['REGISTER'] = 'Register';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
