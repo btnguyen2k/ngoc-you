@@ -10,6 +10,7 @@ define("DEFAULT_ACTION", 'index');
 define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_VIEW_CAT", 'viewCat');
+define("ACTION_REGISTER", 'register');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -23,6 +24,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/funcLogin.php';	
 } elseif ( $ACTION == ACTION_LOGOUT ) {
 	require_once 'functions/funcLogout.php';	
+} elseif ( $ACTION == ACTION_REGISTER ) {
+	require_once 'functions/funcRegister.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

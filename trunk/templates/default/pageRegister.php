@@ -3,7 +3,7 @@ require_once 'templates/'.TEMPLATE.'/header.php';
 ?>
 <?php
 function mainContent() {
-	return 'contentLogin.php';
+	return 'contentRegister.php';
 }
 require_once 'layout.php';
 ?>
