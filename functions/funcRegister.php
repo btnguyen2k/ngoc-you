@@ -8,7 +8,7 @@ define("FORM_FIELD_NEW_PASSWORD", "newPassword");
 define("FORM_FIELD_CONFIRMED_NEW_PASSWORD", "confirmedNewPassword");
 
 $PAGE = Array();
-$PAGE['pageTitle'] = APPLICATION_NAME.' - My Profile/Change Password';
+$PAGE['pageTitle'] = APPLICATION_NAME.' - Register';
 $PAGE['form'] = Array();
 $PAGE['form']['action'] = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_REGISTER;
 $PAGE['form']['fieldCurrentPassword'] = FORM_FIELD_CURRENT_PASSWORD;
