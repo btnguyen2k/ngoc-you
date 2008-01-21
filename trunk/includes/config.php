@@ -20,6 +20,7 @@ define("SESSION_CURRENT_USER_ID", "CURRENT_USER_ID");
 
 define("GET_PARAM_ACTION", 'act');
 define("GET_PARAM_CATEGORY", 'cat');
+define("GET_PARAM_ID", 'id');
 
 define("GROUP_ADMINISTRATOR", 1);
 define("GROUP_MODERATOR", 2);

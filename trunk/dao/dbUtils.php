@@ -64,6 +64,11 @@ function countUsers() {
 	return $DBACCESS->countUsers();
 }
 
+function createUser($loginName, $password, $email, $fullName) {
+	global $DBACCESS; 
+	return $DBACCESS->createUser($loginName, $password, $email, $fullName);
+}
+
 function getUser($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getUser($id);

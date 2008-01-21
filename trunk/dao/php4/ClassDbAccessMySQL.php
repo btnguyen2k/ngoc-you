@@ -183,6 +183,10 @@ class DbAccessMySQL extends DbAccess {
 		return $result;
 	}
 	
+	function createUser($loginName, $password, $email, $fullname="") {
+		
+	}
+	
 	function getUser($id) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_USER." WHERE uid={userId}";
