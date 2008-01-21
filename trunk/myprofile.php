@@ -13,6 +13,7 @@ define("ACTION_CHANGE_FULL_NAME", 'changeFullName');
 define("ACTION_CHANGE_EMAIL", 'changeEmail');
 define("ACTION_CHANGE_PASSWORD", 'changePassword');
 define("ACTION_POST_ADS", 'postAds');
+define("ACTION_MY_ADS", 'myAds');
 
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:ACTION_DEFAULT;
 $ACTION = trim($ACTION);
