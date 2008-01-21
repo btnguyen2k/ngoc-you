@@ -19,9 +19,13 @@
 	
 	<br>
 	
-	<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_POST_ADS?>"><?=$LANG['POST_ADS']?></a>
+	<li><?=$LANG['ADS_MANAGEMENT']?>
+		<ul>
+			<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS?>"><?=$LANG['MY_ADS']?></a>
+			<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_POST_ADS?>"><?=$LANG['POST_ADS']?></a>
+		</ul>	
 	
-	<br><br>
+	<br>
 		
 	<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_LOGOUT?>"><?=$LANG['LOGOUT']?></a>
 </ul>
