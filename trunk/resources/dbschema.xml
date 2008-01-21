@@ -315,7 +315,7 @@
 <INDEXCOLUMN idColumn="1004" LengthParam="0" />
 </INDEXCOLUMNS>
 </INDEX>
-<INDEX ID="1039" IndexName="nyuser_email" IndexKind="2" FKRefDef_Obj_id="-1">
+<INDEX ID="1039" IndexName="nyuser_email" IndexKind="1" FKRefDef_Obj_id="-1">
 <INDEXCOLUMNS>
 <INDEXCOLUMN idColumn="1037" LengthParam="0" />
 </INDEXCOLUMNS>

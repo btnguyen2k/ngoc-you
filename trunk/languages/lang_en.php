@@ -23,6 +23,8 @@ $LANG['CHANGE'] = 'Change';
 $LANG['REGISTER'] = 'Register';
 $LANG['REGISTER_DONE'] = 'Congratulation! Account {0} has been created successfully!';
 
+$LANG['POST_ADS'] = 'Post to classifieds';
+
 $LANG['WELCOME'] = 'Welcome {0}!';
 
 $LANG['HOME'] = 'Home';

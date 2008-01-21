@@ -18,6 +18,10 @@
 		</ul>
 	
 	<br>
+	
+	<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_POST_ADS?>"><?=$LANG['POST_ADS']?></a>
+	
+	<br><br>
 		
 	<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_LOGOUT?>"><?=$LANG['LOGOUT']?></a>
 </ul>

@@ -12,6 +12,7 @@ define("ACTION_LOGOUT", 'logout');
 define("ACTION_CHANGE_FULL_NAME", 'changeFullName');
 define("ACTION_CHANGE_EMAIL", 'changeEmail');
 define("ACTION_CHANGE_PASSWORD", 'changePassword');
+define("ACTION_POST_ADS", 'postAds');
 
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:ACTION_DEFAULT;
 $ACTION = trim($ACTION);
@@ -28,14 +29,16 @@ if ( !isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
 
 if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/myprofile/funcLogin.php';	
+} elseif ( $ACTION == ACTION_LOGOUT ) {
+	require_once 'functions/myprofile/funcLogout.php';	
 } elseif ( $ACTION == ACTION_CHANGE_EMAIL ) {
 	require_once 'functions/myprofile/funcChangeEmail.php';	
 } elseif ( $ACTION == ACTION_CHANGE_FULL_NAME ) {
 	require_once 'functions/myprofile/funcChangeFullName.php';	
 } elseif ( $ACTION == ACTION_CHANGE_PASSWORD ) {
 	require_once 'functions/myprofile/funcChangePassword.php';	
-} elseif ( $ACTION == ACTION_LOGOUT ) {
-	require_once 'functions/myprofile/funcLogout.php';	
+} elseif ( $ACTION == ACTION_POST_ADS ) {
+	require_once 'functions/myprofile/funcPostAds.php';	
 } else {
 	require_once 'functions/myprofile/funcIndex.php';
 }
