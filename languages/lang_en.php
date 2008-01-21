@@ -21,6 +21,7 @@ $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
 $LANG['CHANGE'] = 'Change';
 $LANG['REGISTER'] = 'Register';
+$LANG['REGISTER_DONE'] = 'Congratulation! Account {0} has been created successfully!';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
@@ -80,6 +81,10 @@ $LANG['ERROR_EMPTY_NEW_FULL_NAME'] = 'Error: Full name is empty!';
 $LANG['ERROR_EMPTY_NEW_EMAIL'] = 'Error: New email is empty!';
 $LANG['ERROR_CONFIRMED_EMAIL_NOT_MATCH'] = 'Error: Email does not match the confirmed one!';
 $LANG['ERROR_EMAIL_ALREADY_EXISTS'] = 'Error: This email has been registered by another user!';
+$LANG['ERROR_LOGIN_NAME_ALREADY_EXISTS'] = 'Error: This login name has been registered by another user!';
+$LANG['ERROR_EMPTY_LOGIN_NAME'] = 'Error: Login name is empty!';
+$LANG['ERROR_EMPTY_PASSWORD'] = 'Error: Password is empty!';
+$LANG['ERROR_EMPTY_EMAIL'] = 'Error: Email is empty!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';

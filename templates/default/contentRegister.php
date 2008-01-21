@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td><?=$LANG['CONFIRMED_PASSWORD']?>:</td>
-		<td><input name="<?=$_FORM['fieldPassword']?>" type="password" style="width: 160px">
+		<td><input name="<?=$_FORM['fieldConfirmedPassword']?>" type="password" style="width: 160px">
 			*</td>
 	</tr>
 	<tr>
@@ -39,7 +39,7 @@
 		<td><?=$LANG['FULL_NAME']?>:</td>
 		<td><input name="<?=$_FORM['fieldFullName']?>" type="text" 
 			value="<?=htmlspecialchars($_FORM['valueFullName'])?>" style="width: 160px">
-			*</td>
+			</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
