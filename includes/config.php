@@ -24,6 +24,6 @@ define("GET_PARAM_ID", 'id');
 
 define("GROUP_ADMINISTRATOR", 1);
 define("GROUP_MODERATOR", 2);
-define("GROUP_MEMBER", 2);
+define("GROUP_MEMBER", 3);
 
 ?>

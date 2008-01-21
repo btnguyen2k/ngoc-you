@@ -183,8 +183,31 @@ class DbAccessMySQL extends DbAccess {
 		return $result;
 	}
 	
-	function createUser($loginName, $password, $email, $fullname="") {
-		
+	function createUser($loginName, $password, $email, $fullName="", $groupId=GROUP_MEMBER) {
+		$conn = getDbConn();
+		$sql = "INSERT INTO ".TABLE_USER
+			." (uloginname, upassword, uemail, ufullname, ucreationtimestamp, ugroupid)"
+			." VALUES('{loginName}', '{password}', '{email}', '{fullName}', {creationTimestamp}, {groupId})";
+		$loginName = strtolower(trim($loginName));
+		$email = strtolower(trim($email));
+		$password = md5(trim($password));
+		$fullName = trim($fullName);
+		$creationTimestamp = time();
+		$groupId += 0;
+		if ( $groupId != GROUP_ADMINISTRATOR 
+				&& $groupId != GROUP_MODERATOR
+				&& $groupId != GROUP_MEMBER ) {
+			$groupId = GROUP_MEMBER;
+		}
+		$sql = str_replace('{loginName}', mysql_real_escape_string($loginName, $conn), $sql);
+		$sql = str_replace('{password}', mysql_real_escape_string($password, $conn), $sql);
+		$sql = str_replace('{email}', mysql_real_escape_string($email, $conn), $sql);
+		$sql = str_replace('{fullName}', mysql_real_escape_string($fullName, $conn), $sql);
+		$sql = str_replace('{creationTimestamp}', $creationTimestamp, $sql);
+		$sql = str_replace('{groupId}', $groupId, $sql);
+		$this->logSql($sql);
+		mysql_query($sql, $conn);
+		return $this->getUserByLoginName($loginName);
 	}
 	
 	function getUser($id) {
