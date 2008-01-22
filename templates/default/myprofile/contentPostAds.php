@@ -1,5 +1,5 @@
 <center><h1><?=$LANG['MY_PROFILE_TITLE']?></h1></center>
-<center><h2><?=$LANG['MY_PROFILE_TITLE_CHANGE_FULL_NAME']?></h2></center>
+<center><h2><?=$LANG['MY_PROFILE_TITLE_POST_ADS']?></h2></center>
 <?php $_FORM = $PAGE['form']; ?>
 <form method="POST" action="<?=$_FORM['action']?>">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
