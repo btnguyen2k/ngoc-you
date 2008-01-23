@@ -40,6 +40,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/myprofile/funcChangePassword.php';	
 } elseif ( $ACTION == ACTION_POST_ADS ) {
 	require_once 'functions/myprofile/funcPostAds.php';	
+} elseif ( $ACTION == ACTION_MY_ADS ) {
+	require_once 'functions/myprofile/funcMyAds.php';	
 } else {
 	require_once 'functions/myprofile/funcIndex.php';
 }

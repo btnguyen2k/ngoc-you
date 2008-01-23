@@ -32,5 +32,4 @@ if ( $ACTION == ACTION_LOGIN ) {
 } else {
 	require_once 'functions/funcIndex.php';	
 }
-
 ?>

@@ -39,20 +39,12 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTENT'];
 	} else {
 		$expiry = 7*24*3600; //expires in 7 days!
+		
+		//TODO take care of HTML content!
 		createEntry($cat, $CURRENT_USER, $expiry, $adsTitle, $adsContent);
+		header('Location: myprofile.php?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS);
+		return;
 	}
-	
-	/*
-	if ( !$CURRENT_USER->authenticate($currentPwd) ) {
-		$PAGE['form']['errorMessage'] = $LANG['ERROR_PASSWORD_NOT_MATCH'];
-	} elseif ( $newFullName == "" ) {
-		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_NEW_FULL_NAME'];
-	} else {
-		$CURRENT_USER->setFullName($newFullName);
-		$PAGE['form']['informationMessage'] = $LANG['INFO_FULL_NAME_CHANGED'];
-		updateUser($CURRENT_USER);
-	}
-*/
 }
 
 require_once 'templates/'.TEMPLATE.'/myprofile/pagePostAds.php';
