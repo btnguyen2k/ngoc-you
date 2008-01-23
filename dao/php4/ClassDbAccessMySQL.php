@@ -7,6 +7,7 @@ require_once 'ClassDbAccess.php';
 
 require_once 'ClassUser.php';
 require_once 'ClassCategory.php';
+require_once 'ClassEntry.php';
 
 define("CACHE_KEY_CATEGORIES_LIST", "CATEGORIES_LIST");
 define("CACHE_KEY_CATEGORIES_MAP", "CATEGORIES_MAP");
@@ -82,7 +83,7 @@ class DbAccessMySQL extends DbAccess {
 	function createEntry($cat, $user, $expiry, $title, $content) {
 		$conn = getDbConn();
 		$sql = "INSERT INTO ".TABLE_ENTRY
-			." (ecatid, euserid, ecreationtimestamp, eexpirytimestamp, etitle, econtent) VALUES ("
+			." (ecatid, euserid, ecreationtimestamp, eexpirytimestamp, etitle, ebody) VALUES ("
 			."{catId}, {userId}, {creationTimestamp}, {expiryTimestamp}, '{title}', '{content}')";
 		$current = time();
 		$sql = str_replace('{catId}', $cat->getId(), $sql);
@@ -120,6 +121,24 @@ class DbAccessMySQL extends DbAccess {
 		$this->_loadCategories();
 		$catsTree = cacheGetEntry(CACHE_KEY_CATEGORIES_TREE);
 		return $catsTree != NULL ? $catsTree : Array();
+	}
+	
+	function getEntry($id) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eid={id}";
+		$sql = str_replace('{id}', $id+0, $sql);
+		$this->logSql($sql);					
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getEntry()] Invalid query: ' . mysql_error());
+		}
+		$entry = NULL;
+		if ( $row = mysql_fetch_assoc($resultSet) ) {
+			$entry = new Entry();
+			$entry->populate($row);						
+		}
+		mysql_free_result($resultSet);
+		return $entry;
 	}
 	
 	function updateCategory($cat) {

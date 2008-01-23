@@ -1,19 +1,21 @@
 <?php
-class Category {
+class Entry {
 	var $id;
-	var $parentId;
-	var $position;
-	var $name;
-	var $desc;
-	var $children;
+	var $catId;
+	var $userId;
+	var $creationTimestamp;
+	var $expiryTimestamp;
+	var $title;
+	var $content;
 	
 	function Category() {
 		$this->id = 0;
-		$this->parentId = NULL;
-		$this->position = 0;
-		$this->name = NULL;
-		$this->desc = NULL;
-		$this->children = Array();
+		$this->catId = 0;
+		$this->userId = 0;
+		$this->creationTimestamp = 0;
+		$this->expiryTimestamp = 0;
+		$this->title  = NULL;
+		$this->content  = NULL;
 	}
 	
 	function getId() {
@@ -24,91 +26,64 @@ class Category {
 		$this->id = $value;
 	}
 	
-	function getParentId() {
-		return $this->parentId+0;
+	function getCategoryId() {
+		return $this->catId+0;
 	}
 	
-	function setParentId($value) {
-		$this->parentId = $value;
+	function setCategoryId($value) {
+		$this->catId = $value;
 	}
 	
-	function getPosition() {
-		return $this->position+0;
+	function getUserId() {
+		return $this->userId+0;
 	}
 	
-	function setPosition($value) {
-		$this->position = $value;
+	function setUserId($value) {
+		$this->userId = $value;
 	}
 	
-	function getName() {
-		return $this->name;
+	function getCreationTimestamp() {
+		return $this->creationTimestamp+0;
 	}
 	
-	function setName($value) {
-		$this->name = $value;
+	function setCreationTimestamp($value) {
+		$this->creationTimestamp = $value;
 	}
 	
-	function getDescription() {
-		return $this->desc;
+	function getExpiryTimestamp() {
+		return $this->expiryTimestamp+0;
 	}
 	
-	function setDescription($value) {
-		$this->desc = $value;
+	function setExpiryTimestamp($value) {
+		$this->expiryTimestamp = $value;
+	}
+	
+	function getTitle() {
+		return $this->title;
+	}
+	
+	function setTitle($value) {
+		$this->title = $value;
+	}
+	
+	function getContent() {
+		return $this->content;
+	}
+	
+	function setContent($value) {
+		$this->content = $value;
 	}
 	
 	function populate($tblRow) {
-		$this->id = $tblRow['cid']+0;
-		$this->parentId = $tblRow['cparentid']+0;
-		$this->position = $tblRow['cposition']+0;
-		$this->name = $tblRow['cname'];
-		if ( $this->name != NULL ) $this->name = trim($this->name);
-		$this->desc = $tblRow['cdesc'];
-		if ( $this->desc != NULL ) $this->desc = trim($this->desc);
-		$this->children = Array();
+		$this->id = $tblRow['eid']+0;
+		$this->catId = $tblRow['ecatid']+0;
+		$this->userId = $tblRow['euserid']+0;
+		$this->creationTimestamp = $tblRow['ecreationtimestamp']+0;
+		$this->expiryTimestamp = $tblRow['eexpirytimestamp']+0;
+		$this->title = $tblRow['etitle'];
+		if ( $this->title != NULL ) $this->title = trim($this->title);
+		$this->content = $tblRow['ebody'];
+		if ( $this->content != NULL ) $this->content = trim($this->content);
 	}
-	
-	function addChild($cat, $sortChildren=true) {
-		//check if $cat is an instance of Category class
-		if ( PHP_MAJOR_VERSION >= 5 ) {
-			if ( !($cat instanceof Category) ) return NULL;
-		} else {
-			if ( !is_a($cat, "Category") ) return NULL;
-		}
-		
-		if ( $cat->getParentId() != $this->getId() ) return NULL;
-		
-		if ( !is_array($this->children) ) {
-			$this->children = Array();
-		}
-
-		$this->children[] = $cat;
-		if ( $sortChildren ) { 
-			usort($this->children, "__cmpChild");
-		}
-
-		return $cat;
-	}
-	
-	function getChildren() {
-		return $this->children;
-	}
-	
-	function setChildren($value=Array()) {
-		$this->children = Array();
-		foreach ( $value as $cat ) {
-			$this->addChild($cat, false);
-		}
-		usort($this->children, "__cmpChild");
-	}
-
-	function getNumChildren() {
-		return count($this->children);
-	}
-}
-
-//sort descendingly
-function __cmpChild($a, $b) {
-	if ( $a->getPosition() == $b->getPosition() ) return 0;
-	return $a->getPosition() < $b->getPosition() ? 1 : -1;
 }
 ?>

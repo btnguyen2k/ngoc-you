@@ -8,7 +8,7 @@ define("FORM_FIELD_ADS_TITLE", "adsTitle");
 define("FORM_FIELD_ADS_CONTENT", "adsContent");
 
 $PAGE = Array();
-$PAGE['pageTitle'] = APPLICATION_NAME.' - My Profile/Change Full Name';
+$PAGE['pageTitle'] = APPLICATION_NAME.' - My Profile/Post to Classifieds';
 $PAGE['categoryTree'] = getCategoryTree();
 $PAGE['form'] = Array();
 $PAGE['form']['action'] = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_POST_ADS;
