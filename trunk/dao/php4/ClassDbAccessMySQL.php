@@ -143,20 +143,21 @@ class DbAccessMySQL extends DbAccess {
 	
 	function getEntriesForUser($userId) {
 		$conn = getDbConn();
-		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eid={id}";
-		$sql = str_replace('{id}', $id+0, $sql);
+		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE euserid={userId} ORDER BY ecreationtimestamp DESC";
+		$sql = str_replace('{userId}', $userId+0, $sql);
 		$this->logSql($sql);					
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
-			die('['.get_class($this).'.getEntry()] Invalid query: ' . mysql_error());
+			die('['.get_class($this).'.getEntriesForUser()] Invalid query: ' . mysql_error());
 		}
-		$entry = NULL;
-		if ( $row = mysql_fetch_assoc($resultSet) ) {
+		$result = Array();
+		while ( $row = mysql_fetch_assoc($resultSet) ) {
 			$entry = new Entry();
-			$entry->populate($row);						
+			$entry->populate($row);
+			$result[] = $entry;						
 		}
 		mysql_free_result($resultSet);
-		return $entry;
+		return $result;
 	}
 	
 	function updateCategory($cat) {

@@ -1,5 +1,5 @@
 <center><h1><?=$LANG['MY_PROFILE_TITLE']?></h1></center>
-<center><h2><?=$LANG['MY_PROFILE_TITLE_INDEX']?></h2></center>
+<center><h2><?=$LANG['MY_PROFILE_TITLE_MY_ADS']?></h2></center>
 <table cellpadding="4" cellspacing="1" align="center" width="75%">
 <tr>
 	<td width="40%" class="contentCell_2">
