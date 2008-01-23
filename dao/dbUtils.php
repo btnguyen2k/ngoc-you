@@ -62,6 +62,11 @@ function getCategoryTree() {
 	return $DBACCESS->getCategoryTree();
 }
 
+function getEntriesForUser($userId) {
+	global $DBACCESS; 
+	return $DBACCESS->getEntriesForUser($userId);
+}
+
 function getEntry($id) {
 	global $DBACCESS; 
 	return $DBACCESS->getEntry($id);

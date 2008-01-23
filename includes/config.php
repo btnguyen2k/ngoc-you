@@ -1,6 +1,8 @@
 <?php
 require_once 'denyDirectInclude.php';
 
+define("DEBUG_MODE", true);
+
 define("DB_TYPE", "mysql");
 define("DB_SERVER", "localhost");
 define("DB_PORT", 3306); //default port for mysql is 3306

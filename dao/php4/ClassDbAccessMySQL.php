@@ -141,6 +141,24 @@ class DbAccessMySQL extends DbAccess {
 		return $entry;
 	}
 	
+	function getEntriesForUser($userId) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eid={id}";
+		$sql = str_replace('{id}', $id+0, $sql);
+		$this->logSql($sql);					
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getEntry()] Invalid query: ' . mysql_error());
+		}
+		$entry = NULL;
+		if ( $row = mysql_fetch_assoc($resultSet) ) {
+			$entry = new Entry();
+			$entry->populate($row);						
+		}
+		mysql_free_result($resultSet);
+		return $entry;
+	}
+	
 	function updateCategory($cat) {
 		$conn = getDbConn();
 		$sql = "UPDATE ".TABLE_CATEGORY
