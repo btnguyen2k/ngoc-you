@@ -14,36 +14,30 @@
 	<?php
 	}
 	?>			
-	<?php
-	if ( $_FORM['informationMessage'] != "" ) {
-	?>
-		<tr>
-			<td colspan="2" class="infoMessage" align="center">
-				<?=$_FORM['informationMessage']?>
-			</td>
-		</tr>
-	<?php
-	}
-	?>
 	<tr>
-		<td><?=$LANG['FULL_NAME']?>:</td>
-		<td><?=htmlspecialchars($CURRENT_USER->getFullName())?></td>
+		<td><?=$LANG['CATEGORY']?>:</td>
+		<td>
+			{CATEGORY}
+		</td>
 	</tr>
 	
 	<tr>
-		<td><?=$LANG['CURRENT_PASSWORD']?>:</td>
-		<td><input class="textbox_blue" name="<?=$_FORM['fieldCurrentPassword']?>" 
-			type="password" style="width: 256px"></td>
+		<td><?=$LANG['ADS_TITLE']?>:</td>
+		<td><input class="textbox_blue" name="<?=$_FORM['fieldAdsTitle']?>" 
+			value="<?=htmlspecialchars($_FORM['valueAdsTitle'])?>"
+			type="text" style="width: 256px"></td>
 	</tr>
 	<tr>
-		<td><?=$LANG['NEW_FULL_NAME']?>:</td>
-		<td><input class="textbox_blue" name="<?=$_FORM['fieldNewFullName']?>" 
-			value="<?=htmlspecialchars($_FORM['valueNewFullName'])?>" type="text" style="width: 256px"></td>
+		<td><?=$LANG['ADS_CONTENT']?>:</td>
+		<td>
+			<textarea class="textbox_blue" name="<?=$_FORM['fieldAdsContent']?>"
+				id="<?=$_FORM['fieldAdsContent']?>"
+				style="width: 512px"><?=htmlspecialchars($_FORM['valueAdsTitle']);?></textarea></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input style="width: 64px" class="button_default" type="submit" value="<?=$LANG['UPDATE']?>">
+			<input class="button_default" type="submit" value="<?=$LANG['POST_ADS']?>">
 			<input onclick="location='<?=$_SERVER['PHP_SELF']?>'"
 				style="width: 64px" class="button" type="button" value="<?=$LANG['CANCEL']?>">
 		</td>
