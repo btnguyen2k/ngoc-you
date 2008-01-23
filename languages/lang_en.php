@@ -27,6 +27,9 @@ $LANG['ADS_MANAGEMENT'] = 'Ads Management';
 $LANG['MY_ADS'] = 'My ads';
 $LANG['POST_ADS'] = 'Post to classifieds';
 
+$LANG['ADS_TITLE'] = 'Title';
+$LANG['ADS_CONTENT'] = 'Content';
+
 $LANG['WELCOME'] = 'Welcome {0}!';
 
 $LANG['HOME'] = 'Home';

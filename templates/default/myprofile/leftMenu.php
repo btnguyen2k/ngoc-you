@@ -1,3 +1,8 @@
+<?php
+$name = htmlspecialchars($CURRENT_USER->getFullName());
+$name = '<b><a href="myprofile.php">' . $name . '</a></b>';
+echo str_replace('{0}', $name, $LANG['WELCOME']);
+?>
 <ul>
 	<li><a href="index.php"><?=$LANG['HOME']?></a>
 	<?php
