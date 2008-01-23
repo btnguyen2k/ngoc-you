@@ -79,6 +79,26 @@ class DbAccessMySQL extends DbAccess {
 		return $this->getCategory($id);
 	}
 	
+	function createEntry($cat, $user, $expiry, $title, $content) {
+		$conn = getDbConn();
+		$sql = "INSERT INTO ".TABLE_ENTRY
+			." (ecatid, euserid, ecreationtimestamp, eexpirytimestamp, etitle, econtent) VALUES ("
+			."{catId}, {userId}, {creationTimestamp}, {expiryTimestamp}, '{title}', '{content}')";
+		$current = time();
+		$sql = str_replace('{catId}', $cat->getId(), $sql);
+		$sql = str_replace('{userId}', $user->getId(), $sql);
+		$sql = str_replace('{creationTimestamp}', $current, $sql);
+		$sql = str_replace('{expiryTimestamp}', $current+$expiry, $sql);
+		$sql = str_replace('{title}', mysql_real_escape_string($title, $conn), $sql);
+		$sql = str_replace('{content}', mysql_real_escape_string($content, $conn), $sql);
+		$this->logSql($sql);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.createEntry()] Invalid query: ' . mysql_error());
+		}
+		$id = mysql_insert_id($conn);
+		return $this->getEntry($id);
+	}
+	
 	function deleteCategory($id) {
 		$conn = getDbConn();
 		$id+=0;
