@@ -93,6 +93,9 @@ $LANG['ERROR_LOGIN_NAME_ALREADY_EXISTS'] = 'Error: This login name has been regi
 $LANG['ERROR_EMPTY_LOGIN_NAME'] = 'Error: Login name is empty!';
 $LANG['ERROR_EMPTY_PASSWORD'] = 'Error: Password is empty!';
 $LANG['ERROR_EMPTY_EMAIL'] = 'Error: Email is empty!';
+$LANG['ERROR_INVALID_CATEGORY_SELECTION'] = 'Error: Please select a valid category!';
+$LANG['ERROR_EMPTY_ADS_TITLE'] = 'Error: Empty ads title!';
+$LANG['ERROR_EMPTY_ADS_CONTENT'] = 'Error: Empty ads content!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';
