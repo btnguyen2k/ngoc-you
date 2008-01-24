@@ -6,6 +6,7 @@ class Category {
 	var $name;
 	var $desc;
 	var $children;
+	var $numViews;
 	
 	function Category() {
 		$this->id = 0;
@@ -14,6 +15,7 @@ class Category {
 		$this->name = NULL;
 		$this->desc = NULL;
 		$this->children = Array();
+		$this->numViews = 0;
 	}
 	
 	function getId() {
@@ -56,6 +58,14 @@ class Category {
 		$this->desc = $value;
 	}
 	
+	function getNumViews() {
+		return $this->numViews+0;
+	}
+	
+	function setNumViews($value) {
+		$this->numViews = $value;
+	}
+	
 	function populate($tblRow) {
 		$this->id = $tblRow['cid']+0;
 		$this->parentId = $tblRow['cparentid']+0;
@@ -65,6 +75,7 @@ class Category {
 		$this->desc = $tblRow['cdesc'];
 		if ( $this->desc != NULL ) $this->desc = trim($this->desc);
 		$this->children = Array();
+		$this->numViews = $tblRow['cnumviews']+0;
 	}
 	
 	function addChild($cat, $sortChildren=true) {

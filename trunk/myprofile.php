@@ -14,6 +14,8 @@ define("ACTION_CHANGE_EMAIL", 'changeEmail');
 define("ACTION_CHANGE_PASSWORD", 'changePassword');
 define("ACTION_POST_ADS", 'postAds');
 define("ACTION_MY_ADS", 'myAds');
+define("ACTION_EDIT_MY_ADS", 'editMyAds');
+define("ACTION_DELETE_MY_ADS", 'deleteMyAds');
 
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:ACTION_DEFAULT;
 $ACTION = trim($ACTION);

@@ -15,6 +15,9 @@ define("LANGUAGE", "en");
 
 define("APPLICATION_NAME", "NgocYou");
 
+define("DATE_FORMAT", "d-m-Y");
+define("DATETIME_FORMAT", "g:ia d-m-Y");
+
 $phpVersion = phpversion();
 define("PHP_MAJOR_VERSION", intval($phpVersion));
 
