@@ -1,12 +1,12 @@
 <?php
 /*
-Butter Style
+Chocolate Style
 Ref: http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
 */
 header("Content-type: text/css");
-$color1 = '#fce94f';
-$color2 = '#edd400';
-$color3 = '#c4a000';
+$color1 = '#e9b96e';
+$color2 = '#c17d11';
+$color3 = '#8f5902';
 
 $colorHR = $color1;
 
