@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
+require_once 'includes/utils.php';
 require_once 'dao/dbUtils.php';
 
 define("FORM_FIELD_CATEGORY", "category");
@@ -39,9 +40,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTENT'];
 	} else {
 		$expiry = 7*24*3600; //expires in 7 days!
-		
-		//TODO take care of HTML content!
-		createEntry($cat, $CURRENT_USER, $expiry, $adsTitle, $adsContent);
+		createEntry($cat, $CURRENT_USER, $expiry, $adsTitle, removeEvilHtmlTags($adsContent));
 		header('Location: myprofile.php?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS);
 		return;
 	}
