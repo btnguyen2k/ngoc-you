@@ -1,5 +1,5 @@
 <center><h1><?=$LANG['MY_PROFILE_TITLE']?></h1></center>
-<center><h2><?=$LANG['MY_PROFILE_TITLE_POST_ADS']?></h2></center>
+<center><h2><?=$LANG['MY_PROFILE_TITLE_EDIT_MY_ADS']?></h2></center>
 <?php $_FORM = $PAGE['form']; ?>
 <form method="POST" action="<?=$_FORM['action']?>">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
@@ -46,6 +46,16 @@
 	<tr>
 		<td><?=$LANG['ADS_CONTENT']?>:</td>
 		<td>
+			<script type="text/javascript" src="<?=$_URI_TEMPLATE?>/fckeditor/fckeditor.js"></script>
+			<script type="text/javascript" src="<?=$_URI_TEMPLATE?>/fckeditor/fckeditor.js"></script>
+			<script type="text/javascript">
+			var oFCKeditor = new FCKeditor('<?=$_FORM['fieldAdsContent']?>');
+			oFCKeditor.BasePath	= '<?=$_URI_TEMPLATE?>/fckeditor/';
+			oFCKeditor.Height	= 512;
+			oFCKeditor.Value	= '<p>This is some <strong>sample text<\/strong>. You are using <a href="http://www.fckeditor.net/">FCKeditor<\/a>.<\/p>' ;
+			oFCKeditor.Create();
+			</script>
+			<!--		
 			<textarea class="textbox_blue" name="<?=$_FORM['fieldAdsContent']?>"
 				id="<?=$_FORM['fieldAdsContent']?>" rows="25"
 				style="width: 512px"><?=htmlspecialchars($_FORM['valueAdsContent']);?></textarea>
@@ -117,6 +127,7 @@
 			}
 			Xinha._addEvent(window, 'load', xinha_init);
 			</script>
+			-->
 		</td>
 	</tr>
 	<tr>
