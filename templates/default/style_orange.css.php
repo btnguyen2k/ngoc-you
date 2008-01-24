@@ -1,12 +1,12 @@
 <?php
 /*
-Butter Style
+Orange Style
 Ref: http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
 */
 header("Content-type: text/css");
-$color1 = '#fce94f';
-$color2 = '#edd400';
-$color3 = '#c4a000';
+$color1 = '#fcaf3e';
+$color2 = '#f57900';
+$color3 = '#ce5c00';
 
 $colorHR = $color1;
 

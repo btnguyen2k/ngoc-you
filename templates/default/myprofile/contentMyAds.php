@@ -39,9 +39,6 @@
 			echo '<td align="center"><a href="', $urlDelete, '">', $LANG['DELETE'], '</a></td>';
 			
 			echo '</tr>'; 
-	?>
-				
-	<?php
 		}
 	}
 	?>
