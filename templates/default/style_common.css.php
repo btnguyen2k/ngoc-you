@@ -48,6 +48,9 @@ table.tblList td a:link {
 table.tblList td a:hover {
 	text-decoration: none;
 }
+table.tblList td a:visited {
+	text-decoration: underline;
+}
 
 
 .column_left { width: 200px; margin-right: 8px; }

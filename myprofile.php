@@ -44,6 +44,10 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/myprofile/funcPostAds.php';	
 } elseif ( $ACTION == ACTION_MY_ADS ) {
 	require_once 'functions/myprofile/funcMyAds.php';	
+} elseif ( $ACTION == ACTION_EDIT_MY_ADS ) {
+	require_once 'functions/myprofile/funcEditMyAds.php';	
+} elseif ( $ACTION == ACTION_DELETE_MY_ADS ) {
+	require_once 'functions/myprofile/funcDeleteMyAds.php';	
 } else {
 	require_once 'functions/myprofile/funcIndex.php';
 }

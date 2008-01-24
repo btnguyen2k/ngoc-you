@@ -183,6 +183,22 @@ class DbAccessMySQL extends DbAccess {
 		$this->_renewCategoryCache();
 	}
 	
+	function updateEntry($entry) {
+		$conn = getDbConn();
+		$sql = "UPDATE ".TABLE_ENTRY
+			." SET ecatId={catId}, eexpirytimestamp={expiryTimestamp}, etitle='{title}', ebody='{content}'"
+			." WHERE eid={id}";
+		$sql = str_replace('{id}', $entry->getId(), $sql);
+		$sql = str_replace('{catId}', $entry->getCategoryId(), $sql);
+		$sql = str_replace('{expiryTimestamp}', $entry->getExpiryTimestamp(), $sql);
+		$sql = str_replace('{title}', mysql_real_escape_string($entry->getTitle(), $conn), $sql);
+		$sql = str_replace('{content}', mysql_real_escape_string($entry->getContent(), $conn), $sql);
+		$this->logSql($sql);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.updateEntry()] Invalid query: ' . mysql_error());
+		}
+	}
+	
 	function _loadCategories() {
 		$catsList = cacheGetEntry(CACHE_KEY_CATEGORIES_LIST);
 		if ( $catsList != NULL ) return;
