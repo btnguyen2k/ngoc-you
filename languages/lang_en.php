@@ -29,6 +29,8 @@ $LANG['POST_ADS'] = 'Post to classifieds';
 
 $LANG['ADS_TITLE'] = 'Title';
 $LANG['ADS_CONTENT'] = 'Content';
+$LANG['ADS_EXPIRY'] = 'Expiry';
+$LANG['ADS_NUM_VIEWS'] = 'Num Views';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
@@ -78,6 +80,8 @@ $LANG['MY_PROFILE_MANAGEMENT'] = 'My Profile Management';
 $LANG['MY_PROFILE_CHANGE_EMAIL'] = 'Change Email';
 $LANG['MY_PROFILE_CHANGE_FULL_NAME'] = 'Change Full Name';
 $LANG['MY_PROFILE_CHANGE_PASSWORD'] = 'Change Password';
+
+$LANG['NO_DATA_TO_DISPLAY'] = 'There is no data to display';
 
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';

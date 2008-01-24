@@ -7,6 +7,7 @@ class Entry {
 	var $expiryTimestamp;
 	var $title;
 	var $content;
+	var $numViews;
 	
 	function Category() {
 		$this->id = 0;
@@ -16,6 +17,7 @@ class Entry {
 		$this->expiryTimestamp = 0;
 		$this->title  = NULL;
 		$this->content  = NULL;
+		$this->numViews = 0;
 	}
 	
 	function getId() {
@@ -74,6 +76,14 @@ class Entry {
 		$this->content = $value;
 	}
 	
+	function getNumViews() {
+		return $this->numViews+0;
+	}
+	
+	function setNumViews($value) {
+		$this->numViews = $value;
+	}
+	
 	function populate($tblRow) {
 		$this->id = $tblRow['eid']+0;
 		$this->catId = $tblRow['ecatid']+0;
@@ -84,6 +94,7 @@ class Entry {
 		if ( $this->title != NULL ) $this->title = trim($this->title);
 		$this->content = $tblRow['ebody'];
 		if ( $this->content != NULL ) $this->content = trim($this->content);
+		$this->numViews = $tblRow['enumviews']+0;
 	}
 }
 ?>

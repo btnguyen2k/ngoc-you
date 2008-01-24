@@ -22,27 +22,9 @@ $colorPageMainTitleFg = '#ffffff';
 
 $colorTopLvlCatTitleBg = $color2;
 $colorTopLvlCatTitleFg = '#000000';
-?> 
 
-HR { height: 1px; color: <?=$colorHR?>; }
+$colorTableBorder = $color3;
+$colorTableHeaderBg = $color2;
 
-A:link { color: <?=$colorLink?>; text-decoration: none; }
-A:visited { color: <?=$colorLinkVisited?>; text-decoration: none; }
-A:hover { color: <?=$colorLinkHover?>; text-decoration: underline; }
-.catList A:link { color: #000000; text-decoration: underline; }
-.catList A:visited { color: #000000; text-decoration: underline; }
-.catList A:hover { color: <?=$colorLink?>; text-decoration: none; }
-
-.pageMainTitle {
-	font-weight: bold;
-	font-size: 18px;
-	background: <?=$colorPageMainTitleBg?>; 
-	color: <?=$colorPageMainTitleFg?>;
-}
-
-.topLvlCatTitle {
-	font-weight: bold;
-	font-size: 14px;
-	background: <?=$colorTopLvlCatTitleBg?>; 
-	color: <?=$colorTopLvlCatTitleFg?>;
-}
+include_once 'style_common.css.php';
+?>
