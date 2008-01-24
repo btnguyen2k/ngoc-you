@@ -20,7 +20,7 @@
 <tbody>
 	<?php
 	if ( count($PAGE['myAds']) == 0 ) {
-		echo '<tr><td>', $LANG['NO_DATA_TO_DISPLAY'], '</td></tr>';
+		echo '<tr><td colspan="5">', $LANG['NO_DATA_TO_DISPLAY'], '</td></tr>';
 	} else {
 		foreach ( $PAGE['myAds'] as $ads ) {
 			echo '<tr><td>', htmlspecialchars($ads->getTitle());
