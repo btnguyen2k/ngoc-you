@@ -13,7 +13,7 @@ define("CACHE_KEY_CATEGORIES_LIST", "CATEGORIES_LIST");
 define("CACHE_KEY_CATEGORIES_MAP", "CATEGORIES_MAP");
 define("CACHE_KEY_CATEGORIES_TREE", "CATEGORIES_TREE");
 
-class DbAccessMySQL extends DbAccess {	
+class DbAccessMySQL extends DbAccess {
 	function createDbConn() {
 		$dbServer = DB_SERVER.":".DB_PORT;
 		$conn = mysql_connect($dbServer, DB_USER, DB_PASSWORD);
@@ -22,7 +22,7 @@ class DbAccessMySQL extends DbAccess {
 		}
 		return $conn;
 	}
-	
+
 	/* Category and Entry-related functions */
 	function countCategories() {
 		$conn = getDbConn();
@@ -34,12 +34,12 @@ class DbAccessMySQL extends DbAccess {
 		}
 		$result = 0;
 		if ( $row = mysql_fetch_row($resultSet) ) {
-			$result = $row[0];			
+			$result = $row[0];
 		}
 		mysql_free_result($resultSet);
 		return $result;
 	}
-	
+
 	function countEntries() {
 		$conn = getDbConn();
 		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY;
@@ -50,17 +50,17 @@ class DbAccessMySQL extends DbAccess {
 		}
 		$result = 0;
 		if ( $row = mysql_fetch_row($resultSet) ) {
-			$result = $row[0];			
+			$result = $row[0];
 		}
 		mysql_free_result($resultSet);
 		return $result;
 	}
-	
+
 	function createCategory($name, $desc, $parent=NULL) {
 		$conn = getDbConn();
 		$sql = "INSERT INTO ".TABLE_CATEGORY
-			." (cname, cdesc, cposition, cparentid) VALUES ("
-			."'{catName}', '{catDescription}', {catPosition}, {parentId})";
+		." (cname, cdesc, cposition, cparentid) VALUES ("
+		."'{catName}', '{catDescription}', {catPosition}, {parentId})";
 		$sql = str_replace('{catName}', mysql_real_escape_string($name, $conn), $sql);
 		$sql = str_replace('{catDescription}', mysql_real_escape_string($desc, $conn), $sql);
 		if ( $parent != NULL ) {
@@ -79,12 +79,12 @@ class DbAccessMySQL extends DbAccess {
 		$this->_renewCategoryCache();
 		return $this->getCategory($id);
 	}
-	
+
 	function createEntry($cat, $user, $expiry, $title, $content) {
 		$conn = getDbConn();
 		$sql = "INSERT INTO ".TABLE_ENTRY
-			." (ecatid, euserid, ecreationtimestamp, eexpirytimestamp, etitle, ebody) VALUES ("
-			."{catId}, {userId}, {creationTimestamp}, {expiryTimestamp}, '{title}', '{content}')";
+		." (ecatid, euserid, ecreationtimestamp, eexpirytimestamp, etitle, ebody) VALUES ("
+		."{catId}, {userId}, {creationTimestamp}, {expiryTimestamp}, '{title}', '{content}')";
 		$current = time();
 		$sql = str_replace('{catId}', $cat->getId(), $sql);
 		$sql = str_replace('{userId}', $user->getId(), $sql);
@@ -99,35 +99,48 @@ class DbAccessMySQL extends DbAccess {
 		$id = mysql_insert_id($conn);
 		return $this->getEntry($id);
 	}
-	
+
 	function deleteCategory($id) {
 		$conn = getDbConn();
 		$id+=0;
 		$sql = "DELETE FROM ".TABLE_CATEGORY." WHERE cid={catId}";
 		$sql = str_replace("{catId}", $id, $sql);
 		$this->logSql($sql);
-		mysql_query($sql, $conn);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.deleteCategory()] Invalid query: ' . mysql_error());
+		}
 		$this->_renewCategoryCache();
 	}
-	
+
+	function deleteEntry($id) {
+		$conn = getDbConn();
+		$id+=0;
+		$sql = "DELETE FROM ".TABLE_ENTRY." WHERE eid={id}";
+		$sql = str_replace("{id}", $id, $sql);
+		$this->logSql($sql);
+		if ( !mysql_query($sql, $conn) ) {
+			die('['.get_class($this).'.deleteEntry()] Invalid query: ' . mysql_error());
+		}
+	}
+
 	function getCategory($id) {
 		$id+=0;
 		$this->_loadCategories();
 		$catsMap = cacheGetEntry(CACHE_KEY_CATEGORIES_MAP);
 		return $catsMap != NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
 	}
-	
+
 	function getCategoryTree() {
 		$this->_loadCategories();
 		$catsTree = cacheGetEntry(CACHE_KEY_CATEGORIES_TREE);
 		return $catsTree != NULL ? $catsTree : Array();
 	}
-	
+
 	function getEntry($id) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eid={id}";
 		$sql = str_replace('{id}', $id+0, $sql);
-		$this->logSql($sql);					
+		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
 			die('['.get_class($this).'.getEntry()] Invalid query: ' . mysql_error());
@@ -135,17 +148,17 @@ class DbAccessMySQL extends DbAccess {
 		$entry = NULL;
 		if ( $row = mysql_fetch_assoc($resultSet) ) {
 			$entry = new Entry();
-			$entry->populate($row);						
+			$entry->populate($row);
 		}
 		mysql_free_result($resultSet);
 		return $entry;
 	}
-	
+
 	function getEntriesForUser($userId) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE euserid={userId} ORDER BY ecreationtimestamp DESC";
 		$sql = str_replace('{userId}', $userId+0, $sql);
-		$this->logSql($sql);					
+		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
 			die('['.get_class($this).'.getEntriesForUser()] Invalid query: ' . mysql_error());
@@ -154,22 +167,22 @@ class DbAccessMySQL extends DbAccess {
 		while ( $row = mysql_fetch_assoc($resultSet) ) {
 			$entry = new Entry();
 			$entry->populate($row);
-			$result[] = $entry;						
+			$result[] = $entry;
 		}
 		mysql_free_result($resultSet);
 		return $result;
 	}
-	
+
 	function updateCategory($cat) {
 		$conn = getDbConn();
 		$sql = "UPDATE ".TABLE_CATEGORY
-			." SET cparentId={parentId}, cposition={catPosition}, cname='{catName}', cdesc='{catDescription}'"
-			." WHERE cid={catId}";
+		." SET cparentId={parentId}, cposition={catPosition}, cname='{catName}', cdesc='{catDescription}'"
+		." WHERE cid={catId}";
 		$sql = str_replace('{catId}', $cat->getId(), $sql);
-		$sql = str_replace('{catName}', 
-			mysql_real_escape_string($cat->getName(), $conn), $sql);
+		$sql = str_replace('{catName}',
+		mysql_real_escape_string($cat->getName(), $conn), $sql);
 		$sql = str_replace('{catDescription}',
-			mysql_real_escape_string($cat->getDescription(), $conn), $sql);
+		mysql_real_escape_string($cat->getDescription(), $conn), $sql);
 		$sql = str_replace('{catPosition}', $cat->getPosition(), $sql);
 		if ( $cat->getParentId() < 1 ) {
 			$sql = str_replace('{parentId}', 'NULL', $sql);
@@ -182,12 +195,12 @@ class DbAccessMySQL extends DbAccess {
 		}
 		$this->_renewCategoryCache();
 	}
-	
+
 	function updateEntry($entry) {
 		$conn = getDbConn();
 		$sql = "UPDATE ".TABLE_ENTRY
-			." SET ecatId={catId}, eexpirytimestamp={expiryTimestamp}, etitle='{title}', ebody='{content}'"
-			." WHERE eid={id}";
+		." SET ecatId={catId}, eexpirytimestamp={expiryTimestamp}, etitle='{title}', ebody='{content}'"
+		." WHERE eid={id}";
 		$sql = str_replace('{id}', $entry->getId(), $sql);
 		$sql = str_replace('{catId}', $entry->getCategoryId(), $sql);
 		$sql = str_replace('{expiryTimestamp}', $entry->getExpiryTimestamp(), $sql);
@@ -198,7 +211,7 @@ class DbAccessMySQL extends DbAccess {
 			die('['.get_class($this).'.updateEntry()] Invalid query: ' . mysql_error());
 		}
 	}
-	
+
 	function _loadCategories() {
 		$catsList = cacheGetEntry(CACHE_KEY_CATEGORIES_LIST);
 		if ( $catsList != NULL ) return;
@@ -222,7 +235,7 @@ class DbAccessMySQL extends DbAccess {
 			$catsMap[$id] = $cat;
 			if ( isset($catsMap[$parentId]) ) {
 				$catsMap[$parentId]->addChild($cat);
-			}			
+			}
 			if ( $parentId < 1 ) {
 				$catsTree[] = $cat;
 			}
@@ -232,14 +245,14 @@ class DbAccessMySQL extends DbAccess {
 		cacheSetEntry(CACHE_KEY_CATEGORIES_MAP, $catsMap);
 		cacheSetEntry(CACHE_KEY_CATEGORIES_TREE, $catsTree);
 	}
-	
+
 	function _renewCategoryCache() {
 		cacheRemoveEntry(CACHE_KEY_CATEGORIES_LIST);
 		cacheRemoveEntry(CACHE_KEY_CATEGORIES_MAP);
 		cacheRemoveEntry(CACHE_KEY_CATEGORIES_TREE);
 	}
 	/* Category and Entry-related functions */
-	
+
 	/* User and Group-related functions */
 	function countUsers() {
 		$conn = getDbConn();
@@ -251,26 +264,26 @@ class DbAccessMySQL extends DbAccess {
 		}
 		$result = 0;
 		if ( $row = mysql_fetch_row($resultSet) ) {
-			$result = $row[0];			
+			$result = $row[0];
 		}
 		mysql_free_result($resultSet);
 		return $result;
 	}
-	
+
 	function createUser($loginName, $password, $email, $fullName="", $groupId=GROUP_MEMBER) {
 		$conn = getDbConn();
 		$sql = "INSERT INTO ".TABLE_USER
-			." (uloginname, upassword, uemail, ufullname, ucreationtimestamp, ugroupid)"
-			." VALUES('{loginName}', '{password}', '{email}', '{fullName}', {creationTimestamp}, {groupId})";
+		." (uloginname, upassword, uemail, ufullname, ucreationtimestamp, ugroupid)"
+		." VALUES('{loginName}', '{password}', '{email}', '{fullName}', {creationTimestamp}, {groupId})";
 		$loginName = strtolower(trim($loginName));
 		$email = strtolower(trim($email));
 		$password = md5(trim($password));
 		$fullName = trim($fullName);
 		$creationTimestamp = time();
 		$groupId += 0;
-		if ( $groupId != GROUP_ADMINISTRATOR 
-				&& $groupId != GROUP_MODERATOR
-				&& $groupId != GROUP_MEMBER ) {
+		if ( $groupId != GROUP_ADMINISTRATOR
+		&& $groupId != GROUP_MODERATOR
+		&& $groupId != GROUP_MEMBER ) {
 			$groupId = GROUP_MEMBER;
 		}
 		$sql = str_replace('{loginName}', mysql_real_escape_string($loginName, $conn), $sql);
@@ -283,12 +296,12 @@ class DbAccessMySQL extends DbAccess {
 		mysql_query($sql, $conn);
 		return $this->getUserByLoginName($loginName);
 	}
-	
+
 	function getUser($id) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_USER." WHERE uid={userId}";
 		$sql = str_replace('{userId}', $id+0, $sql);
-		$this->logSql($sql);					
+		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
 			die('['.get_class($this).'.getUser()] Invalid query: ' . mysql_error());
@@ -296,18 +309,18 @@ class DbAccessMySQL extends DbAccess {
 		$user = NULL;
 		if ( $row = mysql_fetch_assoc($resultSet) ) {
 			$user = new User();
-			$user->populate($row);						
+			$user->populate($row);
 		}
 		mysql_free_result($resultSet);
 		return $user;
 	}
-	
+
 	function getUserByEmail($email) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_USER." WHERE uemail='{email}'";
-		$sql = str_replace('{email}', 
-			mysql_real_escape_string(strtolower($email), $conn), $sql);
-		$this->logSql($sql);					
+		$sql = str_replace('{email}',
+		mysql_real_escape_string(strtolower($email), $conn), $sql);
+		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
 			die('['.get_class($this).'.getUserByEmail()] Invalid query: ' . mysql_error());
@@ -315,18 +328,18 @@ class DbAccessMySQL extends DbAccess {
 		$user = NULL;
 		if ( $row = mysql_fetch_assoc($resultSet) ) {
 			$user = new User();
-			$user->populate($row);						
+			$user->populate($row);
 		}
 		mysql_free_result($resultSet);
 		return $user;
 	}
-	
+
 	function getUserByLoginName($loginName) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_USER." WHERE uloginname='{loginName}'";
-		$sql = str_replace('{loginName}', 
-			mysql_real_escape_string(strtolower($loginName), $conn), $sql);
-		$this->logSql($sql);					
+		$sql = str_replace('{loginName}',
+		mysql_real_escape_string(strtolower($loginName), $conn), $sql);
+		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
 			die('['.get_class($this).'.getUserByLoginName()] Invalid query: ' . mysql_error());
@@ -334,25 +347,25 @@ class DbAccessMySQL extends DbAccess {
 		$user = NULL;
 		if ( $row = mysql_fetch_assoc($resultSet) ) {
 			$user = new User();
-			$user->populate($row);						
+			$user->populate($row);
 		}
 		mysql_free_result($resultSet);
 		return $user;
 	}
-	
+
 	function updateUser($user) {
 		$conn = getDbConn();
 		$sql = "UPDATE ".TABLE_USER
-			." SET uloginname='{loginName}', upassword='{password}', uemail='{email}', ufullname='{fullName}'"
-			." WHERE uid={userId}";
-		$sql = str_replace('{loginName}', 
-			mysql_real_escape_string(strtolower($user->getLoginName()), $conn), $sql);
-		$sql = str_replace('{password}', 
-			mysql_real_escape_string($user->getPassword(), $conn), $sql);
-		$sql = str_replace('{email}', 
-			mysql_real_escape_string(strtolower($user->getEmail()), $conn), $sql);
-		$sql = str_replace('{fullName}', 
-			mysql_real_escape_string($user->getFullName(), $conn), $sql);
+		." SET uloginname='{loginName}', upassword='{password}', uemail='{email}', ufullname='{fullName}'"
+		." WHERE uid={userId}";
+		$sql = str_replace('{loginName}',
+		mysql_real_escape_string(strtolower($user->getLoginName()), $conn), $sql);
+		$sql = str_replace('{password}',
+		mysql_real_escape_string($user->getPassword(), $conn), $sql);
+		$sql = str_replace('{email}',
+		mysql_real_escape_string(strtolower($user->getEmail()), $conn), $sql);
+		$sql = str_replace('{fullName}',
+		mysql_real_escape_string($user->getFullName(), $conn), $sql);
 		$sql = str_replace('{userId}', $user->getId(), $sql);
 		$this->logSql($sql);
 		if ( !mysql_query($sql, $conn) ) {

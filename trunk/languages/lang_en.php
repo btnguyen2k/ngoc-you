@@ -58,6 +58,7 @@ $LANG['ADMIN_NUMBER_OF_ENTRIES'] = 'Total number of entries';
 $LANG['ADMIN_NUMBER_OF_USERS'] = 'Number of user accounts';
 
 $LANG['CONFIRM_DELETE_CATEGORY'] = 'Are you sure you want to delete the following category?';
+$LANG['CONFIRM_DELETE_ADS'] = 'Are you sure you want to delete the following ads?';
 
 $LANG['ADMIN_TITLE'] = 'Administration Section';
 $LANG['ADMIN_TITLE_LOGIN'] = 'Login';
@@ -103,6 +104,7 @@ $LANG['ERROR_EMPTY_EMAIL'] = 'Error: Email is empty!';
 $LANG['ERROR_INVALID_CATEGORY_SELECTION'] = 'Error: Please select a valid category!';
 $LANG['ERROR_EMPTY_ADS_TITLE'] = 'Error: Empty ads title!';
 $LANG['ERROR_EMPTY_ADS_CONTENT'] = 'Error: Empty ads content!';
+$LANG['ERROR_ADS_NOT_FOUND'] = 'Error: Ads not found!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';

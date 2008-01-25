@@ -79,7 +79,10 @@ function xinha($name, $value="", $width=512, $height=512) {
 				
 			Xinha.startEditors(xinha_editors);
 		}
-		Xinha._addEvent(window, 'load', xinha_init);
+		
+		if ( typeof(Xinha) != 'undefined' ) {
+			Xinha._addEvent(window, 'load', xinha_init);
+		}
 	</script>	
 <?php	
 }

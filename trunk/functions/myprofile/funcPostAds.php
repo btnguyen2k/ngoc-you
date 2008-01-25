@@ -4,6 +4,7 @@ require_once 'includes/config.php';
 require_once 'includes/utils.php';
 require_once 'dao/dbUtils.php';
 
+define("FORM_FIELD_HTML", "html");
 define("FORM_FIELD_CATEGORY", "category");
 define("FORM_FIELD_ADS_TITLE", "adsTitle");
 define("FORM_FIELD_ADS_CONTENT", "adsContent");
@@ -28,6 +29,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		? trim($_POST[FORM_FIELD_ADS_TITLE]) : "";
 	$adsContent = isset($_POST[FORM_FIELD_ADS_CONTENT])
 		? trim($_POST[FORM_FIELD_ADS_CONTENT]) : "";
+	$html = isset($_POST[FORM_FIELD_HTML])
+		? $_POST[FORM_FIELD_HTML]+0 : 0;
 	$PAGE['form']['valueCategory'] = $categoryId;
 	$PAGE['form']['valueAdsTitle'] = $adsTitle;
 	$PAGE['form']['valueAdsContent'] = $adsContent;
@@ -39,6 +42,9 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	} elseif ( $adsContent == "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTENT'];
 	} else {
+		if ( $html == 0 ) {
+			$adsContent = str_replace("\n", "<br>", $adsContent);
+		}
 		$expiry = 7*24*3600; //expires in 7 days!
 		createEntry($cat, $CURRENT_USER, $expiry, $adsTitle, removeEvilHtmlTags($adsContent));
 		header('Location: myprofile.php?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS);
