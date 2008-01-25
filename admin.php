@@ -43,6 +43,10 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/admin/funcDeleteCat.php';
 } elseif ( $ACTION == ACTION_EDIT_CAT ) {
 	require_once 'functions/admin/funcEditCat.php';
+} elseif ( $ACTION == ACTION_MOVE_UP_CAT ) {
+	require_once 'functions/admin/funcMoveUpCat.php';
+} elseif ( $ACTION == ACTION_MOVE_DOWN_CAT ) {
+	require_once 'functions/admin/funcMoveDownCat.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';
 }
