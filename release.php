@@ -20,7 +20,7 @@ function removeTree($dir, $removeCurrent = false) {
 	}
 }
 
-$IGNORE_FIRST_LEVEL = Array(".", "..", ".cache", ".settings", "test.php", "phpinfo.php", "release.php", ".svn", "release");
+$IGNORE_FIRST_LEVEL = Array(".", "..", ".cache", ".settings", "test", "phpinfo.php", "release.php", ".svn", "release");
 $IGNORE_SECOND_LEVEL = Array(".", "..", ".svn");
 
 function copyDir($src, $desc, $secondLevel = false) {
