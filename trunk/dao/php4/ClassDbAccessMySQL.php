@@ -64,10 +64,10 @@ class DbAccessMySQL extends DbAccess {
 		$sql = str_replace('{catName}', mysql_real_escape_string($name, $conn), $sql);
 		$sql = str_replace('{catDescription}', mysql_real_escape_string($desc, $conn), $sql);
 		if ( $parent != NULL ) {
-			$sql = str_replace('{catPosition}', $parent->getNumChildren(), $sql);
+			$sql = str_replace('{catPosition}', $parent->getNumChildren()+1, $sql);
 			$sql = str_replace('{parentId}', $parent->getId(), $sql);
 		} else {
-			$pos = count($this->getCategoryTree());
+			$pos = count($this->getCategoryTree()+1);
 			$sql = str_replace('{catPosition}', $pos, $sql);
 			$sql = str_replace('{parentId}', 'NULL', $sql);
 		}
