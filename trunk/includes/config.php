@@ -12,6 +12,7 @@ define("DB_SCHEMA", "ngocyou");
 
 define("TEMPLATE", "default");
 define("LANGUAGE", "en");
+define("WYSIWYG", "xinha");
 
 define("APPLICATION_NAME", "NgocYou");
 
