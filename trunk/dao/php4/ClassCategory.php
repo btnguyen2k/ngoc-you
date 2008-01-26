@@ -7,7 +7,8 @@ class Category {
 	var $desc;
 	var $children;
 	var $numViews;
-	
+	var $numEntries;
+
 	function Category() {
 		$this->id = 0;
 		$this->parentId = NULL;
@@ -16,56 +17,65 @@ class Category {
 		$this->desc = NULL;
 		$this->children = Array();
 		$this->numViews = 0;
+		$this->numEntries = 0;
 	}
-	
+
 	function getId() {
 		return $this->id+0;
 	}
-	
+
 	function setId($value) {
 		$this->id = $value;
 	}
-	
+
 	function getParentId() {
 		return $this->parentId+0;
 	}
-	
+
 	function setParentId($value) {
 		$this->parentId = $value;
 	}
-	
+
 	function getPosition() {
 		return $this->position+0;
 	}
-	
+
 	function setPosition($value) {
 		$this->position = $value;
 	}
-	
+
 	function getName() {
 		return $this->name;
 	}
-	
+
 	function setName($value) {
 		$this->name = $value;
 	}
-	
+
 	function getDescription() {
 		return $this->desc;
 	}
-	
+
 	function setDescription($value) {
 		$this->desc = $value;
 	}
-	
+
+	function getNumEntries() {
+		return $this->numEntries+0;
+	}
+
+	function setNumEntries($value) {
+		$this->numEntries = $value;
+	}
+
 	function getNumViews() {
 		return $this->numViews+0;
 	}
-	
+
 	function setNumViews($value) {
 		$this->numViews = $value;
 	}
-	
+
 	function populate($tblRow) {
 		$this->id = $tblRow['cid']+0;
 		$this->parentId = $tblRow['cparentid']+0;
@@ -77,7 +87,7 @@ class Category {
 		$this->children = Array();
 		$this->numViews = $tblRow['cnumviews']+0;
 	}
-	
+
 	function addChild($cat, $sortChildren=true) {
 		//check if $cat is an instance of Category class
 		if ( PHP_MAJOR_VERSION >= 5 ) {
@@ -85,25 +95,25 @@ class Category {
 		} else {
 			if ( !is_a($cat, "Category") ) return NULL;
 		}
-		
+
 		if ( $cat->getParentId() != $this->getId() ) return NULL;
-		
+
 		if ( !is_array($this->children) ) {
 			$this->children = Array();
 		}
 
 		$this->children[] = $cat;
-		if ( $sortChildren ) { 
+		if ( $sortChildren ) {
 			usort($this->children, "__cmpChild");
 		}
 
 		return $cat;
 	}
-	
+
 	function getChildren() {
 		return $this->children;
 	}
-	
+
 	function setChildren($value=Array()) {
 		$this->children = Array();
 		foreach ( $value as $cat ) {
