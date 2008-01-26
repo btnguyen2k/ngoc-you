@@ -55,6 +55,23 @@ class DbAccessMySQL extends DbAccess {
 		mysql_free_result($resultSet);
 		return $result;
 	}
+	
+	function countEntriesForCategory($catId) {
+		$conn = getDbConn();
+		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY." WHERE ecatid={catId}";
+		$sql = str_replace('{catId}', $catId+0, $sql);
+		$this->logSql($sql);
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.countEntriesForCategory()] Invalid query: ' . mysql_error());
+		}
+		$result = 0;
+		if ( $row = mysql_fetch_row($resultSet) ) {
+			$result = $row[0];
+		}
+		mysql_free_result($resultSet);
+		return $result;
+	}
 
 	function createCategory($name, $desc, $parent=NULL) {
 		$conn = getDbConn();
@@ -97,6 +114,7 @@ class DbAccessMySQL extends DbAccess {
 			die('['.get_class($this).'.createEntry()] Invalid query: ' . mysql_error());
 		}
 		$id = mysql_insert_id($conn);
+		$this->_renewCategoryCache();
 		return $this->getEntry($id);
 	}
 
@@ -121,6 +139,7 @@ class DbAccessMySQL extends DbAccess {
 		if ( !mysql_query($sql, $conn) ) {
 			die('['.get_class($this).'.deleteEntry()] Invalid query: ' . mysql_error());
 		}
+		$this->_renewCategoryCache();
 	}
 
 	function getCategory($id) {
@@ -210,6 +229,7 @@ class DbAccessMySQL extends DbAccess {
 		if ( !mysql_query($sql, $conn) ) {
 			die('['.get_class($this).'.updateEntry()] Invalid query: ' . mysql_error());
 		}
+		$this->_renewCategoryCache();
 	}
 
 	function _loadCategories() {
@@ -229,6 +249,7 @@ class DbAccessMySQL extends DbAccess {
 		while ( $row = mysql_fetch_assoc($resultSet) ) {
 			$cat = new Category();
 			$cat->populate($row);
+			$cat->setNumEntries($this->countEntriesForCategory($cat->getId()));
 			$catsList[] = $cat;
 			$id = $cat->getId();
 			$parentId = $cat->getParentId();

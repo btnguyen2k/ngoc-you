@@ -28,8 +28,12 @@ function _displayTopCat($cat) {
 }
 
 function _displaySubCat($cat) {
+	$catName = htmlspecialchars($cat->getName());
+	if ( $cat->getNumEntries() > 0 ) {
+		$catName .= '('.$cat->getNumEntries().')';
+	}
 	echo '<a href="'.$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_CAT;
-	echo '?'.GET_PARAM_CATEGORY.'='.$cat->getId().'">'.$cat->getName().'</a>';
+	echo '?'.GET_PARAM_CATEGORY.'='.$cat->getId().'">'.$catName.'</a>';
 	echo " ";
 }
 ?>
