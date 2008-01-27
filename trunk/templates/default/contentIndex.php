@@ -1,4 +1,4 @@
-<table border="0" cellpadding="2" width="100%">
+<table border="0" cellpadding="4" width="100%">
 <tr>
 	<td align="center" class="pageMainTitle"><?=APPLICATION_NAME?></td>
 </tr>
@@ -33,7 +33,7 @@ function _displaySubCat($cat) {
 		$catName .= '('.$cat->getNumEntries().')';
 	}
 	echo '<a href="'.$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_CAT;
-	echo '?'.GET_PARAM_CATEGORY.'='.$cat->getId().'">'.$catName.'</a>';
+	echo '&'.GET_PARAM_CATEGORY.'='.$cat->getId().'">'.$catName.'</a>';
 	echo " ";
 }
 ?>
