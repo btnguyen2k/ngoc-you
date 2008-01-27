@@ -6,8 +6,13 @@
 	<td valign="top"><!-- main content -->
 		<?php include mainContent(); ?>
 	</td>
-	<td valign="top" width="320"><!-- right menu -->		
-		<?php include 'rightMenu.php'; ?>
+	<!--
+	<td valign="top" width="320">
+	-->
+		<!-- right menu -->
+	<!--		
+		<?php //include 'rightMenu.php'; ?>
 	</td>
+	-->
 </tr>
 </table>

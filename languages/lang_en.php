@@ -30,6 +30,7 @@ $LANG['POST_ADS'] = 'Post to classifieds';
 $LANG['ADS_TITLE'] = 'Title';
 $LANG['ADS_CONTENT'] = 'Content';
 $LANG['ADS_EXPIRY'] = 'Expiry';
+$LANG['ADS_POST_DATE'] = 'Post date';
 $LANG['ADS_NUM_VIEWS'] = 'Num Views';
 
 $LANG['WELCOME'] = 'Welcome {0}!';

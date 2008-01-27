@@ -10,6 +10,7 @@ define("DEFAULT_ACTION", 'index');
 define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_VIEW_CAT", 'viewCat');
+define("ACTION_VIEW_ADS", 'viewAds');
 define("ACTION_REGISTER", 'register');
 define("ACTION_REGISTER_DONE", 'registerDone');
 
@@ -29,6 +30,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/funcRegister.php';	
 } elseif ( $ACTION == ACTION_REGISTER_DONE ) {
 	require_once 'functions/funcRegisterDone.php';	
+} elseif ( $ACTION == ACTION_VIEW_CAT ) {
+	require_once 'functions/funcViewCat.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

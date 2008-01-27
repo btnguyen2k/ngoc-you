@@ -30,27 +30,48 @@ A:hover { color: <?=$colorLinkHover?>; text-decoration: underline; }
 }
 
 table.tblList th {
-	color: #000000;
+	color: <?=$colorTableHeaderFg?>;
 	background: <?=$colorTableHeaderBg?>;
 	border: 1px solid <?=$colorTableBorder?>;
-	font-size: 12px;
+	font-size: 14px;
+}
+table.tblList th a:link {
+	color: <?=$colorTableHeaderLink?>;
+	text-decoration: underline;
+}
+table.tblList th a:visited {
+	color: <?=$colorTableHeaderLinkVisited?>;
+	text-decoration: underline;
+}
+table.tblList th a:hover {
+	color: <?=$colorTableHeaderHover?>;
+	text-decoration: none;
 }
 
 table.tblList td {
-	color: #000000;
+	color: <?=$colorTableCellFg?>;
 	border: 1px solid <?=$colorTableBorder?>;
 	font-size: 12px;
 }
-
 table.tblList td a:link {
+	text-decoration: underline;
+}
+table.tblList td a:visited {
 	text-decoration: underline;
 }
 table.tblList td a:hover {
 	text-decoration: none;
 }
-table.tblList td a:visited {
-	text-decoration: underline;
+
+table.tblSub th {
+	color: <?=$colorTableHeaderFg?>;
+	background: <?=$colorTableSubHeaderBg?>;
+	border: 1px solid <?=$colorTableBorder?>;
+	font-size: 12px;
+	font-weight: normal;
 }
+
+
 
 
 .column_left { width: 200px; margin-right: 8px; }

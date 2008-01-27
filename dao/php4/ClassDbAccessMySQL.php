@@ -173,6 +173,25 @@ class DbAccessMySQL extends DbAccess {
 		return $entry;
 	}
 
+	function getEntriesForCategory($catId) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE ecatid={catId} ORDER BY eexpirytimestamp DESC";
+		$sql = str_replace('{catId}', $catId+0, $sql);
+		$this->logSql($sql);
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getEntriesForCategory()] Invalid query: ' . mysql_error());
+		}
+		$result = Array();
+		while ( $row = mysql_fetch_assoc($resultSet) ) {
+			$entry = new Entry();
+			$entry->populate($row);
+			$result[] = $entry;
+		}
+		mysql_free_result($resultSet);
+		return $result;
+	}
+	
 	function getEntriesForUser($userId) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE euserid={userId} ORDER BY ecreationtimestamp DESC";
