@@ -1,7 +1,6 @@
 <?php
 $_ADS = $PAGE['ads'];
 $_CAT = $PAGE['category'];
-$_ENTRIES = $PAGE['entries'];
 if ( $_CAT == NULL ) {
 	echo '<center><span class="errorMessage">', $LANG['ERROR_ADS_NOT_FOUND'], '</span></center>';
 	return;

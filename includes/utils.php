@@ -8,6 +8,7 @@ function removeEvilHtmlTags($input) {
 	 	'<font>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>',
 		'<sup>', '<sub>',
 		'<ul>', '<ol>', '<li>',
+		'<img>',
 		'<table>', '<thead>', '<th>', '<tbody>', '<tr>', '<td>',
 	);
 	$disabledAttrs = array('on\\w+');
