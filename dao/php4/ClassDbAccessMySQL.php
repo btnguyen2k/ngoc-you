@@ -170,6 +170,7 @@ class DbAccessMySQL extends DbAccess {
 			$entry->populate($row);
 		}
 		mysql_free_result($resultSet);
+		$entry->setPoster($this->getUser($entry->getUserId()));
 		return $entry;
 	}
 

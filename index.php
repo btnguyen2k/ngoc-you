@@ -32,6 +32,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/funcRegisterDone.php';	
 } elseif ( $ACTION == ACTION_VIEW_CAT ) {
 	require_once 'functions/funcViewCat.php';	
+} elseif ( $ACTION == ACTION_VIEW_ADS ) {
+	require_once 'functions/funcViewAds.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

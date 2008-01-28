@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/utils.php';
 class Entry {
 	var $id;
 	var $catId;
@@ -8,6 +9,7 @@ class Entry {
 	var $title;
 	var $content;
 	var $numViews;
+	var $poster;
 	
 	function Category() {
 		$this->id = 0;
@@ -18,6 +20,7 @@ class Entry {
 		$this->title  = NULL;
 		$this->content  = NULL;
 		$this->numViews = 0;
+		$this->poster = NULL;
 	}
 	
 	function getId() {
@@ -60,6 +63,14 @@ class Entry {
 		$this->expiryTimestamp = $value;
 	}
 	
+	function getPoster() {
+	    return $this->poster;
+	}
+	
+	function setPoster($value) {
+	    $this->poster = $value;
+	}
+	
 	function getTitle() {
 		return $this->title;
 	}
@@ -70,6 +81,10 @@ class Entry {
 	
 	function getContent() {
 		return $this->content;
+	}
+	
+	function getContentForDisplay() {
+	    return removeEvilHtmlTags($this->content);
 	}
 	
 	function setContent($value) {
