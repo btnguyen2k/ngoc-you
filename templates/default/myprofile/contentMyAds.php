@@ -23,8 +23,9 @@
 		echo '<tr><td colspan="5">', $LANG['NO_DATA_TO_DISPLAY'], '</td></tr>';
 	} else {
 		foreach ( $PAGE['myAds'] as $ads ) {
-			echo '<tr><td>', htmlspecialchars($ads->getTitle());
-			echo '</td>';
+			echo '<tr><td><a target="_blank" href="index.php?', GET_PARAM_ACTION, '=viewAds&', GET_PARAM_ID;
+			echo '=', $ads->getId(), '">', htmlspecialchars($ads->getTitle());
+			echo '</a></td>';
 			
 			echo '<td align="center">', $ads->getNumViews(), '</td>';
 			

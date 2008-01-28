@@ -77,6 +77,11 @@ function getEntry($id) {
 	return $DBACCESS->getEntry($id);
 }
 
+function increaseEntryNumViews($entry, $value=1) {
+	global $DBACCESS; 
+	$DBACCESS->increaseEntryNumViews($entry, $value);
+}
+
 function updateCategory($cat) {
 	global $DBACCESS; 
 	$DBACCESS->updateCategory($cat);

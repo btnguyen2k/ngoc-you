@@ -23,6 +23,10 @@ class Entry {
 		$this->poster = NULL;
 	}
 	
+	function isExpired() {
+		return $this->expiryTimestamp < time();
+	}
+	
 	function getId() {
 		return $this->id+0;
 	}
