@@ -12,7 +12,7 @@ if ( $_CAT == NULL ) {
 		<th align="left">
 			<a href="<?=$_SERVER['PHP_SELF']?>"><?=APPLICATION_NAME?></a>
 			>>
-			<?=htmlspecialchars($cat->getName())?>
+			<?=htmlspecialchars($_CAT->getName())?>
 		</th>
 	</tr>
 </thead>
