@@ -11,6 +11,7 @@ define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_VIEW_CAT", 'viewCat');
 define("ACTION_VIEW_ADS", 'viewAds');
+define("ACTION_CONTACT_POSTER", 'contactPoster');
 define("ACTION_REGISTER", 'register');
 define("ACTION_REGISTER_DONE", 'registerDone');
 
@@ -31,8 +32,10 @@ if ( $ACTION == ACTION_LOGIN ) {
 } elseif ( $ACTION == ACTION_REGISTER_DONE ) {
 	require_once 'functions/funcRegisterDone.php';	
 } elseif ( $ACTION == ACTION_VIEW_CAT ) {
+    $_SESSION[LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcViewCat.php';	
 } elseif ( $ACTION == ACTION_VIEW_ADS ) {
+    $_SESSION[LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcViewAds.php';	
 } else {
 	require_once 'functions/funcIndex.php';	

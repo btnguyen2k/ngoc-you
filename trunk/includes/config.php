@@ -23,9 +23,11 @@ $phpVersion = phpversion();
 define("PHP_MAJOR_VERSION", intval($phpVersion));
 
 define("SESSION_CURRENT_USER_ID", "CURRENT_USER_ID");
+define("SESSION_LAST_ACCESS_PAGE", "LAST_ACCESS_PAGE");
 
 define("GET_PARAM_ACTION", 'act');
 define("GET_PARAM_CATEGORY", 'cat');
+define("GET_PARAM_ADS", 'ads');
 define("GET_PARAM_ID", 'id');
 
 define("GROUP_ADMINISTRATOR", 1);

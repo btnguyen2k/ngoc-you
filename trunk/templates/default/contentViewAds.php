@@ -29,6 +29,20 @@ if ( $_CAT == NULL ) {
 				<?=$LANG['ADS_EXPIRY']?>:
 				<b><?=date(DATE_FORMAT, $_ADS->getExpiryTimestamp())?></b>
 			</p>
+			<p align="center">
+			<?php
+			if ( $CURRENT_USER == NULL ) {
+			    echo '<a href="index.php?', GET_PARAM_ACTION, '=', ACTION_LOGIN, '">';
+			    echo $LANG['ADS_LOGIN_TO_CONTACT_POSTER'];			    
+			    echo '</a>';
+			} else {
+			    echo '<a href="index.php?', GET_PARAM_ACTION, '=', ACTION_CONTACT_POSTER;
+			    echo '&', GET_PARAM_ADS, '=', $_ADS->getId(), '">';
+			    echo $LANG['ADS_CONTACT_POSTER'];
+			    echo '</a>';
+			}
+			?>
+			</p>
 		</td>
 	</tr>
 </tbody>	
