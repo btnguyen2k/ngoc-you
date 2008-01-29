@@ -24,7 +24,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
 	} else {
 		$_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
-		header('Location: index.php');
+		$url = isset($_SESSION[SESSION_LAST_ACCESS_PAGE]) ? $_SESSION[SESSION_LAST_ACCESS_PAGE] : 'index.php';
+		header('Location: '.$url);
 		return;
 	}
 }

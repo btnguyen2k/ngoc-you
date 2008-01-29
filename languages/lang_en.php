@@ -32,6 +32,8 @@ $LANG['ADS_CONTENT'] = 'Content';
 $LANG['ADS_EXPIRY'] = 'Expiry';
 $LANG['ADS_POST_DATE'] = 'Post date';
 $LANG['ADS_NUM_VIEWS'] = 'Num Views';
+$LANG['ADS_CONTACT_POSTER'] = 'Contact Poster';
+$LANG['ADS_LOGIN_TO_CONTACT_POSTER'] = 'Please Login To Contact Poster';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
