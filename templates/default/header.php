@@ -10,7 +10,13 @@ require_once 'includeUtils.php';
 <?php
 $_styles = Array('butter', 'chocolate', 'orange');
 ?>
-<link href="<?= 'templates/'.TEMPLATE.'/' ?>style_butter.css.php" type="text/css" rel="stylesheet">
+<link href="<?='templates/'.TEMPLATE.'/'?>style_butter.css.php" type="text/css" rel="stylesheet">
+<?php
+if ( isset($PAGE['rss']) ) {
+    echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="', $PAGE['rss'], '">';
+}
+?>
+
 <?php
 $_URI_HOME = dirname($_SERVER['PHP_SELF']);
 $_URI_TEMPLATE = $_URI_HOME.'/templates/'.TEMPLATE; 

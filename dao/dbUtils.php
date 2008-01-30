@@ -67,6 +67,11 @@ function getEntriesForCategory($catId) {
 	return $DBACCESS->getEntriesForCategory($catId);
 }
 
+function getEntriesForRss($catId=0) {
+	global $DBACCESS; 
+	return $DBACCESS->getEntriesForRss($catId);
+}
+
 function getEntriesForUser($userId) {
 	global $DBACCESS; 
 	return $DBACCESS->getEntriesForUser($userId);
