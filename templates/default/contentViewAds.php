@@ -22,27 +22,29 @@ if ( $_CAT == NULL ) {
 <tbody>
 	<tr>
 		<td>
-			<?=$_ADS->getContentForDisplay();?>
-			<p style="font-style: italic" align="center"><?=$LANG['ADS_POST_DATE']?>:
+			<p style="font-style: italic">
+    			<?php
+    			if ( $CURRENT_USER != NULL ) {
+    			    $link = "index.php?".GET_PARAM_ACTION."=".ACTION_CONTACT_POSTER;
+    			    $link .= "&".GET_PARAM_ADS."=".$_ADS->getId();
+    			    echo $LANG['ADS_POST_BY'], ' <a href="', $link, '">';
+    			    echo $_ADS->getPoster()->getLoginName();
+    			    echo '</a>.';
+    			} else {
+    			    $link = "index.php?".GET_PARAM_ACTION."=".ACTION_LOGIN;
+    			    $text = $LANG['ADS_LOGIN_TO_CONTACT_POSTER'];
+    			    echo $LANG['ADS_POST_BY'], ' <a href="', $link, '">';
+    			    echo $_ADS->getPoster()->getLoginName();
+    			    echo '</a> (<a href="', $link, '">', $text, '</a>).';
+    			}
+    			?>
+			    <?=$LANG['ADS_POST_DATE']?>:
 				<b><?=date(DATE_FORMAT, $_ADS->getCreationTimestamp())?></b>
 				-
 				<?=$LANG['ADS_EXPIRY']?>:
 				<b><?=date(DATE_FORMAT, $_ADS->getExpiryTimestamp())?></b>
 			</p>
-			<p align="center">
-			<?php
-			if ( $CURRENT_USER == NULL ) {
-			    echo '<a href="index.php?', GET_PARAM_ACTION, '=', ACTION_LOGIN, '">';
-			    echo $LANG['ADS_LOGIN_TO_CONTACT_POSTER'];			    
-			    echo '</a>';
-			} else {
-			    echo '<a href="index.php?', GET_PARAM_ACTION, '=', ACTION_CONTACT_POSTER;
-			    echo '&', GET_PARAM_ADS, '=', $_ADS->getId(), '">';
-			    echo $LANG['ADS_CONTACT_POSTER'];
-			    echo '</a>';
-			}
-			?>
-			</p>
+			<?=$_ADS->getContentForDisplay();?>			
 		</td>
 	</tr>
 </tbody>	
