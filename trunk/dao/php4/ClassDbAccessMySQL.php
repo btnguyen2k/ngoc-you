@@ -198,6 +198,31 @@ class DbAccessMySQL extends DbAccess {
 		return $result;
 	}
 	
+	function getEntriesForRss($catId=0) {
+		$conn = getDbConn();
+		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eexpirytimestamp > {rssTimestamp}";
+		if ( $catId > 0 ) {
+		    $sql .= " AND ecatid={catId}";		    
+		}
+		$sql .= " ORDER BY eexpirytimestamp DESC";
+		$rssTimestamp = time() + 6*24*3600;
+		$sql = str_replace('{rssTimestamp}', $rssTimestamp, $sql);
+		$sql = str_replace('{catId}', $catId+0, $sql);
+		$this->logSql($sql);
+		$resultSet = mysql_query($sql, $conn);
+		if ( !$resultSet ) {
+			die('['.get_class($this).'.getEntriesForRss()] Invalid query: ' . mysql_error());
+		}
+		$result = Array();
+		while ( $row = mysql_fetch_assoc($resultSet) ) {
+			$entry = new Entry();
+			$entry->populate($row);
+			$result[] = $entry;
+		}
+		mysql_free_result($resultSet);
+		return $result;
+	}
+	
 	function getEntriesForUser($userId) {
 		$conn = getDbConn();
 		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE euserid={userId} ORDER BY ecreationtimestamp DESC";

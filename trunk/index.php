@@ -14,6 +14,7 @@ define("ACTION_VIEW_ADS", 'viewAds');
 define("ACTION_CONTACT_POSTER", 'contactPoster');
 define("ACTION_REGISTER", 'register');
 define("ACTION_REGISTER_DONE", 'registerDone');
+define("ACTION_RSS_CAT", 'rssCat');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -37,6 +38,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 } elseif ( $ACTION == ACTION_VIEW_ADS ) {
     $_SESSION[LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcViewAds.php';	
+} elseif ( $ACTION == ACTION_RSS_CAT ) {
+	require_once 'functions/funcRssCat.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

@@ -13,6 +13,8 @@ if ( $_CAT == NULL ) {
 			<a href="<?=$_SERVER['PHP_SELF']?>"><?=APPLICATION_NAME?></a>
 			>>
 			<?=htmlspecialchars($_CAT->getName())?>
+			<a href="<?=$PAGE['rss']?>"><img border="0" alt="RSS"
+				src="<?='templates/'.TEMPLATE.'/images/rss.gif'?>"></a>
 		</th>
 	</tr>
 </thead>
