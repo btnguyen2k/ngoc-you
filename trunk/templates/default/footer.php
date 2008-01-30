@@ -2,7 +2,7 @@
 <?php
 	if ( DEBUG_MODE ) {
 		foreach ( $DBACCESS->getSqlLog() as $sql ) {
-			echo $sql;
+			echo htmlspecialchars($sql);
 			echo "\n";
 		}
 	}

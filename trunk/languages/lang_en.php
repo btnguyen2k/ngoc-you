@@ -30,10 +30,11 @@ $LANG['POST_ADS'] = 'Post to classifieds';
 $LANG['ADS_TITLE'] = 'Title';
 $LANG['ADS_CONTENT'] = 'Content';
 $LANG['ADS_EXPIRY'] = 'Expiry';
+$LANG['ADS_POST_BY'] = 'Post by';
 $LANG['ADS_POST_DATE'] = 'Post date';
 $LANG['ADS_NUM_VIEWS'] = 'Num Views';
-$LANG['ADS_CONTACT_POSTER'] = 'Contact Poster';
-$LANG['ADS_LOGIN_TO_CONTACT_POSTER'] = 'Please Login To Contact Poster';
+$LANG['ADS_CONTACT_POSTER'] = 'Contact poster';
+$LANG['ADS_LOGIN_TO_CONTACT_POSTER'] = 'Please login to contact poster';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
