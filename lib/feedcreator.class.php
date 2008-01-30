@@ -475,6 +475,7 @@ class FeedCreator extends HtmlDescribable {
 	*/
 	var $xslStyleSheet = "";
 	
+	var $cssStyleSheet = "";
 	
 	/**
 	 * @access private

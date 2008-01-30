@@ -33,10 +33,10 @@ if ( $ACTION == ACTION_LOGIN ) {
 } elseif ( $ACTION == ACTION_REGISTER_DONE ) {
 	require_once 'functions/funcRegisterDone.php';	
 } elseif ( $ACTION == ACTION_VIEW_CAT ) {
-    $_SESSION[LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
+    $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcViewCat.php';	
 } elseif ( $ACTION == ACTION_VIEW_ADS ) {
-    $_SESSION[LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
+    $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcViewAds.php';	
 } elseif ( $ACTION == ACTION_RSS_CAT ) {
 	require_once 'functions/funcRssCat.php';	

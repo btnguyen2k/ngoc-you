@@ -200,11 +200,13 @@ class DbAccessMySQL extends DbAccess {
 	
 	function getEntriesForRss($catId=0) {
 		$conn = getDbConn();
-		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eexpirytimestamp > {rssTimestamp}";
+		//$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eexpirytimestamp > {rssTimestamp}";
+		$sql = "SELECT * FROM ".TABLE_ENTRY;
 		if ( $catId > 0 ) {
-		    $sql .= " AND ecatid={catId}";		    
+		    //$sql .= " AND ecatid={catId}";		    
+		    $sql .= " WHERE ecatid={catId}";
 		}
-		$sql .= " ORDER BY eexpirytimestamp DESC";
+		$sql .= " ORDER BY eexpirytimestamp DESC LIMIT 10";
 		$rssTimestamp = time() + 6*24*3600;
 		$sql = str_replace('{rssTimestamp}', $rssTimestamp, $sql);
 		$sql = str_replace('{catId}', $catId+0, $sql);
