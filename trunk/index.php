@@ -40,6 +40,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/funcViewAds.php';	
 } elseif ( $ACTION == ACTION_RSS_CAT ) {
 	require_once 'functions/funcRssCat.php';	
+} elseif ( $ACTION == ACTION_CONTACT_POSTER ) {
+	require_once 'functions/funcContactPoster.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }
