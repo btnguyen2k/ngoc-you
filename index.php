@@ -12,6 +12,7 @@ define("ACTION_LOGOUT", 'logout');
 define("ACTION_VIEW_CAT", 'viewCat');
 define("ACTION_VIEW_ADS", 'viewAds');
 define("ACTION_CONTACT_POSTER", 'contactPoster');
+define("ACTION_CONTACT_POSTER_DONE", 'contactPosterDone');
 define("ACTION_REGISTER", 'register');
 define("ACTION_REGISTER_DONE", 'registerDone');
 define("ACTION_RSS_CAT", 'rssCat');

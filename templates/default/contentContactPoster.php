@@ -26,29 +26,37 @@ if ( $_ADS==NULL || $_CAT==NULL ) {
 			<form method="POST" action="<?=$_FORM['action']?>">
 				<input name="<?=$_FORM['fieldAdsId']?>" value="<?=$_FORM['valueAdsId']+0?>" type="hidden">				
 				<table border="0" cellpadding="4" align="center" class="tblForm">
+				<?php
+				if ( $_FORM['errorMessage'] != "" ) {
+				?>
+					<tr>
+						<td colspan="2" class="errorMessage" align="center">
+					        <?=$_FORM['errorMessage']?>
+						</td>
+					</tr>
+				<?php
+		        }
+		        ?>
 				<tr>
-					<td><?=$LANG['ADS_CONTACT_POSTER_NAME']?></td>
-					<td>:</td>
+					<td><?=$LANG['ADS_CONTACT_POSTER_NAME']?>:</td>
 					<td><input class="textbox_blue" name="<?=$_FORM['fieldName']?>"
 						value="<?=htmlspecialchars($_FORM['valueName'])?>"
 						type="text" style="width: 256px"></td>
 				</tr>
 				<tr>
-					<td><?=$LANG['ADS_CONTACT_POSTER_EMAIL']?></td>
-					<td>:</td>
+					<td><?=$LANG['ADS_CONTACT_POSTER_EMAIL']?>:</td>
 					<td><input class="textbox_blue" name="<?=$_FORM['fieldEmail']?>"
 						value="<?=htmlspecialchars($_FORM['valueEmail'])?>"
 						type="text" style="width: 256px"></td>
 				</tr>
 				<tr>
-					<td><?=$LANG['ADS_CONTACT_POSTER_CONTENT']?></td>
-					<td>:</td>
+					<td><?=$LANG['ADS_CONTACT_POSTER_CONTENT']?>:</td>
 					<td><textarea class="textbox_blue" name="<?=$_FORM['fieldContent']?>"
 						rows="10" style="width: 512px"
 						><?=htmlspecialchars($_FORM['valueContent'])?></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2">&nbsp;</td>
+					<td>&nbsp;</td>
 					<td>
 						<input class="button_default" style="width: 64px" type="submit" value="<?=$LANG['OK']?>">
 						<input onclick="location='<?=$_SERVER['PHP_SELF'].'?'

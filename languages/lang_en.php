@@ -41,6 +41,9 @@ $LANG['ADS_CONTACT_POSTER_NAME'] = 'Your name';
 $LANG['ADS_CONTACT_POSTER_EMAIL'] = 'Your email';
 $LANG['ADS_CONTACT_POSTER_CONTENT'] = 'Message to send';
 
+$LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'] = 'New contact for your ads';
+$LANG['ADS_CONTACT_POSTER_EMAIL_BODY'] = '{0} has sent you a message regarding to your ads: {1}.';
+
 $LANG['WELCOME'] = 'Welcome {0}!';
 
 $LANG['HOME'] = 'Home';
@@ -114,6 +117,9 @@ $LANG['ERROR_INVALID_CATEGORY_SELECTION'] = 'Error: Please select a valid catego
 $LANG['ERROR_EMPTY_ADS_TITLE'] = 'Error: Empty ads title!';
 $LANG['ERROR_EMPTY_ADS_CONTENT'] = 'Error: Empty ads content!';
 $LANG['ERROR_ADS_NOT_FOUND'] = 'Error: Ads not found!';
+$LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_NAME'] = 'Error: Please enter your name!';
+$LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_EMAIL'] = 'Error: Please enter your email address!';
+$LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_CONTENT'] = 'Error: Please enter message to send!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';

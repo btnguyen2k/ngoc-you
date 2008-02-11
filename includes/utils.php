@@ -17,4 +17,13 @@ function removeEvilHtmlTags($input) {
 		"'<' . preg_replace(array('/javascript:[^\"\']*/i', '/(" . implode('|', $disabledAttrs) . ")=[\"\'][^\"\']*[\"\']/i', '/\s+/'), array('', '', ' '), stripslashes('\\1')) . '>'", 
 		strip_tags($input, implode('', $allowedTags)));
 }
+
+function sendEmail($from, $to, $subject, $body) {
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+    $headers .= 'To: ' . $to . "\r\n";
+    $headers .= 'From: ' . $from . "\r\n";
+
+    mail($to, $subject, $body, $headers);
+}
 ?>

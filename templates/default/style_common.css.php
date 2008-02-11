@@ -80,7 +80,7 @@ table.tblForm td {
 
 .blank_separator { margin-top: 8px; }
 
-.errorMessage { color: #FF0000; font-weight: bold; }
+.errorMessage { color: #FF0000 !important; font-weight: bold;}
 .warningMessage { color: #009010; font-weight: bold; }
 .infoMessage { color: #009010; font-weight: bold; }
 
