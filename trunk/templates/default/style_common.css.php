@@ -71,8 +71,9 @@ table.tblSub th {
 	font-weight: normal;
 }
 
-
-
+table.tblForm td {
+	border: 0px;
+}
 
 .column_left { width: 200px; margin-right: 8px; }
 .column_right { width: 200px; margin-left: 8px; }
