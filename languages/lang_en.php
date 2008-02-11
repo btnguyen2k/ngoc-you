@@ -34,7 +34,12 @@ $LANG['ADS_POST_BY'] = 'Post by';
 $LANG['ADS_POST_DATE'] = 'Post date';
 $LANG['ADS_NUM_VIEWS'] = 'Num Views';
 $LANG['ADS_CONTACT_POSTER'] = 'Contact poster';
+$LANG['ADS_CONTACT_POSTER_OF'] = 'Contact poster of';
 $LANG['ADS_LOGIN_TO_CONTACT_POSTER'] = 'Please login to contact poster';
+
+$LANG['ADS_CONTACT_POSTER_NAME'] = 'Your name';
+$LANG['ADS_CONTACT_POSTER_EMAIL'] = 'Your email';
+$LANG['ADS_CONTACT_POSTER_CONTENT'] = 'Message to send';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
