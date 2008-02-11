@@ -24,6 +24,8 @@ function sendEmail($from, $to, $subject, $body) {
     $headers .= 'To: ' . $to . "\r\n";
     $headers .= 'From: ' . $from . "\r\n";
 
+    //$log = "Sending email from $from to $to\nSubject: $subject\n$headers\nBody:\n$body";
+    //error_log($log, 0);
     mail($to, $subject, $body, $headers);
 }
 ?>

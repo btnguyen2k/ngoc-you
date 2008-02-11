@@ -44,6 +44,8 @@ if ( $ACTION == ACTION_LOGIN ) {
 } elseif ( $ACTION == ACTION_CONTACT_POSTER ) {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcContactPoster.php';	
+} elseif ( $ACTION == ACTION_CONTACT_POSTER_DONE ) {
+	require_once 'functions/funcContactPosterDone.php';	
 } else {
 	require_once 'functions/funcIndex.php';	
 }

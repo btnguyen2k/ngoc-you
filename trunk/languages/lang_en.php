@@ -22,6 +22,7 @@ $LANG['MOVE_DOWN'] = 'Down';
 $LANG['CHANGE'] = 'Change';
 $LANG['REGISTER'] = 'Register';
 $LANG['REGISTER_DONE'] = 'Congratulation! Account {0} has been created successfully!';
+$LANG['GO_BACK'] = 'Go Back';
 
 $LANG['ADS_MANAGEMENT'] = 'Ads Management';
 $LANG['MY_ADS'] = 'My ads';
@@ -34,6 +35,7 @@ $LANG['ADS_POST_BY'] = 'Post by';
 $LANG['ADS_POST_DATE'] = 'Post date';
 $LANG['ADS_NUM_VIEWS'] = 'Num Views';
 $LANG['ADS_CONTACT_POSTER'] = 'Contact poster';
+$LANG['ADS_CONTACT_POSTER_DONE'] = 'Your message has been sent to poster of this ads';
 $LANG['ADS_CONTACT_POSTER_OF'] = 'Contact poster of';
 $LANG['ADS_LOGIN_TO_CONTACT_POSTER'] = 'Please login to contact poster';
 
