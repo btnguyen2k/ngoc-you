@@ -172,9 +172,9 @@ class DbAccessMySQL extends DbAccess {
 		if ( $row = mysql_fetch_assoc($resultSet) ) {
 			$entry = new Entry();
 			$entry->populate($row);
+			$entry->setPoster($this->getUser($entry->getUserId()));
 		}
-		mysql_free_result($resultSet);
-		$entry->setPoster($this->getUser($entry->getUserId()));
+		mysql_free_result($resultSet);		
 		return $entry;
 	}
 	

@@ -49,6 +49,27 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueName'] = $name;
 	$PAGE['form']['valueEmail'] = $email;
 	$PAGE['form']['valueContent'] = $content;
+	if ( $name == "" ) {
+	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_NAME'];
+	} elseif ( $email == "" ) {
+	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_EMAIL'];
+	} elseif ( $content == "" ) {
+	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_CONTENT'];
+	} else {
+	    $subject = $LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'];
+	    $body = $LANG['ADS_CONTACT_POSTER_EMAIL_BODY'];
+	    $body = str_replace('{0}', '<b>'.htmlspecialchars($name).'</b>', $body);
+	    $url = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_ADS
+	        .'&'.GET_PARAM_ID.'='.$ads->getId();
+	    $link = '<a href="'.$url.'">'.htmlspecialchars($ads->getTitle()).'</a>';	        
+	    $body = str_replace('{1}', '<b>'.$link.'</b>', $body);
+	    $body .= '<br><br>'.str_replace("\n", '<br>', htmlspecialchars($content));
+	    sendEmail($email, $ads->getPoster()->getEmail(), $subject, $body);
+	    $url = 'index.php?'.GET_PARAM_ACTION.'='.ACTION_CONTACT_POSTER_DONE
+	        .'&'.GET_PARAM_ADS.'='.$ads->getId();
+	    header('Location: '.$url);
+	    return;
+	}
 	/*
 	$cat = getCategory($categoryId);
 	if ( $cat == NULL || $cat->getParentId()==0 ) {
