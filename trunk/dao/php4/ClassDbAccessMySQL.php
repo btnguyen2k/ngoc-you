@@ -40,9 +40,11 @@ class DbAccessMySQL extends DbAccess {
 		return $result;
 	}
 
-	function countEntries() {
+	function countEntries() {	    
 		$conn = getDbConn();
-		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY;
+		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY
+		    ." WHERE eexpirytimestamp > {expiryTimestamp}";
+		$sql = str_replace('{expiryTimestamp}', time(), $sql); 
 		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
@@ -58,8 +60,10 @@ class DbAccessMySQL extends DbAccess {
 	
 	function countEntriesForCategory($catId) {
 		$conn = getDbConn();
-		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY." WHERE ecatid={catId}";
+		$sql = "SELECT COUNT(*) FROM ".TABLE_ENTRY
+		    ." WHERE ecatid={catId} AND eexpirytimestamp>{expiryTimestamp}";
 		$sql = str_replace('{catId}', $catId+0, $sql);
+		$sql = str_replace('{expiryTimestamp}', time(), $sql);
 		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
 		if ( !$resultSet ) {
@@ -181,7 +185,10 @@ class DbAccessMySQL extends DbAccess {
 
 	function getEntriesForCategory($catId) {
 		$conn = getDbConn();
-		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE ecatid={catId} ORDER BY eexpirytimestamp DESC";
+		$sql = "SELECT * FROM ".TABLE_ENTRY
+		    ." WHERE ecatid={catId} AND eexpirytimestamp>{expiryTimestamp}"
+		    ." ORDER BY eexpirytimestamp DESC";
+		$sql = str_replace('{expiryTimestamp}', time(), $sql);
 		$sql = str_replace('{catId}', $catId+0, $sql);
 		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
@@ -201,10 +208,11 @@ class DbAccessMySQL extends DbAccess {
 	function getEntriesForRss($catId=0) {
 		$conn = getDbConn();
 		//$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE eexpirytimestamp > {rssTimestamp}";
-		$sql = "SELECT * FROM ".TABLE_ENTRY;
+		$sql = "SELECT * FROM ".TABLE_ENTRY
+		    ." WHERE eexpirytimestamp>{expiryTimestamp}";
+		$sql = str_replace('{expiryTimestamp}', time(), $sql);
 		if ( $catId > 0 ) {
-		    //$sql .= " AND ecatid={catId}";		    
-		    $sql .= " WHERE ecatid={catId}";
+		    $sql .= " AND ecatid={catId}";		    		    
 		}
 		$sql .= " ORDER BY eexpirytimestamp DESC LIMIT 10";
 		$rssTimestamp = time() + 6*24*3600;
@@ -227,7 +235,10 @@ class DbAccessMySQL extends DbAccess {
 	
 	function getEntriesForUser($userId) {
 		$conn = getDbConn();
-		$sql = "SELECT * FROM ".TABLE_ENTRY." WHERE euserid={userId} ORDER BY ecreationtimestamp DESC";
+		$sql = "SELECT * FROM ".TABLE_ENTRY
+		    ." WHERE euserid={userId} AND eexpirytimestamp>{expiryTimestamp}"
+		    ." ORDER BY ecreationtimestamp DESC";
+		$sql = str_replace('{expiryTimestamp}', time(), $sql);
 		$sql = str_replace('{userId}', $userId+0, $sql);
 		$this->logSql($sql);
 		$resultSet = mysql_query($sql, $conn);
