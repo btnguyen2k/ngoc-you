@@ -19,7 +19,8 @@ if ( isset($PAGE['rss']) ) {
 
 <?php
 $_URI_HOME = dirname($_SERVER['PHP_SELF']);
-$_URI_TEMPLATE = $_URI_HOME.'/templates/'.TEMPLATE; 
+$_URI_TEMPLATE = $_URI_HOME.'/templates/'.TEMPLATE;
+$_URI_TEMPLATE = preg_replace('/^\/+/', '/', $_URI_TEMPLATE);
 ?>
 </head>
 <body>

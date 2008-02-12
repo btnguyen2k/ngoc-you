@@ -80,8 +80,13 @@ function xinha($name, $value="", $width=512, $height=512) {
 			Xinha.startEditors(xinha_editors);
 		}
 		
-		if ( typeof(Xinha) != 'undefined' ) {
-			Xinha._addEvent(window, 'load', xinha_init);
+		window.addEventListener('load', checkXinha, true);
+		
+		function checkXinha() {
+			if ( typeof(Xinha) != 'undefined' ) {
+				//Xinha._addEvent(window, 'load', xinha_init);
+				xinha_init();
+			}
 		}
 	</script>	
 <?php	
