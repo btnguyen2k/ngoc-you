@@ -2,6 +2,7 @@
 <center><h2><?=$LANG['MY_PROFILE_TITLE_POST_ADS']?></h2></center>
 <?php $_FORM = $PAGE['form']; ?>
 <form method="POST" action="<?=$_FORM['action']?>">
+	<input type="hidden" name="html" value="0">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
 	<?php
 	if ( $_FORM['errorMessage'] != "" ) {
