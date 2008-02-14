@@ -59,7 +59,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	    $subject = $LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'];
 	    $body = $LANG['ADS_CONTACT_POSTER_EMAIL_BODY'];
 	    $body = str_replace('{0}', '<b>'.htmlspecialchars($name).'</b>', $body);
-	    $url = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_ADS
+	    $url = getSiteUrl().$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_ADS
 	        .'&'.GET_PARAM_ID.'='.$ads->getId();
 	    $link = '<a href="'.$url.'">'.htmlspecialchars($ads->getTitle()).'</a>';	        
 	    $body = str_replace('{1}', '<b>'.$link.'</b>', $body);

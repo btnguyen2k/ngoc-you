@@ -23,9 +23,22 @@ function sendEmail($from, $to, $subject, $body) {
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
     $headers .= 'To: ' . $to . "\r\n";
     $headers .= 'From: ' . $from . "\r\n";
+    $headers .= 'Reply-to: ' . $from . "\r\n";
+    $headers .= 'Return-Path: ' . $from . "\r\n";
 
     //$log = "Sending email from $from to $to\nSubject: $subject\n$headers\nBody:\n$body";
     //error_log($log, 0);
     mail($to, $subject, $body, $headers);
+}
+
+function getSiteUrl() {
+    $url = "";
+    if ( strpos($_SERVER["SERVER_PROTOCOL"], 'HTTPS') !== false ) {
+        $url = 'https://';
+    } else {
+        $url = 'http://';
+    }
+    $url .= $_SERVER["HTTP_HOST"];
+    return $url;
 }
 ?>
