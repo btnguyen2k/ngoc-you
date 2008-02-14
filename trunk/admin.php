@@ -31,6 +31,7 @@ if ( !isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
 	 }
 }
 
+unset($_SESSION[SESSION_LAST_ACCESS_PAGE]);
 if ( $ACTION == ACTION_LOGIN ) {
 	require_once 'functions/admin/funcLogin.php';	
 } elseif ( $ACTION == ACTION_LOGOUT ) {
