@@ -1,6 +1,13 @@
 <?php
 require_once 'includes/denyDirectInclude.php';
 $LANG = Array();
+
+//for NcodeImageResizer
+$LANG['ncode_imageresizer_warning_small'] = 'Click this bar to view the full image.';
+$LANG['ncode_imageresizer_warning_filesize'] = 'This image has been resized. Click this bar to view the full image. The original image is sized %1$sx%2$s and weights %3$sKB.';
+$LANG['ncode_imageresizer_warning_no_filesize'] = 'This image has been resized. Click this bar to view the full image. The original image is sized %1$sx%2$s.';
+$LANG['ncode_imageresizer_warning_fullsize'] = 'Click this bar to view the small image.';
+
 $LANG['LOGIN_NAME'] = 'Login Name';
 $LANG['PASSWORD'] = 'Password';
 $LANG['CURRENT_PASSWORD'] = 'Current Password';

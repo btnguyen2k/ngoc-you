@@ -10,6 +10,8 @@ $PAGE = Array();
 if ( $cat != NULL ) {
     $PAGE['rss'] = 'index.php?'.GET_PARAM_ACTION.'='.ACTION_RSS_CAT;
     $PAGE['rss'] .= '&'.GET_PARAM_CATEGORY.'='.$cat->getId();
+    $PAGE['pageKeywords'] = $cat->getDescription();
+    $PAGE['pageDescription'] = $cat->getName();
 }
 $PAGE['pageTitle'] = APPLICATION_NAME.' - '.($cat!=NULL?htmlspecialchars($cat->getName()):"");
 $PAGE['category'] = $cat;
