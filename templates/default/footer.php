@@ -1,10 +1,11 @@
 <pre>
 <?php
 	if ( DEBUG_MODE ) {
-		foreach ( $DBACCESS->getSqlLog() as $sql ) {
-			echo htmlspecialchars($sql);
-			echo "\n";
-		}
+	    printf("Total queries=%d; total cached=%d.", $EXECS+$CACHED, $CACHED);
+	    echo "\nExecuted queries:\n";
+	    foreach ( $SQL_EXECS as $sql ) {
+	        echo "- $sql\n";
+	    }
 	}
 ?>
 </pre>
