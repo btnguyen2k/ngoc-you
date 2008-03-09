@@ -5,7 +5,7 @@ require_once 'dao/dbUtils.php';
 
 $id = isset($_GET[GET_PARAM_CATEGORY]) ? $_GET[GET_PARAM_CATEGORY]+0 : 0;
 $cat = getCategory($id);
-if ( $cat == NULL ) {
+if ( $cat === NULL ) {
 	echo $LANG['ERROR_CATEGORY_NOT_FOUND'];
 } else {
 	require_once 'lib/feedcreator.class.php';

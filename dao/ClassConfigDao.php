@@ -1,5 +1,34 @@
 <?php
+require_once 'includes/denyDirectInclude.php';
+require_once 'dbUtils.php';
+
 class ConfigDao {
+
+    private static $allConfigs = NULL;
+
+    /**
+     * Gets all configurations.
+     *
+     * @return Array()
+     */
+    public static function getAllConfigs() {
+        if ( self::$allConfigs === NULL ) {
+            $adodb = adodbGetConnection();
+            $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+            $sql = 'SELECT * FROM '.TABLE_CONFIG;
+            $rs = $adodb->Execute($sql);
+            self::$allConfigs = Array();
+            while ( !$rs->EOF ) {
+                $key = $rs->fields['ckey'];
+                $value = $rs->fields['cvalue'];
+                self::$allConfigs[$key] = $value;
+                $rs->MoveNext();
+            }
+            $rs->Close();
+        }
+        return self::$allConfigs;
+    }
+
     /**
      * Gets a configuration value.
      *
@@ -7,16 +36,8 @@ class ConfigDao {
      * @return string
      */
     public static function getConfig($key) {
-        $adodb = adodbGetConnection();
-        $adodb->SetFetchMode(ADODB_FETCH_NUM);
-        $sql = 'SELECT cvalue FROM '.TABLE_CONFIG.' WHERE ckey=?';
-        $rs = $adodb->Execute($sql, Array($key));
-        $result = NULL;
-        if ( !$rs->EOF ) {
-            $result = $rs->fields[0];
-        }
-        $rs->Close();
-        return $result;
+        $allConfig = self::getAllConfigs();
+        return isset($allConfig[$key]) ? $allConfig[$key] : NULL;
     }
 
     /**
@@ -31,6 +52,7 @@ class ConfigDao {
         if ( $adodb->Execute($sql, Array($value, $key)) === false ) {
             die('['.__CLASS__.'.updateConfig()] Error: ' . $adodb->ErrorMsg());
         }
+        self::$allConfigs = NULL;
     }
 }
 ?>

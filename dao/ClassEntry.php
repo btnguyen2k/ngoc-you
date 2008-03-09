@@ -1,119 +1,187 @@
 <?php
 require_once 'includes/utils.php';
 class Entry {
-	private $id = 0;
-	private $catId = 0;
-	private $userId = 0;
-	private $creationTimestamp = 0;
-	private $expiryTimestamp = 0;
-	private $title = NULL;
-	private $content = NULL;
-	private $numViews = 0;
-	private $poster = NULL;
-	
-	public function __construct() {
-		$this->id = 0;
-		$this->catId = 0;
-		$this->userId = 0;
-		$this->creationTimestamp = 0;
-		$this->expiryTimestamp = 0;
-		$this->title  = NULL;
-		$this->content  = NULL;
-		$this->numViews = 0;
-		$this->poster = NULL;
-	}
-	
-	public function isExpired() {
-		return $this->expiryTimestamp < time();
-	}
-	
-	public function getId() {
-		return $this->id+0;
-	}
-	
-	public function setId($value) {
-		$this->id = $value;
-	}
-	
-	public function getCategoryId() {
-		return $this->catId+0;
-	}
-	
-	public function setCategoryId($value) {
-		$this->catId = $value;
-	}
-	
-	public function getUserId() {
-		return $this->userId+0;
-	}
-	
-	public function setUserId($value) {
-		$this->userId = $value;
-	}
-	
-	public function getCreationTimestamp() {
-		return $this->creationTimestamp+0;
-	}
-	
-	public function setCreationTimestamp($value) {
-		$this->creationTimestamp = $value;
-	}
-	
-	public function getExpiryTimestamp() {
-		return $this->expiryTimestamp+0;
-	}
-	
-	public function setExpiryTimestamp($value) {
-		$this->expiryTimestamp = $value;
-	}
-	
-	public function getPoster() {
-	    return $this->poster;
-	}
-	
-	public function setPoster($value) {
-	    $this->poster = $value;
-	}
-	
-	public function getTitle() {
-		return $this->title;
-	}
-	
-	public function setTitle($value) {
-		$this->title = $value;
-	}
-	
-	public function getContent() {
-		return $this->content;
-	}
-	
-	public function getContentForDisplay() {
-	    return removeEvilHtmlTags($this->content);
-	}
-	
-	public function setContent($value) {
-		$this->content = $value;
-	}
-	
-	public function getNumViews() {
-		return $this->numViews+0;
-	}
-	
-	public function setNumViews($value) {
-		$this->numViews = $value;
-	}
-	
-	public function populate($tblRow) {
-		$this->id = $tblRow['eid']+0;
-		$this->catId = $tblRow['ecatid']+0;
-		$this->userId = $tblRow['euserid']+0;
-		$this->creationTimestamp = $tblRow['ecreationtimestamp']+0;
-		$this->expiryTimestamp = $tblRow['eexpirytimestamp']+0;
-		$this->title = $tblRow['etitle'];
-		if ( $this->title != NULL ) $this->title = trim($this->title);
-		$this->content = $tblRow['ebody'];
-		if ( $this->content != NULL ) $this->content = trim($this->content);
-		$this->numViews = $tblRow['enumviews']+0;
-	}
+
+    const TYPE_SELL = 0;
+    const TYPE_BUY  = 1;
+
+    private $id = 0;
+    private $catId = 0;
+    private $userId = 0;
+    private $creationTimestamp = 0;
+    private $expiryTimestamp = 0;
+    private $title = NULL;
+    private $content = NULL;
+    private $numViews = 0;
+    private $location = NULL;
+    private $price = NULL;
+    private $type = self::TYPE_SELL;
+    private $poster = NULL;
+    private $attachments = Array();
+    private $isHtml = 0;
+
+    public function __construct() {
+    }
+
+    public function isExpired() {
+        return $this->expiryTimestamp < time();
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($value) {
+        $this->id = $value+0;
+    }
+
+    public function getCategoryId() {
+        return $this->catId;
+    }
+
+    public function setCategoryId($value) {
+        $this->catId = $value+0;
+    }
+
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    public function setUserId($value) {
+        $this->userId = $value+0;
+    }
+
+    public function getCreationTimestamp() {
+        return $this->creationTimestamp;
+    }
+
+    public function setCreationTimestamp($value) {
+        $this->creationTimestamp = $value+0;
+    }
+
+    public function getExpiryTimestamp() {
+        return $this->expiryTimestamp;
+    }
+
+    public function setExpiryTimestamp($value) {
+        $this->expiryTimestamp = $value+0;
+    }
+
+    public function getPoster() {
+        return $this->poster;
+    }
+
+    public function setPoster($value) {
+        $this->poster = $value;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($value) {
+        $this->title = $value!==NULL ? trim($value) : NULL;
+    }
+
+    public function getContent() {
+        return $this->content;
+    }
+
+    public function getContentForDisplay() {
+        return removeEvilHtmlTags($this->content);
+    }
+
+    public function setContent($value) {
+        $this->content = $value!==NULL ? trim($value) : NULL;
+    }
+
+    public function getNumViews() {
+        return $this->numViews;
+    }
+
+    public function setNumViews($value) {
+        $this->numViews = $value+0;
+    }
+
+    public function getLocation() {
+        return $this->location;
+    }
+
+    public function setLocation($value) {
+        $this->location = $value!==NULL ? $value+0 : NULL;
+    }
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function setPrice($value) {        
+        $this->price = $value!==NULL ? ($value+0) : NULL;
+    }
+
+    public function getType() {
+        return ($this->type === self::TYPE_SELL) ? (self::TYPE_SELL) : (self::TYPE_BUY);
+    }
+
+    public function setType($value) {
+        $this->type = $value!==NULL ? $value+0 : self::TYPE_SELL;
+    }
+
+    public function countAttachmentSize() {
+        $result = 0;
+        foreach ( $this->attachments as $upload ) {
+            $result += $upload->getFileSize();
+        }
+        return $result;
+    }
+    
+    public function countAttachments() {
+        return count($this->attachments);
+    }
+    
+    public function hasAttachment() {
+        return count($this->attachments) > 0;
+    }
+
+    public function addAttachment($upload) {
+        $this->attachments[$upload->getId()] = $upload;
+    }
+    
+    public function deleteAttachment($id) {
+        if ( isset($this->attachments[$id]) ) {
+            unset($this->attachments[$id]);
+        }
+    }
+
+    public function getAllAttachments() {
+        return array_values($this->attachments);
+    }
+
+    public function getAttachment($id) {
+        return isset($this->attachments[$id]) ? $this->attachments[$id] : NULL;
+    }
+    
+    public function isHtml() {
+        return $this->isHtml;
+    }
+    
+    public function setIsHtml($value) {
+        $this->isHtml = $value+0;
+    }
+
+    public function populate($tblRow) {
+        $this->setId(isset($tblRow['eid'])?$tblRow['eid']:0);
+        $this->setCategoryId(isset($tblRow['ecatid'])?$tblRow['ecatid']:0);
+        $this->setUserId(isset($tblRow['euserid'])?$tblRow['euserid']:0);
+        $this->setCreationTimestamp(isset($tblRow['ecreationtimestamp'])?$tblRow['ecreationtimestamp']:0);
+        $this->setExpiryTimestamp(isset($tblRow['eexpirytimestamp'])?$tblRow['eexpirytimestamp']:0);
+        $this->setTitle(isset($tblRow['etitle'])?$tblRow['etitle']:NULL);
+        $this->setContent(isset($tblRow['ebody'])?$tblRow['ebody']:NULL);
+        $this->setNumViews(isset($tblRow['enumviews'])?$tblRow['enumviews']:0);
+        $this->setLocation(isset($tblRow['elocation'])?$tblRow['elocation']:NULL);
+        $this->setPrice(isset($tblRow['eprice'])?$tblRow['eprice']:NULL);
+        $this->setType(isset($tblRow['etype'])?$tblRow['etype']:self::TYPE_SELL);
+        $this->setIsHtml(isset($tblRow['ehtml'])?$tblRow['ehtml']+0:0);
+    }
 }
 ?>

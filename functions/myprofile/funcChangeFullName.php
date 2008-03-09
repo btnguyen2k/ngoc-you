@@ -16,7 +16,7 @@ $PAGE['form']['valueNewFullName'] = $CURRENT_USER->getFullName();
 $PAGE['form']['errorMessage'] = '';
 $PAGE['form']['informationMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$currentPwd = isset($_POST[FORM_FIELD_CURRENT_PASSWORD])
 		? trim($_POST[FORM_FIELD_CURRENT_PASSWORD]) : "";
 	$newFullName = isset($_POST[FORM_FIELD_NEW_FULL_NAME])
@@ -24,7 +24,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueNewFullName'] = $newFullName;
 	if ( !$CURRENT_USER->authenticate($currentPwd) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_PASSWORD_NOT_MATCH'];
-	} elseif ( $newFullName == "" ) {
+	} elseif ( $newFullName === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_NEW_FULL_NAME'];
 	} else {
 		$CURRENT_USER->setFullName($newFullName);

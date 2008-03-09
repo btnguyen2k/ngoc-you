@@ -58,7 +58,7 @@ class CategoryDao {
         $adodb = adodbGetConnection();
         $sql = 'INSERT INTO '.TABLE_CATEGORY.'(cname, cdesc, cposition, cparentid) VALUES (?, ?, ?, ?)';
         $params = Array($name, $desc);
-        if ( $parent != NULL ) {
+        if ( $parent !== NULL ) {
             $params[] = $parent->getNumChildren()+1; //position
             $params[] = $parent->getId(); //parentId
         } else {
@@ -100,7 +100,7 @@ class CategoryDao {
     public static function getCategory($id) {
         self::loadCategories();
         $catsMap = self::$categoryMap;
-        return $catsMap != NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
+        return $catsMap !== NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
     }
 
     /**
@@ -110,7 +110,7 @@ class CategoryDao {
      */
     public static function getCategoryTree() {
         self::loadCategories();
-        return self::$categoryTree != NULL ? self::$categoryTree : Array();
+        return self::$categoryTree !== NULL ? self::$categoryTree : Array();
     }
 
     /**
@@ -165,7 +165,7 @@ class CategoryDao {
      */
     private function loadCategories() {
         $catsList = self::$categoryList;
-        if ( $catsList != NULL ) return;
+        if ( $catsList !== NULL ) return;
 
         $catsList = Array();
         $catsMap = Array();

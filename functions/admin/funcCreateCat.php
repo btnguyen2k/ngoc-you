@@ -20,7 +20,7 @@ $PAGE['form']['valueCategoryDescription'] = '';
 $PAGE['form']['valueParentCategoryId'] = 0;
 $PAGE['form']['errorMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$catName = isset($_POST[FORM_FIELD_CAT_NAME])
 		? $_POST[FORM_FIELD_CAT_NAME] : "";
 	$catDesc = isset($_POST[FORM_FIELD_CAT_DESC])
@@ -33,7 +33,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueCategoryName'] = $catName;
 	$PAGE['form']['valueCategoryDescription'] = $catDesc;
 	$PAGE['form']['valueParentCategoryId'] = $catParentId;
-	if ( $catName == "" ) {
+	if ( $catName === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_CATEGORY_NAME'];
 	} else {
 		$parent = getCategory($catParentId);

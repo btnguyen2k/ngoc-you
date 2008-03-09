@@ -19,13 +19,25 @@
 </thead>
 <tbody>
 	<?php
-	if ( count($PAGE['myAds']) == 0 ) {
+	if ( count($PAGE['myAds']) === 0 ) {
 		echo '<tr><td colspan="5">', $LANG['NO_DATA_TO_DISPLAY'], '</td></tr>';
 	} else {
 		foreach ( $PAGE['myAds'] as $ads ) {
 			echo '<tr><td><a target="_blank" href="index.php?', GET_PARAM_ACTION, '=viewAds&', GET_PARAM_ID;
 			echo '=', $ads->getId(), '">', htmlspecialchars($ads->getTitle());
-			echo '</a></td>';
+			echo '</a><br>';
+			$urlThumb = 'index.php?'.GET_PARAM_ACTION.'=thumbnail&id={0}&entry={1}';
+			$urlImage = 'index.php?'.GET_PARAM_ACTION.'=viewAttachment&id={0}&entry={1}';
+			foreach ( $ads->getAllAttachments() as $upload ) {
+			    $urlT = str_replace('{0}', $upload->getId(), $urlThumb);
+			    $urlT = str_replace('{1}', $upload->getEntryId(), $urlT);
+			    $urlI = str_replace('{0}', $upload->getId(), $urlImage);
+			    $urlI = str_replace('{1}', $upload->getEntryId(), $urlI);			    
+			    echo '<a target="_blank" href="'.$urlI.'">';
+			    echo '<img src="'.$urlT.'" border="1" width="60" vspace="4">';
+			    echo '</a>&nbsp;';
+			}
+			echo '</td>';
 			
 			echo '<td align="center">', $ads->getNumViews(), '</td>';
 			

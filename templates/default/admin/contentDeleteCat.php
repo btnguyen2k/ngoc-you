@@ -3,7 +3,7 @@
 <?php $_FORM = $PAGE['form']; ?>
 <?php $_CAT = $PAGE['category']; ?>
 <?php
-if ( $_CAT == NULL ) {
+if ( $_CAT === NULL ) {
 ?>
 	<center><span class="errorMessage"><?=$LANG['ERROR_CATEGORY_NOT_FOUND']?></span></center>
 <?php

@@ -25,28 +25,28 @@ if ( !isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
 	$ACTION = ACTION_LOGIN;
 } else {
 	 $CURRENT_USER = getUser($_SESSION[SESSION_CURRENT_USER_ID]);
-	 if ( $CURRENT_USER == NULL 
-	 		|| $CURRENT_USER->getGroupId() != GROUP_ADMINISTRATOR ) {
+	 if ( $CURRENT_USER === NULL 
+	 		|| $CURRENT_USER->getGroupId() !== GROUP_ADMINISTRATOR ) {
 	 	$ACTION = ACTION_LOGIN;
 	 }
 }
 
 unset($_SESSION[SESSION_LAST_ACCESS_PAGE]);
-if ( $ACTION == ACTION_LOGIN ) {
+if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/admin/funcLogin.php';	
-} elseif ( $ACTION == ACTION_LOGOUT ) {
+} elseif ( $ACTION === ACTION_LOGOUT ) {
 	require_once 'functions/admin/funcLogout.php';	
-} elseif ( $ACTION == ACTION_CAT_MANAGEMENT ) {
+} elseif ( $ACTION === ACTION_CAT_MANAGEMENT ) {
 	require_once 'functions/admin/funcCatManagement.php';
-} elseif ( $ACTION == ACTION_CREATE_CAT ) {
+} elseif ( $ACTION === ACTION_CREATE_CAT ) {
 	require_once 'functions/admin/funcCreateCat.php';
-} elseif ( $ACTION == ACTION_DELETE_CAT ) {
+} elseif ( $ACTION === ACTION_DELETE_CAT ) {
 	require_once 'functions/admin/funcDeleteCat.php';
-} elseif ( $ACTION == ACTION_EDIT_CAT ) {
+} elseif ( $ACTION === ACTION_EDIT_CAT ) {
 	require_once 'functions/admin/funcEditCat.php';
-} elseif ( $ACTION == ACTION_MOVE_UP_CAT ) {
+} elseif ( $ACTION === ACTION_MOVE_UP_CAT ) {
 	require_once 'functions/admin/funcMoveUpCat.php';
-} elseif ( $ACTION == ACTION_MOVE_DOWN_CAT ) {
+} elseif ( $ACTION === ACTION_MOVE_DOWN_CAT ) {
 	require_once 'functions/admin/funcMoveDownCat.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';

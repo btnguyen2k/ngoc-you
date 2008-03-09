@@ -12,7 +12,7 @@ if ( isset($_POST[FORM_FIELD_ADS_ID]) ) {
 	$id = $_GET[GET_PARAM_ID] + 0;
 }
 $ads = getEntry($id);
-if ( $ads!=NULL && $ads->getUserId()!=$CURRENT_USER->getId() ) $ads = NULL;
+if ( $ads!==NULL && $ads->getUserId()!==$CURRENT_USER->getId() ) $ads = NULL;
 
 $PAGE = Array();
 $PAGE['pageTitle'] = APPLICATION_NAME.' - My Profile/Delete My Ads';
@@ -23,7 +23,7 @@ $PAGE['form']['action'] = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_D
 $PAGE['form']['fieldAdsId'] = FORM_FIELD_ADS_ID;
 $PAGE['form']['valueAdsId'] = $id;
 
-if ( $ads != NULL && $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $ads !== NULL && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	deleteEntry($ads->getId());
 	header('Location: myprofile.php?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS);
 	return;	

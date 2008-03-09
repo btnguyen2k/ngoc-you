@@ -12,17 +12,17 @@ class User {
     }
 
     public function populate($tblRow) {
-        $this->id = $tblRow['uid'];
-        $this->loginName = $tblRow['uloginname'];
-        $this->password = $tblRow['upassword'];
-        $this->email = $tblRow['uemail'];
-        $this->fullName = $tblRow['ufullname'];
-        $this->groupId = $tblRow['ugroupid'];
-        $this->creationTimestamp = $tblRow['ucreationtimestamp'];
+        $this->setId(isset($tblRow['uid'])?$tblRow['uid']+0:0);
+        $this->setLoginName(isset($tblRow['uloginname'])?$tblRow['uloginname']:NULL);
+        $this->setPassword(isset($tblRow['upassword'])?$tblRow['upassword']:NULL);
+        $this->setEmail(isset($tblRow['uemail'])?$tblRow['uemail']:NULL);
+        $this->setFullName(isset($tblRow['ufullname'])?$tblRow['ufullname']:NULL);
+        $this->setGroupId(isset($tblRow['ugroupid'])?$tblRow['ugroupid']+0:0);
+        $this->setCreationTimestamp(isset($tblRow['ucreationtimestamp'])?$tblRow['ucreationtimestamp']+0:0);
     }
 
     public function authenticate($pwd) {
-        return $this->encryptPassword($pwd) == strtolower($this->password);
+        return $this->encryptPassword($pwd) === strtolower($this->password);
     }
 
     public function encryptPassword($pwd) {
@@ -34,7 +34,7 @@ class User {
     }
 
     public function setId($value) {
-        $this->id = $value;
+        $this->id = $value+0;
     }
 
     public function getLoginName() {
@@ -42,7 +42,7 @@ class User {
     }
 
     public function setLoginName($value) {
-        $this->loginName = $value;
+        $this->loginName = $value !== NULL ? trim($value) : NULL;
     }
 
     public function getPassword() {
@@ -50,7 +50,7 @@ class User {
     }
 
     public function setPassword($value) {
-        $this->password = $value;
+        $this->password = $value !== NULL ? trim($value) : NULL;
     }
 
     public function getEmail() {
@@ -58,7 +58,7 @@ class User {
     }
 
     public function setEmail($value) {
-        $this->email = $value;
+        $this->email = $value !== NULL ? trim($value) : NULL;
     }
 
     public function getFullName() {
@@ -66,7 +66,7 @@ class User {
     }
 
     public function setFullName($value) {
-        $this->fullName = $value;
+        $this->fullName = $value !== NULL ? trim($value) : NULL;
     }
 
     public function getGroupId() {
@@ -74,7 +74,7 @@ class User {
     }
 
     public function setGroupId($value) {
-        $this->groupId = $value;
+        $this->groupId = $value+0;
     }
 
     public function getCreationTimestamp() {
@@ -82,7 +82,7 @@ class User {
     }
 
     public function setCreationTimestamp($value) {
-        $this->creationTimestamp = $value;
+        $this->creationTimestamp = $value+0;
     }
 }
 ?>

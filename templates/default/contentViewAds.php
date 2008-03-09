@@ -1,7 +1,7 @@
 <?php
 $_ADS = $PAGE['ads'];
 $_CAT = $PAGE['category'];
-if ( $_ADS==NULL || $_CAT==NULL ) {
+if ( $_ADS===NULL || $_CAT===NULL ) {
 	echo '<center><span class="errorMessage">', $LANG['ERROR_ADS_NOT_FOUND'], '</span></center>';
 	return;
 }
@@ -24,7 +24,7 @@ if ( $_ADS==NULL || $_CAT==NULL ) {
 		<td>
 			<p style="font-style: italic">
     			<?php
-    			if ( $CURRENT_USER != NULL ) {
+    			if ( $CURRENT_USER !== NULL ) {
     			    $link = "index.php?".GET_PARAM_ACTION."=".ACTION_CONTACT_POSTER;
     			    $link .= "&".GET_PARAM_ADS."=".$_ADS->getId();
     			    echo $LANG['ADS_POST_BY'], ' <a href="', $link, '">';
@@ -44,7 +44,22 @@ if ( $_ADS==NULL || $_CAT==NULL ) {
 				<?=$LANG['ADS_EXPIRY']?>:
 				<b><?=date(DATE_FORMAT, $_ADS->getExpiryTimestamp())?></b>
 			</p>
-			<?=$_ADS->getContentForDisplay();?>			
+			<?=$_ADS->getContentForDisplay();?>
+			<p>
+			<?php
+			$urlThumb = 'index.php?'.GET_PARAM_ACTION.'=thumbnail&id={0}&entry={1}';
+			$urlImage = 'index.php?'.GET_PARAM_ACTION.'=viewAttachment&id={0}&entry={1}';
+			foreach ( $ads->getAllAttachments() as $upload ) {
+			    $urlT = str_replace('{0}', $upload->getId(), $urlThumb);
+			    $urlT = str_replace('{1}', $upload->getEntryId(), $urlT);
+			    $urlI = str_replace('{0}', $upload->getId(), $urlImage);
+			    $urlI = str_replace('{1}', $upload->getEntryId(), $urlI);			    
+			    echo '<a target="_blank" href="'.$urlI.'">';
+			    echo '<img src="'.$urlT.'" border="1" width="60" vspace="4">';
+			    echo '</a>&nbsp;';
+			}
+			?>
+			</p>			
 		</td>
 	</tr>
 </tbody>	

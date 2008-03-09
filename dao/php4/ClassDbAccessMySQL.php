@@ -84,7 +84,7 @@ class DbAccessMySQL extends DbAccess {
 		."'{catName}', '{catDescription}', {catPosition}, {parentId})";
 		$sql = str_replace('{catName}', mysql_real_escape_string($name, $conn), $sql);
 		$sql = str_replace('{catDescription}', mysql_real_escape_string($desc, $conn), $sql);
-		if ( $parent != NULL ) {
+		if ( $parent !== NULL ) {
 			$sql = str_replace('{catPosition}', $parent->getNumChildren()+1, $sql);
 			$sql = str_replace('{parentId}', $parent->getId(), $sql);
 		} else {
@@ -150,13 +150,13 @@ class DbAccessMySQL extends DbAccess {
 		$id+=0;
 		$this->_loadCategories();
 		$catsMap = cacheGetEntry(CACHE_KEY_CATEGORIES_MAP);
-		return $catsMap != NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
+		return $catsMap !== NULL && isset($catsMap[$id]) ? $catsMap[$id] : NULL;
 	}
 
 	function getCategoryTree() {
 		$this->_loadCategories();
 		$catsTree = cacheGetEntry(CACHE_KEY_CATEGORIES_TREE);
-		return $catsTree != NULL ? $catsTree : Array();
+		return $catsTree !== NULL ? $catsTree : Array();
 	}
 
 	function getEntry($id) {
@@ -298,7 +298,7 @@ class DbAccessMySQL extends DbAccess {
 
 	function _loadCategories() {
 		$catsList = cacheGetEntry(CACHE_KEY_CATEGORIES_LIST);
-		if ( $catsList != NULL ) return;
+		if ( $catsList !== NULL ) return;
 
 		$conn = getDbConn();
 		$catsList = Array();
@@ -366,9 +366,9 @@ class DbAccessMySQL extends DbAccess {
 		$fullName = trim($fullName);
 		$creationTimestamp = time();
 		$groupId += 0;
-		if ( $groupId != GROUP_ADMINISTRATOR
-		&& $groupId != GROUP_MODERATOR
-		&& $groupId != GROUP_MEMBER ) {
+		if ( $groupId !== GROUP_ADMINISTRATOR
+		&& $groupId !== GROUP_MODERATOR
+		&& $groupId !== GROUP_MEMBER ) {
 			$groupId = GROUP_MEMBER;
 		}
 		$sql = str_replace('{loginName}', mysql_real_escape_string($loginName, $conn), $sql);

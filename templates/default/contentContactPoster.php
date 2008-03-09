@@ -1,7 +1,7 @@
 <?php
 $_ADS = $PAGE['ads'];
 $_CAT = $PAGE['category'];
-if ( $_ADS==NULL || $_CAT==NULL ) {
+if ( $_ADS===NULL || $_CAT===NULL ) {
 	echo '<center><span class="errorMessage">', $LANG['ERROR_ADS_NOT_FOUND'], '</span></center>';
 	return;
 }
@@ -27,7 +27,7 @@ if ( $_ADS==NULL || $_CAT==NULL ) {
 				<input name="<?=$_FORM['fieldAdsId']?>" value="<?=$_FORM['valueAdsId']+0?>" type="hidden">				
 				<table border="0" cellpadding="4" align="center" class="tblForm">
 				<?php
-				if ( $_FORM['errorMessage'] != "" ) {
+				if ( $_FORM['errorMessage'] !== "" ) {
 				?>
 					<tr>
 						<td colspan="2" class="errorMessage" align="center">

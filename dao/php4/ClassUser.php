@@ -29,7 +29,7 @@ class User {
 	}
 	
 	function authenticate($pwd) {
-		return $this->encryptPassword($pwd) == strtolower($this->password);
+		return $this->encryptPassword($pwd) === strtolower($this->password);
 	}
 	
 	function encryptPassword($pwd) {

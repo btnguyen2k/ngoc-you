@@ -3,7 +3,7 @@
 <?php $_FORM = $PAGE['form']; ?>
 <?php $_CAT = $PAGE['category']; ?>
 <?php
-if ( $_CAT == NULL ) {
+if ( $_CAT === NULL ) {
 ?>
 	<center><span class="errorMessage"><?=$LANG['ERROR_CATEGORY_NOT_FOUND']?></span></center>
 <?php
@@ -23,9 +23,9 @@ if ( $_CAT == NULL ) {
 					<option value="0">---</option>
 					<?php
 					foreach ( $PAGE['categoryTree'] as $cat ) {
-						if ( $cat->getId() != $_CAT->getId() ) {
+						if ( $cat->getId() !== $_CAT->getId() ) {
 					?>
-							<option <?=$cat->getId()==$_FORM['valueParentCategoryId']?"selected":""?>
+							<option <?=$cat->getId()===$_FORM['valueParentCategoryId']?"selected":""?>
 								value="<?=$cat->getId()?>"><?=htmlspecialchars($cat->getName())?></option>
 					<?php
 						}

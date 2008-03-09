@@ -3,7 +3,7 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
-if ( $CURRENT_USER == NULL ) {
+if ( $CURRENT_USER === NULL ) {
     header("Location: index.php?".GET_PARAM_ACTION."=".ACTION_LOGIN);
     return;
 }
@@ -20,11 +20,11 @@ if ( isset($_POST[FORM_FIELD_ADS_ID]) ) {
 	$id = $_GET[GET_PARAM_ADS] + 0;
 }
 $ads = getEntry($id);
-if ( $ads != NULL && $ads->isExpired() ) $ads = NULL;
-$cat = $ads!=NULL ? getCategory($ads->getCategoryId()) : NULL;
+if ( $ads !== NULL && $ads->isExpired() ) $ads = NULL;
+$cat = $ads!==NULL ? getCategory($ads->getCategoryId()) : NULL;
 
 $PAGE = Array();
-$PAGE['pageTitle'] = APPLICATION_NAME.' - '.($ads!=NULL?htmlspecialchars($ads->getTitle()):"");
+$PAGE['pageTitle'] = APPLICATION_NAME.' - '.($ads!==NULL?htmlspecialchars($ads->getTitle()):"");
 $PAGE['category'] = $cat;
 $PAGE['ads'] = $ads;
 $PAGE['form'] = Array();
@@ -39,7 +39,7 @@ $PAGE['form']['valueEmail'] = $CURRENT_USER->getEmail();
 $PAGE['form']['valueContent'] = '';
 $PAGE['form']['errorMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $name = isset($_POST[FORM_FIELD_NAME])
 		? trim($_POST[FORM_FIELD_NAME]) : "";
 	$email = isset($_POST[FORM_FIELD_EMAIL])
@@ -49,11 +49,11 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueName'] = $name;
 	$PAGE['form']['valueEmail'] = $email;
 	$PAGE['form']['valueContent'] = $content;
-	if ( $name == "" ) {
+	if ( $name === "" ) {
 	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_NAME'];
-	} elseif ( $email == "" ) {
+	} elseif ( $email === "" ) {
 	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_EMAIL'];
-	} elseif ( $content == "" ) {
+	} elseif ( $content === "" ) {
 	    $PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_CONTENT'];
 	} else {
 	    $subject = $LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'];
@@ -72,14 +72,14 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	}
 	/*
 	$cat = getCategory($categoryId);
-	if ( $cat == NULL || $cat->getParentId()==0 ) {
+	if ( $cat === NULL || $cat->getParentId()===0 ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_INVALID_CATEGORY_SELECTION'];
-	} elseif ( $adsTitle == "" ) {
+	} elseif ( $adsTitle === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_TITLE'];
-	} elseif ( $adsContent == "" ) {
+	} elseif ( $adsContent === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_ADS_CONTENT'];
 	} else {
-		if ( $html == 0 ) {
+		if ( $html === 0 ) {
 			$adsContent = str_replace("\n", "<br>", $adsContent);
 		}
 		$ads->setCategoryId($categoryId);
