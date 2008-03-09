@@ -9,10 +9,17 @@ define("DB_PORT", 3306); //default port for mysql is 3306
 define("DB_USER", "ngocyou");
 define("DB_PASSWORD", "ngocyou");
 define("DB_SCHEMA", "ngocyou");
+$DB_SETUP_SQLS = Array("SET NAMES 'utf8'");
 
 define("TEMPLATE", "default");
 define("LANGUAGE", "en");
-define("WYSIWYG", "xinha");
+
+if ( strpos($_SERVER["HTTP_USER_AGENT"], 'MSIE') ) {
+    //MSIE seems to have problem with xinha (or the other way?)
+    define("WYSIWYG", "fckeditor");
+} else {
+    define("WYSIWYG", "xinha");
+}
 
 define("APPLICATION_NAME", "NgocYou");
 
