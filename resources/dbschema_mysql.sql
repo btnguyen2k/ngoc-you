@@ -18,6 +18,8 @@ INSERT INTO nyconfig VALUES ('SITE_DESCRIPTION', 'NgocYou Description');
 INSERT INTO nyconfig VALUES ('MAX_UPLOAD_FILES', '5');
 INSERT INTO nyconfig VALUES ('MAX_UPLOAD_SIZE', '1000000');
 INSERT INTO nyconfig VALUES ('ALLOWED_UPLOAD_FILE_TYPES', '.gif .png .jpg');
+INSERT INTO nyconfig VALUES ('EMAIL_OUTGOING', 'noreply@domain.com');
+INSERT INTO nyconfig VALUES ('EMAIL_ADMINISTRATOR', 'admin@domain.com');
 
 CREATE TABLE nylocation (
 	lid						INTEGER			NOT NULL AUTO_INCREMENT,
@@ -113,10 +115,13 @@ CREATE TABLE nyuser (
 	ucreationtimestamp		INTEGER			NOT NULL DEFAULT 0,
 		INDEX (ucreationtimestamp),
 	ugroupid				INTEGER			NOT NULL DEFAULT 0,
+	uactivationcode			VARCHAR(32),
 	PRIMARY KEY(uid)
 ) ENGINE=InnoDb;
 INSERT INTO nyuser (uid, uloginname, upassword, uemail, ufullname, ugroupid, ucreationtimestamp)
 VALUES (1, 'admin', MD5('password'), 'admin@domain.com', 'Administrator', 1, UNIX_TIMESTAMP());
+INSERT INTO nyuser (uid, uloginname, upassword, uemail, ufullname, ugroupid, ucreationtimestamp)
+VALUES (2, 'moderator', MD5('password'), 'moderator@domain.com', 'Moderator', 1, UNIX_TIMESTAMP());
 
 CREATE TABLE nycategory (
 	cid						INTEGER			NOT NULL AUTO_INCREMENT,
