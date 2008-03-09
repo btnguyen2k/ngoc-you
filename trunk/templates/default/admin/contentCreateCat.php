@@ -14,7 +14,7 @@
 				<?php
 				foreach ( $PAGE['categoryTree'] as $cat ) {
 				?>
-					<option <?=$cat->getId()==$_FORM['valueParentCategoryId']?"selected":""?>
+					<option <?=$cat->getId()===$_FORM['valueParentCategoryId']?"selected":""?>
 						value="<?= $cat->getId() ?>"><?= htmlspecialchars($cat->getName()) ?></option>
 				<?php
 				}

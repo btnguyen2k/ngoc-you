@@ -24,7 +24,7 @@ $PAGE['form']['valueFullName'] = '';
 $PAGE['form']['errorMessage'] = '';
 $PAGE['form']['informationMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$loginName = isset($_POST[FORM_FIELD_LOGIN_NAME])
 		? strtolower(trim($_POST[FORM_FIELD_LOGIN_NAME])) : "";
 	$pwd = isset($_POST[FORM_FIELD_PASSWORD])
@@ -38,17 +38,17 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueLoginName'] = $loginName;
 	$PAGE['form']['valueEmail'] = $email;
 	$PAGE['form']['valueFullName'] = $fullName;
-	if ( $loginName == "" ) {
+	if ( $loginName === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_LOGIN_NAME'];
-	} elseif ( $pwd == "" ) {
+	} elseif ( $pwd === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_PASSWORD'];
-	} elseif ( $pwd != $pwdConfirmed ) {
+	} elseif ( $pwd !== $pwdConfirmed ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_CONFIRMED_PASSWORD_NOT_MATCH'];
-	} elseif ( $email == "" ) {
+	} elseif ( $email === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_EMAIL'];
-	} elseif ( getUserByLoginName($loginName) != NULL ) {
+	} elseif ( getUserByLoginName($loginName) !== NULL ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_NAME_ALREADY_EXISTS'];
-	} elseif ( getUserByEmail($email) != NULL ) {
+	} elseif ( getUserByEmail($email) !== NULL ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMAIL_ALREADY_EXISTS'];
 	} else {
 		$user = createUser($loginName, $pwd, $email, $fullName);

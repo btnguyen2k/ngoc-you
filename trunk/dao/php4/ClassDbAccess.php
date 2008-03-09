@@ -11,7 +11,7 @@ class DbAccess {
 	}
 	
 	function getDbConn() {
-		if ( $this->dbConn == NULL ) {
+		if ( $this->dbConn === NULL ) {
 			$this->dbConn = $this->createDbConn();
 		}
 		return $this->dbConn;

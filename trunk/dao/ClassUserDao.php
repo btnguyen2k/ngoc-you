@@ -44,6 +44,48 @@ class UserDao {
     }
 
     /**
+     * Gets a user account by email.
+     *
+     * @param string
+     * @return User
+     */
+    public static function getUserByEmail($email) {
+        $email = strtolower(trim($email));
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = 'SELECT * FROM '.TABLE_USER.' WHERE uemail=?';
+        $rs = $adodb->Execute($sql, Array($email));
+        $user = NULL;
+        if ( !$rs->EOF ) {
+            $user = new User();
+            $user->populate($rs->fields);
+        }
+        $rs->Close();
+        return $user;
+    }
+    
+/**
+     * Gets a user account by login name.
+     *
+     * @param string
+     * @return User
+     */
+    public static function getUserByLoginName($loginName) {
+        $loginName = strtolower(trim($loginName));
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = 'SELECT * FROM '.TABLE_USER.' WHERE uloginname=?';
+        $rs = $adodb->Execute($sql, Array($loginName));
+        $user = NULL;
+        if ( !$rs->EOF ) {
+            $user = new User();
+            $user->populate($rs->fields);
+        }
+        $rs->Close();
+        return $user;
+    }
+
+    /**
      * Updates a user account.
      *
      * @param User

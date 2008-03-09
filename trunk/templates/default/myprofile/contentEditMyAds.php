@@ -3,18 +3,18 @@
 <?php $_FORM = $PAGE['form']; ?>
 <?php $_ADS = $PAGE['ads']; ?>
 <?php
-if ( $_ADS == NULL ) {
+if ( $_ADS === NULL ) {
 ?>
 	<center><span class="errorMessage"><?=$LANG['ERROR_ADS_NOT_FOUND']?></span></center>
 <?php
 } else {
 ?>
-	<form method="POST" action="<?=$_FORM['action']?>">
+	<form method="POST" action="<?=$_FORM['action']?>" enctype="multipart/form-data">
 		<input type="hidden" name="html" value="0">
 		<input name="<?=$_FORM['fieldAdsId']?>" value="<?=$_FORM['valueAdsId']+0?>" type="hidden">
 		<table border="0" cellpadding="4" cellspacing="1" align="center">
 		<?php
-		if ( $_FORM['errorMessage'] != "" ) {
+		if ( $_FORM['errorMessage'] !== "" ) {
 		?>
 			<tr>
 				<td colspan="2" class="errorMessage" align="center">
@@ -25,7 +25,7 @@ if ( $_ADS == NULL ) {
 		}
 		?>			
 		<tr>
-			<td><?=$LANG['CATEGORY']?>:</td>
+			<td valign="top"><?=$LANG['CATEGORY']?>:</td>
 			<td>
 				<select name="<?=$_FORM['fieldCategory']?>">
 					<option value="0">&nbsp;</option>
@@ -33,7 +33,7 @@ if ( $_ADS == NULL ) {
 					foreach ( $PAGE['categoryTree'] as $cat ) {
 						echo '<optgroup label="', htmlspecialchars($cat->getName()), '">';
 						foreach ( $cat->getChildren() as $child ) {
-							if ( $child->getId() == $PAGE['form']['valueCategory'] ) {
+							if ( $child->getId() === $PAGE['form']['valueCategory'] ) {
 								echo '<option value="', $child->getId(), '" selected>';
 							} else {
 								echo '<option value="', $child->getId(), '">';
@@ -44,22 +44,74 @@ if ( $_ADS == NULL ) {
 					}
 					?>
 				</select>
+				<br>
+				<?=$LANG['ADS_TYPE']?>:
+				<input <?=$_FORM['valueAdsType']===0?"checked":""?> type="radio"
+					name="<?=$_FORM['fieldAdsType']?>" value="0"> <?=$LANG['ADS_TYPE_SELL']?>
+				<input <?=$_FORM['valueAdsType']!==0?"checked":""?> type="radio"
+					name="<?=$_FORM['fieldAdsType']?>" value="1"> <?=$LANG['ADS_TYPE_BUY']?>
+				&nbsp;<span style="border-left: 1px solid #000000; height: 100%;">&nbsp;</span>
+				<?=$LANG['ADS_PRICE']?>:
+				<script language="javascript" type="text/javascript">
+				function selectPrice(formEl) {
+					if ( formEl.selectedIndex === 0 ) {
+						//contact
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.readOnly=true;
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.className='textbox_disabled';
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.value='';
+					} else if ( formEl.selectedIndex === 1 ) {
+						//free
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.readOnly=true;
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.className='textbox_disabled';
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.value='0';
+					} else {
+						//specify
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.readOnly=false;
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.className='textbox_blue';
+						formEl.form.<?=$_FORM['fieldAdsPrice']?>.value='0';
+					}
+				}
+				</script>
+				<select name="price_temp" onchange="selectPrice(this)">
+					<option <?=!isset($_FORM['valueAdsPrice']) ? "selected" : ""?>><?=$LANG['ADS_PRICE_CONTACT']?></option>
+					<option <?=isset($_FORM['valueAdsPrice'])&&$_FORM['valueAdsPrice']<=0 ? "selected" : ""?>><?=$LANG['ADS_PRICE_FREE']?></option>
+					<option <?=isset($_FORM['valueAdsPrice'])&&$_FORM['valueAdsPrice']>0 ? "selected" : ""?>><?=$LANG['ADS_PRICE_SPECIFY']?></option>
+				</select>
+				<input <?=!isset($_FORM['valueAdsPrice'])||$_FORM['valueAdsPrice']<=0 ? 'readonly class="textbox_disabled" ' : 'class="textbox_blue"'?>
+					type="text" name="<?=$_FORM['fieldAdsPrice']?>" style="width: 64px"
+					value="<?=htmlspecialchars($_FORM['valueAdsPrice'])?>"> VND
+				<br>
+				<?=$LANG['ADS_LOCATION']?>:
+				<select name="<?=$_FORM['fieldAdsLocation']?>">
+					<option value="0">-----</option>
+					<?php
+					foreach ( $PAGE['locations'] as $key=>$value ) {
+					    if ( isset($_FORM['valueAdsLocation']) && $_FORM['valueAdsLocation']===$key ) {
+					        echo '<option selected value="'.($key+0).'">';
+					    } else {
+					        echo '<option value="'.($key+0).'">';
+					    }
+					    echo htmlspecialchars($value);
+					    echo '</option>';
+					}
+					?>
+				</select>
 			</td>
 		</tr>	
 		<tr>
-			<td><?=$LANG['ADS_TITLE']?>:</td>
+			<td valign="top"><?=$LANG['ADS_TITLE']?>:</td>
 			<td><input class="textbox_blue" name="<?=$_FORM['fieldAdsTitle']?>" 
 				value="<?=htmlspecialchars($_FORM['valueAdsTitle'])?>"
 				type="text" style="width: 256px"></td>
 		</tr>
 		<tr>
-			<td><?=$LANG['ADS_CONTENT']?>:</td>
+			<td valign="top"><?=$LANG['ADS_CONTENT']?>:</td>
 			<td>
 				<?php
-				if ( WYSIWYG=='xinha' ) {
+				if ( WYSIWYG==='xinha' ) {
 					require_once 'templates/'.TEMPLATE.'/xinha.php';
 					xinha($_FORM['fieldAdsContent'], $_FORM['valueAdsContent'], 512, 300);
-				} elseif ( WYSIWYG=='fckeditor' ) {
+				} elseif ( WYSIWYG==='fckeditor' ) {
 					require_once 'templates/'.TEMPLATE.'/fckeditor.php';
 				} else {
 					echo '<textarea class="textbox_blue" name="', $_FORM['fieldAdsContent'];
@@ -77,6 +129,50 @@ if ( $_ADS == NULL ) {
 					style="width: 64px" class="button" type="button" value="<?=$LANG['CANCEL']?>">
 			</td>
 		</tr>
+		<?php
+		if ( $_ADS->hasAttachment() || (isset($PAGE['config']['MAX_UPLOAD_FILES']) && $PAGE['config']['MAX_UPLOAD_FILES'] > 0) ) {
+		?>
+			<tr>
+				<td valign="top"><?=$LANG['ATTACH_IMAGES']?>:</td>
+				<td>
+					<?php
+					$uploadedFiles = $_ADS->countAttachments();					
+					if ( $uploadedFiles > 0 ) {					    
+					    $uploadedSize = $_ADS->countAttachmentSize();
+					    $urlThumb = 'index.php?'.GET_PARAM_ACTION.'=thumbnail&id={0}&entry={1}';
+					    echo '<table border="0" cellpadding="4" cellspacing="1"><tr>';
+					    foreach ( $_ADS->getAllAttachments() as $upload ) {
+					        echo '<td valign="top">';
+					        echo '<input type="checkbox" value="1" name="', $_FORM['fieldDeleteUpload'].$upload->getId(), '">';
+					        echo $LANG['DELETE'], '<br>';
+					        $urlT = str_replace('{0}', $upload->getId(), $urlThumb);
+					        $urlT = str_replace('{1}', $upload->getEntryId(), $urlT);
+					        echo '<img src="'.$urlT.'" border="1" width="60">';
+					        echo '</td>';
+					    }
+					    echo '</tr></table>';					
+					    echo '<br>';
+					}
+					if ( $uploadedFiles < $PAGE['config']['MAX_UPLOAD_FILES'] ) {
+					?>				
+					    <?=$LANG['ALLOWED_UPLOAD_FILE_TYPES']?>: <b><?=$PAGE['config']['ALLOWED_UPLOAD_FILE_TYPES']?></b>
+						<br>
+					    <?=$LANG['MAX_UPLOAD_SIZE']?>: <b><?=$PAGE['config']['MAX_UPLOAD_SIZE']-$uploadedSize?> bytes</b>
+					    <br><br>
+					    <?php
+					    for ( $i = 0; $i < $PAGE['config']['MAX_UPLOAD_FILES']-$uploadedFiles; $i++ ) {
+					    ?>
+				    		<input type="file" class="textbox_blue" style="width: 300px"
+				    			name="<?=$_FORM['fieldAttachImage'].$i?>"><br>
+					    <?php
+				        }
+                    }
+				    ?>
+				</td>
+			</tr>
+		<?php
+		}
+		?>		
 		</table>
 	</form>
 <?php

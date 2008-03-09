@@ -34,7 +34,18 @@ $LANG['GO_BACK'] = 'Go Back';
 $LANG['ADS_MANAGEMENT'] = 'Ads Management';
 $LANG['MY_ADS'] = 'My ads';
 $LANG['POST_ADS'] = 'Post to classifieds';
+$LANG['ATTACH_IMAGES'] = 'Attach Images';
+$LANG['ALLOWED_UPLOAD_FILE_TYPES'] = 'Allowed file types';
+$LANG['MAX_UPLOAD_SIZE'] = 'Maximum upload size';
 
+$LANG['ADS_LOCATION'] = 'City/Province';
+$LANG['ADS_PRICE'] = 'Price';
+$LANG['ADS_PRICE_CONTACT'] = 'Contact';
+$LANG['ADS_PRICE_FREE'] = 'Free';
+$LANG['ADS_PRICE_SPECIFY'] = 'Specify';
+$LANG['ADS_TYPE'] = 'Type';
+$LANG['ADS_TYPE_SELL'] = 'Sell';
+$LANG['ADS_TYPE_BUY'] = 'Buy';
 $LANG['ADS_TITLE'] = 'Title';
 $LANG['ADS_CONTENT'] = 'Content';
 $LANG['ADS_EXPIRY'] = 'Expiry';
@@ -129,8 +140,15 @@ $LANG['ERROR_ADS_NOT_FOUND'] = 'Error: Ads not found!';
 $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_NAME'] = 'Error: Please enter your name!';
 $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_EMAIL'] = 'Error: Please enter your email address!';
 $LANG['ERROR_EMPTY_ADS_CONTACT_POSTER_CONTENT'] = 'Error: Please enter message to send!';
+$LANG['ERROR_UPLOAD_FILE_NOT_ALLOWED'] = 'Error: File "{0}" is not allowed to upload!';
+$LANG['ERROR_UPLOAD_TOTAL_SIZE_TOO_LARGE'] = 'Error: Total upload size ({0} bytes) exceeds the allowed value ({1} bytes)!';
+$LANG['ERROR_UPLOAD_SIZE_TOO_LARGE_PHP_INI'] = 'Error: Upload size is too large!';
+$LANG['ERROR_UPLOAD_SIZE_TOO_LARGE_FORM'] = 'Error: Upload size exceeds {0} bytes!';
+$LANG['ERROR_UPLOAD_GENERAL'] = 'Error: There was a network error while uploading file(s)!';
 
 $LANG['INFO_PASSWORD_CHANGED'] = 'Information: Password has been changed successfully!';
 $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed successfully!';
-$LANG['INFO_EMAIL_CHANGED'] = 'Information: Email has been changed successfully!'
+$LANG['INFO_EMAIL_CHANGED'] = 'Information: Email has been changed successfully!';
+$LANG['INFO_FILES_UPLOADED'] = 'Information: {0} file(s) uploaded!';
+$LANG['INFO_ATTACHMENTS_DELETED'] = 'Information: {0} attachment(s) deleted!';
 ?>

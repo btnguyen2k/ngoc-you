@@ -19,7 +19,7 @@ $PAGE['form']['valueConfirmedNewEmail'] = $CURRENT_USER->getEmail();
 $PAGE['form']['errorMessage'] = '';
 $PAGE['form']['informationMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$currentPwd = isset($_POST[FORM_FIELD_CURRENT_PASSWORD])
 		? trim($_POST[FORM_FIELD_CURRENT_PASSWORD]) : "";
 	$newEmail = isset($_POST[FORM_FIELD_NEW_EMAIL])
@@ -30,18 +30,18 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueConfirmedNewEmail'] = $confirmedNewEmail;
 	if ( !$CURRENT_USER->authenticate($currentPwd) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_PASSWORD_NOT_MATCH'];
-	} elseif ( $newEmail == "" ) {
+	} elseif ( $newEmail === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_NEW_EMAIL'];
-	} elseif ( $newEmail != $confirmedNewEmail ) {
+	} elseif ( $newEmail !== $confirmedNewEmail ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_CONFIRMED_EMAIL_NOT_MATCH'];
 	} else {
 		$oldEmail = trim($CURRENT_USER->getEmail());
-		if ( strtolower($oldEmail) != strtolower($newEmail) ) {
-			if ( getUserByEmail($newEmail) != NULL ) {
+		if ( strtolower($oldEmail) !== strtolower($newEmail) ) {
+			if ( getUserByEmail($newEmail) !== NULL ) {
 				$PAGE['form']['errorMessage'] = $LANG['ERROR_EMAIL_ALREADY_EXISTS'];
 			}
 		}
-		if ( $PAGE['form']['errorMessage'] == '' ) {
+		if ( $PAGE['form']['errorMessage'] === '' ) {
 			$CURRENT_USER->setEmail($newEmail);
 			$PAGE['form']['informationMessage'] = $LANG['INFO_EMAIL_CHANGED'];
 			updateUser($CURRENT_USER);	

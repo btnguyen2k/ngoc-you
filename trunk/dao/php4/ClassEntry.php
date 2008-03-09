@@ -110,9 +110,9 @@ class Entry {
 		$this->creationTimestamp = $tblRow['ecreationtimestamp']+0;
 		$this->expiryTimestamp = $tblRow['eexpirytimestamp']+0;
 		$this->title = $tblRow['etitle'];
-		if ( $this->title != NULL ) $this->title = trim($this->title);
+		if ( $this->title !== NULL ) $this->title = trim($this->title);
 		$this->content = $tblRow['ebody'];
-		if ( $this->content != NULL ) $this->content = trim($this->content);
+		if ( $this->content !== NULL ) $this->content = trim($this->content);
 		$this->numViews = $tblRow['enumviews']+0;
 	}
 }

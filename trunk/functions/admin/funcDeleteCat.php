@@ -22,7 +22,7 @@ $PAGE['form']['action'] = 'admin.php?'.GET_PARAM_ACTION.'='.ACTION_DELETE_CAT;
 $PAGE['form']['fieldCategoryId'] = FORM_FIELD_CAT_ID;
 $PAGE['form']['valueCategoryId'] = $id;
 
-if ( $cat != NULL && $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $cat !== NULL && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	deleteCategory($cat->getId());
 	header('Location: admin.php?'.GET_PARAM_ACTION.'='.ACTION_CAT_MANAGEMENT);
 	return;	

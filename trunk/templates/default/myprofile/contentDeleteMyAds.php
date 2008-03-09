@@ -3,7 +3,7 @@
 <?php $_FORM = $PAGE['form']; ?>
 <?php $_ADS = $PAGE['ads']; ?>
 <?php
-if ( $_ADS == NULL ) {
+if ( $_ADS === NULL ) {
 ?>
 	<center><span class="errorMessage"><?=$LANG['ERROR_ADS_NOT_FOUND']?></span></center>
 <?php
@@ -24,7 +24,7 @@ if ( $_ADS == NULL ) {
 					foreach ( $PAGE['categoryTree'] as $cat ) {
 						echo '<optgroup label="', htmlspecialchars($cat->getName()), '">';
 						foreach ( $cat->getChildren() as $child ) {
-							if ( $child->getId() == $_ADS->getCategoryId() ) {
+							if ( $child->getId() === $_ADS->getCategoryId() ) {
 								echo '<option value="', $child->getId(), '" selected>';
 							} else {
 								echo '<option value="', $child->getId(), '">';

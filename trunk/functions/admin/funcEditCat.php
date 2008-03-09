@@ -27,12 +27,12 @@ $PAGE['form']['fieldCategoryParentId'] = FORM_FIELD_PARENT_CAT_ID;
 $PAGE['form']['fieldCategoryName'] = FORM_FIELD_CAT_NAME;
 $PAGE['form']['fieldCategoryDescription'] = FORM_FIELD_CAT_DESC;
 $PAGE['form']['valueCategoryId'] = $id;
-$PAGE['form']['valueParentCategoryId'] = $cat != NULL ? $cat->getParentId() : 0;
-$PAGE['form']['valueCategoryName'] = $cat != NULL ? $cat->getName() : '';
-$PAGE['form']['valueCategoryDescription'] = $cat != NULL ? $cat->getDescription() : '';
+$PAGE['form']['valueParentCategoryId'] = $cat !== NULL ? $cat->getParentId() : 0;
+$PAGE['form']['valueCategoryName'] = $cat !== NULL ? $cat->getName() : '';
+$PAGE['form']['valueCategoryDescription'] = $cat !== NULL ? $cat->getDescription() : '';
 $PAGE['form']['errorMessage'] = '';
 
-if ( $cat != NULL && $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $cat !== NULL && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$catName = isset($_POST[FORM_FIELD_CAT_NAME])
 		? $_POST[FORM_FIELD_CAT_NAME] : "";
 	$catDesc = isset($_POST[FORM_FIELD_CAT_DESC])
@@ -45,13 +45,13 @@ if ( $cat != NULL && $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$PAGE['form']['valueCategoryName'] = $catName;
 	$PAGE['form']['valueCategoryDescription'] = $catDesc;
 	$PAGE['form']['valueParentCategoryId'] = $catParentId;
-	if ( $catName == "" ) {
+	if ( $catName === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_CATEGORY_NAME'];
 	} else {
 		$parent = getCategory($catParentId);
-		if ( $cat->getNumChildren() > 0 || $parent == NULL ) {
+		if ( $cat->getNumChildren() > 0 || $parent === NULL ) {
 			$cat->setParentId(0);
-		} elseif ( $catParentId != $cat->getId() ) {
+		} elseif ( $catParentId !== $cat->getId() ) {
 			$cat->setParentId($catParentId);
 		}
 		$cat->setName($catName);

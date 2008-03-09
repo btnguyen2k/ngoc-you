@@ -17,7 +17,7 @@ $PAGE['form']['fieldConfirmedNewPassword'] = FORM_FIELD_CONFIRMED_NEW_PASSWORD;
 $PAGE['form']['errorMessage'] = '';
 $PAGE['form']['informationMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$currentPwd = isset($_POST[FORM_FIELD_CURRENT_PASSWORD])
 		? trim($_POST[FORM_FIELD_CURRENT_PASSWORD]) : "";
 	$newPwd = isset($_POST[FORM_FIELD_NEW_PASSWORD])
@@ -26,9 +26,9 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		? trim($_POST[FORM_FIELD_CONFIRMED_NEW_PASSWORD]) : "";
 	if ( !$CURRENT_USER->authenticate($currentPwd) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_PASSWORD_NOT_MATCH'];
-	} elseif ( $newPwd == "" ) {
+	} elseif ( $newPwd === "" ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_EMPTY_NEW_PASSWORD'];
-	} elseif ( $newPwd != $newPwdConfirmed ) {
+	} elseif ( $newPwd !== $newPwdConfirmed ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_CONFIRMED_PASSWORD_NOT_MATCH'];
 	} else {
 		$CURRENT_USER->setPassword($CURRENT_USER->encryptPassword($newPwd));

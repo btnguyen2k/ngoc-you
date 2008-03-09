@@ -6,7 +6,7 @@ echo str_replace('{0}', $name, $LANG['WELCOME']);
 <ul>
 	<li><a href="index.php"><?=$LANG['HOME']?></a>
 	<?php
-	if ( $CURRENT_USER->getGroupId() == GROUP_ADMINISTRATOR ) {
+	if ( $CURRENT_USER->getGroupId() === GROUP_ADMINISTRATOR ) {
 	?>
 		<li><a href="admin.php"><?=$LANG['ADMIN_SECTION']?></a>
 	<?php

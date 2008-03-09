@@ -73,9 +73,9 @@ class Category {
 		$this->parentId = $tblRow['cparentid']+0;
 		$this->position = $tblRow['cposition']+0;
 		$this->name = $tblRow['cname'];
-		if ( $this->name != NULL ) $this->name = trim($this->name);
+		if ( $this->name !== NULL ) $this->name = trim($this->name);
 		$this->desc = $tblRow['cdesc'];
-		if ( $this->desc != NULL ) $this->desc = trim($this->desc);
+		if ( $this->desc !== NULL ) $this->desc = trim($this->desc);
 		$this->children = Array();
 		$this->numViews = $tblRow['cnumviews']+0;
 	}
@@ -88,7 +88,7 @@ class Category {
 			if ( !is_a($cat, "Category") ) return NULL;
 		}
 
-		if ( $cat->getParentId() != $this->getId() ) return NULL;
+		if ( $cat->getParentId() !== $this->getId() ) return NULL;
 
 		if ( !is_array($this->children) ) {
 			$this->children = Array();
@@ -121,7 +121,7 @@ class Category {
 
 //sort descendingly
 function __cmpChild($a, $b) {
-	if ( $a->getPosition() == $b->getPosition() ) return 0;
+	if ( $a->getPosition() === $b->getPosition() ) return 0;
 	return $a->getPosition() < $b->getPosition() ? 1 : -1;
 }
 ?>

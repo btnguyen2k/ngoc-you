@@ -4,7 +4,7 @@
 <form method="POST" action="<?=$_FORM['action']?>">
 	<table border="0" cellpadding="4" cellspacing="1" align="center">
 	<?php
-	if ( $_FORM['errorMessage'] != "" ) {
+	if ( $_FORM['errorMessage'] !== "" ) {
 	?>
 		<tr>
 			<td colspan="2" class="errorMessage" align="center">
@@ -15,7 +15,7 @@
 	}
 	?>			
 	<?php
-	if ( $_FORM['informationMessage'] != "" ) {
+	if ( $_FORM['informationMessage'] !== "" ) {
 	?>
 		<tr>
 			<td colspan="2" class="infoMessage" align="center">
