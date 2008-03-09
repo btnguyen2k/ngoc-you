@@ -190,9 +190,8 @@ function countUsers() {
     return UserDao::countUsers();
 }
 
-function createUser($loginName, $password, $email, $fullName) {
-    global $DBACCESS;
-    return $DBACCESS->createUser($loginName, $password, $email, $fullName);
+function createUser($userData) {
+    return UserDao::createUser($userData);
 }
 
 function getUser($id) {

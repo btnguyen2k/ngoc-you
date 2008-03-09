@@ -43,10 +43,18 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
+		<td><img border="0" src="index.php?<?=GET_PARAM_ACTION?>=captcha&key=<?=$PAGE['captchaKey']?>"></td>
+	</tr>
+	<tr>
+		<td><?=$LANG['SECURITY_CODE']?>:</td>
+		<td><input name="<?=$_FORM['fieldCaptcha']?>" type="text" style="width: 160px"> *</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
 		<td>
 			<input type="submit" value="<?=$LANG['REGISTER']?>">
 			<input onclick='location.href="index.php"' type="button" value="<?=$LANG['CANCEL']?>">
 		</td>
-	</tr>
+	</tr>	
 	</table>
 </form>

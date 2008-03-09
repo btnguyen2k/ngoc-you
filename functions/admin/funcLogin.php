@@ -22,7 +22,11 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$user = getUserByLoginName($loginName);
 	if ( $user === NULL || !$user->authenticate($password) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
-	} else {
+	} elseif ( !$user->isActivated() ) {
+        $PAGE['form']['errorMessage'] = $LANG['ERROR_ACCOUNT_NOT_ACTIVATED'];
+    } elseif ( $user->getGroupId() !== GROUP_ADMINISTRATOR && $user->getGroupId() !== GROUP_MODERATOR ) {
+        $PAGE['form']['errorMessage'] = $LANG['ERROR_NO_PERMISSION'];
+    } else {
 		$_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
 		header('Location: admin.php');
 		return;

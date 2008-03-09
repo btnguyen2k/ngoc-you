@@ -26,7 +26,8 @@ if ( !isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
 } else {
 	 $CURRENT_USER = getUser($_SESSION[SESSION_CURRENT_USER_ID]);
 	 if ( $CURRENT_USER === NULL 
-	 		|| $CURRENT_USER->getGroupId() !== GROUP_ADMINISTRATOR ) {
+	 		|| ($CURRENT_USER->getGroupId() !== GROUP_ADMINISTRATOR
+	 		    && $CURRENT_USER->getGroupId() !== GROUP_MODERATOR) ) {
 	 	$ACTION = ACTION_LOGIN;
 	 }
 }

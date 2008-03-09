@@ -15,19 +15,21 @@ $PAGE['form']['action'] = $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_L
 $PAGE['form']['errorMessage'] = '';
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-	$loginName = isset($_POST[FORM_FIELD_LOGIN_NAME])
-		? $_POST[FORM_FIELD_LOGIN_NAME] : "";
-	$password = isset($_POST[FORM_FIELD_PASSWORD])
-		? $_POST[FORM_FIELD_PASSWORD] : "";
-	$user = getUserByLoginName($loginName);
-	if ( $user === NULL || !$user->authenticate($password) ) {
-		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
-	} else {
-		$_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
-		$url = isset($_SESSION[SESSION_LAST_ACCESS_PAGE]) ? $_SESSION[SESSION_LAST_ACCESS_PAGE] : 'index.php';
-		header('Location: '.$url);
-		return;
-	}
+    $loginName = isset($_POST[FORM_FIELD_LOGIN_NAME])
+    ? $_POST[FORM_FIELD_LOGIN_NAME] : "";
+    $password = isset($_POST[FORM_FIELD_PASSWORD])
+    ? $_POST[FORM_FIELD_PASSWORD] : "";
+    $user = getUserByLoginName($loginName);
+    if ( $user === NULL || !$user->authenticate($password) ) {
+        $PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
+    } elseif ( !$user->isActivated() ) {
+        $PAGE['form']['errorMessage'] = $LANG['ERROR_ACCOUNT_NOT_ACTIVATED'];
+    } else {
+        $_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
+        $url = isset($_SESSION[SESSION_LAST_ACCESS_PAGE]) ? $_SESSION[SESSION_LAST_ACCESS_PAGE] : 'index.php';
+        header('Location: '.$url);
+        return;
+    }
 }
 
 require_once 'templates/'.TEMPLATE.'/pageLogin.php';

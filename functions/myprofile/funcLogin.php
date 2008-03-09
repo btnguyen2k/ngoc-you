@@ -22,7 +22,9 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$user = getUserByLoginName($loginName);
 	if ( $user === NULL || !$user->authenticate($password) ) {
 		$PAGE['form']['errorMessage'] = $LANG['ERROR_LOGIN_FAILED'];
-	} else {
+	} elseif ( !$user->isActivated() ) {
+        $PAGE['form']['errorMessage'] = $LANG['ERROR_ACCOUNT_NOT_ACTIVATED'];
+    } else {
 		$_SESSION[SESSION_CURRENT_USER_ID] = $user->getId();
 		header('Location: myprofile.php');
 		return;

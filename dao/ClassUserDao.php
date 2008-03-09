@@ -24,6 +24,35 @@ class UserDao {
     }
 
     /**
+     * Creates a new user account.
+     *
+     * @param User
+     * @return User
+     */
+    public static function createUser($userData) {
+        $adodb = adodbGetConnection();
+        $sql = "INSERT INTO ".TABLE_USER
+        ." (uloginname, upassword, uemail, ufullname, ucreationtimestamp, ugroupid, uactivationcode)"
+        ." VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $params = Array();
+        $params[] = strtolower(trim($userData->getLoginName()));
+        $params[] = md5(trim($userData->getPassword()));
+        $params[] = strtolower(trim($userData->getEmail()));        
+        $params[] = trim($userData->getFullName());
+        $params[] = time();
+        $groupId = $userData->getGroupId();
+        if ( $groupId !== GROUP_ADMINISTRATOR && $groupId !== GROUP_MODERATOR && $groupId !== GROUP_MEMBER ) {
+            $groupId = GROUP_MEMBER;
+        }
+        $params[] = $groupId;
+        $params[] = strtolower(trim($userData->getActivationCode()));
+        if ( $adodb->Execute($sql, $params) === false ) {
+            die('['.__CLASS__.'.createUser()] Error: ' . $adodb->ErrorMsg());
+        }
+        return self::getUserByLoginName($params[0]);
+    }
+
+    /**
      * Gets a user account by id.
      *
      * @param integer
@@ -63,8 +92,8 @@ class UserDao {
         $rs->Close();
         return $user;
     }
-    
-/**
+
+    /**
      * Gets a user account by login name.
      *
      * @param string
@@ -92,9 +121,9 @@ class UserDao {
      */
     public static function updateUser($user) {
         $adodb = adodbGetConnection();
-        $sql = 'UPDATE '.TABLE_USER.' SET uloginname=?, upassword=?, uemail=?, ufullname=? WHERE uid=?';
+        $sql = 'UPDATE '.TABLE_USER.' SET uloginname=?, upassword=?, uemail=?, ufullname=?, uactivationcode=? WHERE uid=?';
         $params = Array($user->getLoginName(), $user->getPassword(), $user->getEmail(),
-        $user->getFullName(), $user->getId());
+        $user->getFullName(), $user->getActivationCode(), $user->getId());
         if ( $adodb->Execute($sql, $params) === false ) {
             die('['.__CLASS__.'.updateUser()] Error: ' . $adodb->ErrorMsg());
         }
