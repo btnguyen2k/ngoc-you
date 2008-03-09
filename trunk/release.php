@@ -53,4 +53,5 @@ $RELEASE_DIR = 'release';
 removeTree($RELEASE_DIR, true);
 mkdir($RELEASE_DIR);
 copyDir(".", $RELEASE_DIR);
+copy(".htaccess", $RELEASE_DIR."/.htaccess");
 ?>
