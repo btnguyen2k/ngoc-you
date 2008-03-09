@@ -18,6 +18,8 @@ define("ACTION_REGISTER_DONE", 'registerDone');
 define("ACTION_RSS_CAT", 'rssCat');
 define("ACTION_THUMBNAIL", 'thumbnail');
 define("ACTION_VIEW_ATTACHMENT", 'viewAttachment');
+define("ACTION_CAPTCHA", 'captcha');
+define("ACTION_ACTIVATE_ACCOUNT", 'activateAccount');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -55,6 +57,10 @@ if ( $ACTION === ACTION_LOGIN ) {
  	require_once 'functions/funcThumbnail.php';	
 } elseif ( $ACTION === ACTION_VIEW_ATTACHMENT ) {
  	require_once 'functions/funcViewAttachment.php';	
+} elseif ( $ACTION === ACTION_CAPTCHA ) {
+ 	require_once 'functions/funcDisplayCaptcha.php';	
+} elseif ( $ACTION === ACTION_ACTIVATE_ACCOUNT ) {
+	require_once 'functions/funcActivateAccount.php';	
 } else {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcIndex.php';	

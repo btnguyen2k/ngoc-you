@@ -28,8 +28,22 @@ $LANG['MOVE_UP'] = 'Up';
 $LANG['MOVE_DOWN'] = 'Down';
 $LANG['CHANGE'] = 'Change';
 $LANG['REGISTER'] = 'Register';
-$LANG['REGISTER_DONE'] = 'Congratulation! Account {0} has been created successfully!';
+$LANG['REGISTER_DONE'] = 'Congratulation! Account {0} has been created successfully. '
+    .'However, you must activate your account before you are be able to login. '
+    .'An email with instructions to activate your account has been sent to your email address.';
 $LANG['GO_BACK'] = 'Go Back';
+$LANG['SECURITY_CODE'] = 'Security Code';
+$LANG['ACTIVATE_ACCOUNT'] = 'Activate Account';
+
+$LANG['REGISTER_EMAIL_SUBJECT'] = 'Account registration confirmation';
+$LANG['REGISTER_EMAIL_BODY'] = "You have registered an account at {SITE} with the following information:
+Login Name: {LOGIN_NAME}
+Full Name: {FULL_NAME}
+
+Please confirm your registration by visiting the following link {URL_ACTIVATE_ACCOUNT}.
+
+Note: Please do not respond directly to this email as it is an unattended mail box!
+If you have any question or inquiry, please contact the web site's administrator at {EMAIL_ADMINISTRATOR}";
 
 $LANG['ADS_MANAGEMENT'] = 'Ads Management';
 $LANG['MY_ADS'] = 'My ads';
@@ -118,12 +132,17 @@ $LANG['MY_PROFILE_CHANGE_PASSWORD'] = 'Change Password';
 
 $LANG['NO_DATA_TO_DISPLAY'] = 'There is no data to display';
 
+$LANG['ERROR_NO_PERMISSION'] = 'Error: You do not have permission to access this page!';
+$LANG['ERROR_USER_NOT_FOUND'] = 'Error: User account not found!';
+$LANG['ERROR_ACTIVATION_CODE_NOT_MATCH'] = 'Error: Activation code does not match!';
 $LANG['ERROR_LOGIN_FAILED'] = 'Login failed: wrong login name or password!';
 $LANG['ERROR_EMPTY_CATEGORY_NAME'] = 'Error: Category name is empty!';
 $LANG['ERROR_CATEGORY_NOT_FOUND'] = 'Error: Category not found!';
 $LANG['ERROR_CATEGORY_HAS_CHILDREN'] = 'Error: Action is not allowed - category contains sub-categories!';
 $LANG['ERROR_PASSWORD_NOT_MATCH'] = 'Error: Password does not match!';
+$LANG['ERROR_ACCOUNT_NOT_ACTIVATED'] = 'Error: Account has not been activated!';
 $LANG['ERROR_CONFIRMED_PASSWORD_NOT_MATCH'] = 'Error: Password does not match the confirmed one!';
+$LANG['ERROR_SECURITY_CODE_NOT_MATCH'] = 'Error: Security Code does not match!';
 $LANG['ERROR_EMPTY_NEW_PASSWORD'] = 'Error: New password is empty!';
 $LANG['ERROR_EMPTY_NEW_FULL_NAME'] = 'Error: Full name is empty!';
 $LANG['ERROR_EMPTY_NEW_EMAIL'] = 'Error: New email is empty!';
@@ -151,4 +170,5 @@ $LANG['INFO_FULL_NAME_CHANGED'] = 'Information: Full name has been changed succe
 $LANG['INFO_EMAIL_CHANGED'] = 'Information: Email has been changed successfully!';
 $LANG['INFO_FILES_UPLOADED'] = 'Information: {0} file(s) uploaded!';
 $LANG['INFO_ATTACHMENTS_DELETED'] = 'Information: {0} attachment(s) deleted!';
+$LANG['INFO_ACCOUNT_ACTIVATED'] = 'Information: Account {0} has been activated successfully!';
 ?>

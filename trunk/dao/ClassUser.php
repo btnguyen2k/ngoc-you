@@ -7,6 +7,7 @@ class User {
     private $fullName = NULL;
     private $creationTimestamp = 0;
     private $groupId = 0;
+    private $activationCode = NULL;
 
     public function __construct() {
     }
@@ -19,6 +20,7 @@ class User {
         $this->setFullName(isset($tblRow['ufullname'])?$tblRow['ufullname']:NULL);
         $this->setGroupId(isset($tblRow['ugroupid'])?$tblRow['ugroupid']+0:0);
         $this->setCreationTimestamp(isset($tblRow['ucreationtimestamp'])?$tblRow['ucreationtimestamp']+0:0);
+        $this->setActivationCode(isset($tblRow['uactivationcode'])?$tblRow['uactivationcode']:NULL);
     }
 
     public function authenticate($pwd) {
@@ -83,6 +85,18 @@ class User {
 
     public function setCreationTimestamp($value) {
         $this->creationTimestamp = $value+0;
+    }
+    
+    public function getActivationCode() {
+        return $this->activationCode;
+    }
+
+    public function setActivationCode($value) {
+        $this->activationCode = $value !== NULL ? trim($value) : NULL;
+    }
+    
+    public function isActivated() {
+        return $this->activationCode === NULL;
     }
 }
 ?>
