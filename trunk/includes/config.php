@@ -11,6 +11,11 @@ define("DB_PASSWORD", "ngocyou");
 define("DB_SCHEMA", "ngocyou");
 $DB_SETUP_SQLS = Array("SET NAMES 'utf8'");
 
+define("CHARSET", "utf-8");
+
+define("SMTP_SERVER", "localhost");
+define("SMTP_PORT", 25);
+
 define("TEMPLATE", "default");
 define("LANGUAGE", "en");
 
