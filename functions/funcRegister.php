@@ -13,6 +13,8 @@ define("FORM_FIELD_CAPTCHA", "captcha");
 define("CAPTCHA_KEY", "CAPTCHA_REGISTER");
 
 $PAGE = Array();
+$siteConfig = getAllConfigs();
+$PAGE['config'] = $siteConfig;
 $PAGE['captchaKey'] = CAPTCHA_KEY;
 $PAGE['pageTitle'] = APPLICATION_NAME.' - Register';
 $PAGE['form'] = Array();
@@ -79,10 +81,10 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
         $body = str_replace('{LOGIN_NAME}', $user->getLoginName(), $body);
         $body = str_replace('{FULL_NAME}', $user->getFullName(), $body);
         $body = str_replace('{EMAIL_ADMINISTRATOR}', $siteConfig['EMAIL_ADMINISTRATOR'], $body);
-        $urlActivate = getSiteUrl().'index.php?'.GET_PARAM_ACTION.'='.ACTION_ACTIVATE_ACCOUNT;
+        $urlActivate = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'='.ACTION_ACTIVATE_ACCOUNT;
         $urlActivate .= '&id='.$user->getId().'&activationCode='.$user->getActivationCode();
-        $body = str_replace('{URL_ACTIVATE_ACCOUNT}', $urlActivate, $body);        
-        sendEmail($siteConfig['EMAIL_OUTGOING'], $user->getEmail(), $subject, $body);
+        $body = str_replace('{URL_ACTIVATE_ACCOUNT}', "<a href=\"$urlActivate\">$urlActivate</a>", $body);        
+        sendEmail($siteConfig['EMAIL_OUTGOING'], $user->getEmail(), $subject, $body, true);
         $params = GET_PARAM_ACTION.'='.ACTION_REGISTER_DONE;
         $params .= '&'.GET_PARAM_ID.'='.$user->getId();
         header("Location: index.php?".$params);
