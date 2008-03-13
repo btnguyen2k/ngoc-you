@@ -11,7 +11,17 @@ if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
 	if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
 	?>
 		<li><a href="myprofile.php"><?=$LANG['MY_PROFILE']?></a>
-		<li><a href="<?='myprofile.php?'.GET_PARAM_ACTION.'=postAds'?>"><?=$LANG['POST_ADS']?></a>
+		<?php
+		if ( isset($PAGE['category']) ) {
+		?>
+			<li><a href="<?='myprofile.php?'.GET_PARAM_ACTION.'=postAds&cat='.$PAGE['category']->getId()?>"><?=$LANG['POST_ADS']?></a>
+		<?php
+        } else {
+		?>
+			<li><a href="<?='myprofile.php?'.GET_PARAM_ACTION.'=postAds'?>"><?=$LANG['POST_ADS']?></a>
+		<?php
+        }
+        ?>
 		<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_LOGOUT?>"><?=$LANG['LOGOUT']?></a>
 	<?php
 		if ( $CURRENT_USER->getGroupId() === GROUP_ADMINISTRATOR ) {
