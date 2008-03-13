@@ -34,3 +34,4 @@ echo str_replace('{0}', $name, $LANG['WELCOME']);
 		
 	<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_LOGOUT?>"><?=$LANG['LOGOUT']?></a>
 </ul>
+<?php include 'templates/'.TEMPLATE.'/avim.php'; ?>

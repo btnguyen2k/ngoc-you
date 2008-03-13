@@ -28,3 +28,4 @@ if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
 	}
 	?>
 </ul>
+<?php include 'avim.php'; ?>
