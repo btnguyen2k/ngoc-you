@@ -119,7 +119,7 @@ class CategoryDao {
      * @param integer
      * @return integer
      */
-    public function countEntriesForCategory($catId) {
+    public static function countEntriesForCategory($catId) {
         $adodb = adodbGetConnection();
         $adodb->SetFetchMode(ADODB_FETCH_NUM);
         $sql = 'SELECT COUNT(*) FROM '.TABLE_ENTRY.' WHERE ecatid=? AND eexpirytimestamp>?';
@@ -137,7 +137,7 @@ class CategoryDao {
      *
      * @param Category
      */
-    public function updateCategory($cat) {
+    public static function updateCategory($cat) {
         $adodb = adodbGetConnection();
         $sql = 'UPDATE '.TABLE_CATEGORY.' SET cparentId=?, cposition=?, cname=?, cdesc=? WHERE cid=?';
         $params = Array(NULL, $cat->getPosition(), $cat->getName(),
@@ -154,7 +154,7 @@ class CategoryDao {
     /**
      * Clears category caches.
      */
-    private function clearCategoryCache() {
+    private static function clearCategoryCache() {
         self::$categoryList = NULL;
         self::$categoryMap = NULL;
         self::$categoryTree = NULL;
@@ -163,7 +163,7 @@ class CategoryDao {
     /**
      * Loads all categories and builds category structures.
      */
-    private function loadCategories() {
+    private static function loadCategories() {
         $catsList = self::$categoryList;
         if ( $catsList !== NULL ) return;
 
