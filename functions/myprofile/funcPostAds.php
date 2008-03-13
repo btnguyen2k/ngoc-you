@@ -38,7 +38,9 @@ $PAGE['form']['valueAdsTitle'] = '';
 $PAGE['form']['valueAdsContent'] = '';
 $PAGE['form']['errorMessage'] = '';
 
-if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+    $PAGE['form']['valueCategory'] = isset($_GET['cat']) ? $_GET['cat']+0 : 0;
+} else {
     $categoryId = isset($_POST[FORM_FIELD_CATEGORY])
     ? $_POST[FORM_FIELD_CATEGORY]+0 : 0;
     $adsTitle = isset($_POST[FORM_FIELD_ADS_TITLE])
