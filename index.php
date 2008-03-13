@@ -20,6 +20,8 @@ define("ACTION_THUMBNAIL", 'thumbnail');
 define("ACTION_VIEW_ATTACHMENT", 'viewAttachment');
 define("ACTION_CAPTCHA", 'captcha');
 define("ACTION_ACTIVATE_ACCOUNT", 'activateAccount');
+define("ACTION_RESEND_ACTIVATION_CODE", 'resendActivationCode');
+define("ACTION_RESEND_ACTIVATION_CODE_DONE", 'resendActivationCodeDone');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -61,6 +63,10 @@ if ( $ACTION === ACTION_LOGIN ) {
  	require_once 'functions/funcDisplayCaptcha.php';	
 } elseif ( $ACTION === ACTION_ACTIVATE_ACCOUNT ) {
 	require_once 'functions/funcActivateAccount.php';	
+} elseif ( $ACTION === ACTION_RESEND_ACTIVATION_CODE ) {
+	require_once 'functions/funcResendActivationCode.php';	
+} elseif ( $ACTION === ACTION_RESEND_ACTIVATION_CODE_DONE ) {
+	require_once 'functions/funcResendActivationCodeDone.php';	
 } else {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcIndex.php';	

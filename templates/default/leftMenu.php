@@ -23,6 +23,7 @@ if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
 		<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_LOGIN?>"><?=$LANG['LOGIN']?></a>
 			/
 			<a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_REGISTER?>"><?=$LANG['REGISTER']?></a>
+		<li><a href="<?=$_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_RESEND_ACTIVATION_CODE?>"><?=$LANG['RESEND_ACTIVATION_CODE']?></a>
 	<?php
 	}
 	?>
