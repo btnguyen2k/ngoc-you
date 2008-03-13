@@ -1,3 +1,8 @@
+<script language="javascript" type="text/javascript" src="<?='templates/'.TEMPLATE.'/'?>js/avim20071102.js"></script>
+<script type="text/javascript" language="javascript">
+	dauCu = 0;
+	setMethod(0);
+</script>
 <pre>
 <?php
 	if ( DEBUG_MODE ) {
