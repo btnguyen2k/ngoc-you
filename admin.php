@@ -10,6 +10,7 @@ define("ACTION_DEFAULT", 'index');
 define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_CAT_MANAGEMENT", 'catManagement');
+define("ACTION_DELETE_EXPIRED_ENTRIES", 'deleteExpiredEntries');
 define("ACTION_CREATE_CAT", 'createCat');
 define("ACTION_EDIT_CAT", 'editCat');
 define("ACTION_DELETE_CAT", 'deleteCat');
