@@ -9,6 +9,7 @@ $PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Index';
 $PAGE['content'] = Array();
 $PAGE['content']['numCategories'] = countCategories();
 $PAGE['content']['numEntries'] = countEntries();
+$PAGE['content']['numExpiredEntries'] = countExpiredEntries();
 $PAGE['content']['numUsers'] = countUsers();
 
 require_once 'templates/'.TEMPLATE.'/admin/pageIndex.php';

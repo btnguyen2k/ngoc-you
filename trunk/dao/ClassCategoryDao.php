@@ -29,6 +29,24 @@ class CategoryDao {
     }
 
     /**
+     * Counts number of expired entries.
+     *
+     * @return integer
+     */
+    public static function countExpiredEntries() {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_NUM);
+        $sql = 'SELECT COUNT(*) FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp <= ?';
+        $rs = $adodb->Execute($sql, Array(time()));
+        $result = 0;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields[0];
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
      * Counts number of non-expired entries.
      *
      * @return integer
@@ -76,7 +94,7 @@ class CategoryDao {
         }
         return NULL;
     }
-    
+
     /**
      * Deletes a category.
      *
@@ -84,11 +102,11 @@ class CategoryDao {
      */
     public static function deleteCategory($id) {
         $adodb = adodbGetConnection();
-		$sql = 'DELETE FROM '.TABLE_CATEGORY.' WHERE cid=?';
-		if ( $adodb->Execute($sql, Array($id)) === false ) {
-			die('['.__CLASS__.'.deleteCategory()] Error: ' . $adodb->ErrorMsg());
-		}
-		self::clearCategoryCache();
+        $sql = 'DELETE FROM '.TABLE_CATEGORY.' WHERE cid=?';
+        if ( $adodb->Execute($sql, Array($id)) === false ) {
+            die('['.__CLASS__.'.deleteCategory()] Error: ' . $adodb->ErrorMsg());
+        }
+        self::clearCategoryCache();
     }
 
     /**

@@ -127,6 +127,10 @@ function countCategories() {
     return CategoryDao::countCategories();
 }
 
+function countExpiredEntries() {
+    return CategoryDao::countExpiredEntries();
+}
+
 function countEntries() {
     return CategoryDao::countEntries();
 }
