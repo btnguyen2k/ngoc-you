@@ -59,7 +59,8 @@ if ( $_ADS===NULL || $_CAT===NULL ) {
 			    echo '</a>&nbsp;';
 			}
 			?>
-			</p>			
+			</p>
+			<small><a href="index.php?<?=GET_PARAM_ACTION.'=reportAds&id='.$_ADS->getId()?>">Report This Ads To Admin</a></small>			
 		</td>
 	</tr>
 </tbody>	

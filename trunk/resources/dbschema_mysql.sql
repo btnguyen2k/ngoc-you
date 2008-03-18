@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS nyconfig;
 DROP TABLE IF EXISTS nylocation;
 DROP TABLE IF EXISTS nygroup;
 DROP TABLE IF EXISTS nyupload;
+DROP TABLE IF EXISTS nyreportedentry;
 DROP TABLE IF EXISTS nyentry;
 DROP TABLE IF EXISTS nyuser;
 DROP TABLE IF EXISTS nycategory;
@@ -171,4 +172,14 @@ CREATE TABLE nyupload (
 	umimetype				VARCHAR(32)		NOT NULL,
 	ucontent				MEDIUMBLOB,
 	PRIMARY KEY (uid)
+) ENGINE=InnoDB;
+
+CREATE TABLE nyreportedentry (
+	rentryid				INTEGER			NOT NULL,
+		INDEX (rentryid),
+		FOREIGN KEY (rentryid) REFERENCES nyentry(eid) ON DELETE CASCADE,
+	rcreationtimestamp		INTEGER			NOT NULL DEFAULT 0,
+		INDEX (rcreationtimestamp),
+	rreporterid				INTEGER,
+	PRIMARY KEY (rentryid)
 ) ENGINE=InnoDB;

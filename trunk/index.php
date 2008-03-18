@@ -22,6 +22,7 @@ define("ACTION_CAPTCHA", 'captcha');
 define("ACTION_ACTIVATE_ACCOUNT", 'activateAccount');
 define("ACTION_RESEND_ACTIVATION_CODE", 'resendActivationCode');
 define("ACTION_RESEND_ACTIVATION_CODE_DONE", 'resendActivationCodeDone');
+define("ACTION_REPORT_ADS", 'reportAds');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -67,6 +68,9 @@ if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/funcResendActivationCode.php';	
 } elseif ( $ACTION === ACTION_RESEND_ACTIVATION_CODE_DONE ) {
 	require_once 'functions/funcResendActivationCodeDone.php';	
+} elseif ( $ACTION === ACTION_REPORT_ADS ) {
+    $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
+	require_once 'functions/funcReportAds.php';	
 } else {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcIndex.php';	
