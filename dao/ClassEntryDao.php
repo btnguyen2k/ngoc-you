@@ -77,6 +77,17 @@ class EntryDao {
     }
 
     /**
+     * Deletes expired entries.
+     */
+    public static function deleteExpiredEntries($id) {
+        $adodb = adodbGetConnection();
+        $sql = 'DELETE FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp <= ?';
+        if ( $adodb->Execute($sql, Array(time())) === false ) {
+            die('['.__CLASS__.'.deleteExpiredEntries()] Error: ' . $adodb->ErrorMsg());
+        }
+    }
+
+    /**
      * Deletes an entry.
      *
      * @param integer
