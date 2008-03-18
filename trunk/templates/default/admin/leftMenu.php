@@ -1,6 +1,7 @@
 <ul>
 	<li><a href="index.php"><?=$LANG['HOME']?></a>
 	<li><a href="myprofile.php"><?=$LANG['MY_PROFILE']?></a>
+	<li><a href="admin.php"><?=$LANG['ADMIN_SECTION']?></a>
 
 	<br><br>
 

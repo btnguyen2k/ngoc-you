@@ -50,6 +50,8 @@ if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/admin/funcMoveUpCat.php';
 } elseif ( $ACTION === ACTION_MOVE_DOWN_CAT ) {
 	require_once 'functions/admin/funcMoveDownCat.php';
+} elseif ( $ACTION === ACTION_DELETE_EXPIRED_ENTRIES ) {
+	require_once 'functions/admin/funcDeleteExpiredEntries.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';
 }

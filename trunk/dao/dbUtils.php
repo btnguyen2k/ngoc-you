@@ -131,25 +131,35 @@ function countExpiredEntries() {
     return CategoryDao::countExpiredEntries();
 }
 
+
 function countEntries() {
     return CategoryDao::countEntries();
 }
+
 
 function createCategory($name, $desc, $parent=NULL) {
     return CategoryDao::createCategory($name, $desc, $parent);
 }
 
+
 function createEntry($entryData) {
     return EntryDao::createEntry($entryData);
 }
+
 
 function deleteCategory($id) {
     CategoryDao::deleteCategory($id);
 }
 
+function deleteExpiredEntries() {
+    EntryDao::deleteExpiredEntries();
+}
+
+
 function deleteEntry($id) {
     EntryDao::deleteEntry($id);
 }
+
 
 function getCategory($id) {
     return CategoryDao::getCategory($id);
