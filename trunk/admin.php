@@ -18,6 +18,7 @@ define("ACTION_MOVE_UP_CAT", 'moveUpCat');
 define("ACTION_MOVE_DOWN_CAT", 'moveDownCat');
 define("ACTION_USER_MANAGEMENT", 'userManagement');
 define("ACTION_VIEW_REPORTED_ADS", 'viewReportedAds');
+define("ACTION_PROCESS_REPORTED_ADS", 'processReportedAds');
 
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:ACTION_DEFAULT;
 $ACTION = trim($ACTION);
@@ -55,6 +56,8 @@ if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/admin/funcDeleteExpiredEntries.php';
 } elseif ( $ACTION === ACTION_VIEW_REPORTED_ADS ) {
 	require_once 'functions/admin/funcViewReportedAds.php';
+} elseif ( $ACTION === ACTION_PROCESS_REPORTED_ADS ) {
+	require_once 'functions/admin/funcProcessReportedAds.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';
 }
