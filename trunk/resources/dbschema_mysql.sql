@@ -176,10 +176,9 @@ CREATE TABLE nyupload (
 
 CREATE TABLE nyreportedentry (
 	rentryid				INTEGER			NOT NULL,
-		INDEX (rentryid),
+	PRIMARY KEY (rentryid),
 		FOREIGN KEY (rentryid) REFERENCES nyentry(eid) ON DELETE CASCADE,
 	rcreationtimestamp		INTEGER			NOT NULL DEFAULT 0,
 		INDEX (rcreationtimestamp),
-	rreporterid				INTEGER,
-	PRIMARY KEY (rentryid)
+	rreporterid				INTEGER	
 ) ENGINE=InnoDB;

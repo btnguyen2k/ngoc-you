@@ -16,6 +16,7 @@ define("TABLE_USER", "nyuser");
 define("TABLE_GROUP", "nygroup");
 define("TABLE_CATEGORY", "nycategory");
 define("TABLE_ENTRY", "nyentry");
+define("TABLE_REPORTED_ENTRY", "nyreportedentry");
 define("TABLE_UPLOAD", "nyupload");
 
 /**
@@ -188,6 +189,10 @@ function getEntry($id) {
 
 function increaseEntryNumViews($entry, $value=1) {
     EntryDao::increaseEntryNumViews($entry, $value);
+}
+
+function reportEntry($entry, $reporter=NULL) {
+    EntryDao::reportEntry($entry, $reporter);
 }
 
 function updateCategory($cat) {

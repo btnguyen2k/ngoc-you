@@ -23,6 +23,7 @@ define("ACTION_ACTIVATE_ACCOUNT", 'activateAccount');
 define("ACTION_RESEND_ACTIVATION_CODE", 'resendActivationCode');
 define("ACTION_RESEND_ACTIVATION_CODE_DONE", 'resendActivationCodeDone');
 define("ACTION_REPORT_ADS", 'reportAds');
+define("ACTION_REPORT_ADS_DONE", 'reportAdsDone');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -71,6 +72,8 @@ if ( $ACTION === ACTION_LOGIN ) {
 } elseif ( $ACTION === ACTION_REPORT_ADS ) {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcReportAds.php';	
+} elseif ( $ACTION === ACTION_REPORT_ADS_DONE ) {
+	require_once 'functions/funcReportAdsDone.php';	
 } else {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcIndex.php';	

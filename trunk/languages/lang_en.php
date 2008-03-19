@@ -36,6 +36,7 @@ $LANG['SECURITY_CODE'] = 'Security Code';
 $LANG['ACTIVATE_ACCOUNT'] = 'Activate Account';
 $LANG['RESEND_ACTIVATION_CODE'] = 'Resend Activation Code';
 $LANG['RESEND_ACTIVATION_CODE_DONE'] = 'An email with instructions to activate your account has been sent to your email address.';
+$LANG['ANONYMOUS'] = 'Anonymous';
 
 $LANG['REGISTER_EMAIL_SUBJECT'] = 'Account registration confirmation';
 $LANG['REGISTER_EMAIL_BODY'] = "You have registered an account at {SITE} with the following information:
@@ -79,6 +80,10 @@ $LANG['ADS_CONTACT_POSTER_CONTENT'] = 'Message to send';
 
 $LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'] = 'New contact for your ads';
 $LANG['ADS_CONTACT_POSTER_EMAIL_BODY'] = '{0} has sent you a message regarding to your ads: {1}.';
+
+$LANG['ADS_REPORT_ADMIN'] = 'Report ads to admin';
+$LANG['ADS_REPORT_ADMIN_CONFIRMATION'] = 'You may use this function to report bad ads to administrators. Are you sure you want to report this ads?';
+$LANG['ADS_REPORT_ADMIN_DONE'] = 'Ads has been reported to administrators';
 
 $LANG['WELCOME'] = 'Welcome {0}!';
 
