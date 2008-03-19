@@ -3,6 +3,7 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'dbUtils.php';
 
 require_once 'ClassEntry.php';
+require_once 'ClassReportedEntry.php';
 require_once 'ClassCategory.php';
 require_once 'ClassUser.php';
 require_once 'ClassUpload.php';
@@ -168,6 +169,28 @@ class EntryDao {
     }
 
     /**
+     * Gets a reported entry.
+     *
+     * @param integer
+     * @return ReportedEntry
+     */
+    public static function getReportedEntry($id) {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = 'SELECT * FROM '.TABLE_REPORTED_ENTRY.' WHERE rentryid=?';
+        $rs = $adodb->Execute($sql, Array($id));
+        $result = NULL;
+        if ( !$rs->EOF ) {
+            $result = new ReportedEntry();
+            $result->populate($rs->fields);
+            $result->setReporter(UserDao::getUser($result->getReporterId()));
+            $result->setEntry(self::getEntry($id));
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
      * Increases entry's number of views.
      *
      * @param Entry
@@ -176,6 +199,26 @@ class EntryDao {
     public static function increaseEntryNumViews($entry, $value=1) {
         $entry->setNumViews($entry->getNumViews() + $value);
         self::updateEntry($entry);
+    }
+
+    /**
+     * Reports an entry to administrators
+     *
+     * @param Entry
+     * @param User
+     */
+    public static function reportEntry($entry, $reporter=NULL) {
+        $reportedEntry = self::getReportedEntry($entry->getId());
+        if ( $reportedEntry !== NULL ) {
+            //ads has been already reported!
+            return;
+        }
+        $adodb = adodbGetConnection();
+        $sql = 'INSERT INTO '.TABLE_REPORTED_ENTRY.' (rentryid, rcreationtimestamp, rreporterid) VALUES (?, ?, ?)';
+        $params = Array($entry->getId(), time(), $reporter!==NULL?$reporter->getId():NULL);
+        if ( $adodb->Execute($sql, $params)===false ) {
+            die('['.__CLASS__.'.reportEntry()] Error: ' . $adodb->ErrorMsg());
+        }
     }
 
     /**

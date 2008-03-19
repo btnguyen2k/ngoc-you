@@ -60,7 +60,7 @@ if ( $_ADS===NULL || $_CAT===NULL ) {
 			}
 			?>
 			</p>
-			<small><a href="index.php?<?=GET_PARAM_ACTION.'=reportAds&id='.$_ADS->getId()?>">Report This Ads To Admin</a></small>			
+			<small><a href="index.php?<?=GET_PARAM_ACTION.'=reportAds&id='.$_ADS->getId()?>"><?=$LANG['ADS_REPORT_ADMIN']?></a></small>			
 		</td>
 	</tr>
 </tbody>	
