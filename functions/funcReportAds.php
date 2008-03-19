@@ -4,10 +4,12 @@ require_once 'includes/config.php';
 require_once 'includes/captcha.php';
 require_once 'dao/dbUtils.php';
 
+/*
 if ( $CURRENT_USER === NULL ) {
     header("Location: index.php?".GET_PARAM_ACTION."=".ACTION_LOGIN);
     return;
 }
+*/
 
 define("FORM_FIELD_ADS_ID", "adsId");
 define("FORM_FIELD_CAPTCHA", "captcha");
