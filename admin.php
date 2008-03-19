@@ -10,13 +10,14 @@ define("ACTION_DEFAULT", 'index');
 define("ACTION_LOGIN", 'login');
 define("ACTION_LOGOUT", 'logout');
 define("ACTION_CAT_MANAGEMENT", 'catManagement');
-define("ACTION_DELETE_EXPIRED_ENTRIES", 'deleteExpiredEntries');
+define("ACTION_DELETE_EXPIRED_ADS", 'deleteExpiredAds');
 define("ACTION_CREATE_CAT", 'createCat');
 define("ACTION_EDIT_CAT", 'editCat');
 define("ACTION_DELETE_CAT", 'deleteCat');
 define("ACTION_MOVE_UP_CAT", 'moveUpCat');
 define("ACTION_MOVE_DOWN_CAT", 'moveDownCat');
 define("ACTION_USER_MANAGEMENT", 'userManagement');
+define("ACTION_VIEW_REPORTED_ADS", 'viewReportedAds');
 
 $ACTION = isset($_GET[GET_PARAM_ACTION])?$_GET[GET_PARAM_ACTION]:ACTION_DEFAULT;
 $ACTION = trim($ACTION);
@@ -50,8 +51,10 @@ if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/admin/funcMoveUpCat.php';
 } elseif ( $ACTION === ACTION_MOVE_DOWN_CAT ) {
 	require_once 'functions/admin/funcMoveDownCat.php';
-} elseif ( $ACTION === ACTION_DELETE_EXPIRED_ENTRIES ) {
+} elseif ( $ACTION === ACTION_DELETE_EXPIRED_ADS ) {
 	require_once 'functions/admin/funcDeleteExpiredEntries.php';
+} elseif ( $ACTION === ACTION_VIEW_REPORTED_ADS ) {
+	require_once 'functions/admin/funcViewReportedAds.php';
 } else {
 	require_once 'functions/admin/funcIndex.php';
 }

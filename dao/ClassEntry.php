@@ -19,6 +19,7 @@ class Entry {
     private $poster = NULL;
     private $attachments = Array();
     private $isHtml = 0;
+    private $category = NULL;
 
     public function __construct() {
     }
@@ -41,6 +42,14 @@ class Entry {
 
     public function setCategoryId($value) {
         $this->catId = $value+0;
+    }
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($value) {
+        $this->category = $value;
     }
 
     public function getUserId() {
@@ -115,7 +124,7 @@ class Entry {
         return $this->price;
     }
 
-    public function setPrice($value) {        
+    public function setPrice($value) {
         $this->price = $value!==NULL ? ($value+0) : NULL;
     }
 
@@ -134,11 +143,11 @@ class Entry {
         }
         return $result;
     }
-    
+
     public function countAttachments() {
         return count($this->attachments);
     }
-    
+
     public function hasAttachment() {
         return count($this->attachments) > 0;
     }
@@ -146,7 +155,7 @@ class Entry {
     public function addAttachment($upload) {
         $this->attachments[$upload->getId()] = $upload;
     }
-    
+
     public function deleteAttachment($id) {
         if ( isset($this->attachments[$id]) ) {
             unset($this->attachments[$id]);
@@ -160,11 +169,11 @@ class Entry {
     public function getAttachment($id) {
         return isset($this->attachments[$id]) ? $this->attachments[$id] : NULL;
     }
-    
+
     public function isHtml() {
         return $this->isHtml;
     }
-    
+
     public function setIsHtml($value) {
         $this->isHtml = $value+0;
     }
