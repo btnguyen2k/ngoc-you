@@ -24,16 +24,25 @@
 	</td>
 </tr>
 <tr>
-	<td width="40%" class="contentCell_2"><?= $LANG['ADMIN_NUMBER_OF_ENTRIES'] ?></td>
-	<td width="20%" class="contentCell_1" align="center"><b><?= $PAGE['content']['numEntries'] ?></b></td>
+	<td width="40%" class="contentCell_2"><?= $LANG['ADMIN_NUMBER_OF_ADS'] ?></td>
+	<td width="20%" class="contentCell_1" align="center"><b><?= $PAGE['content']['numAds'] ?></b></td>
 	<td width="40%" class="contentCell_1">&nbsp;</td>
 </tr>
 <tr>
-	<td width="40%" class="contentCell_2"><?= $LANG['ADMIN_NUMBER_OF_EXPIRED_ENTRIES'] ?></td>
-	<td width="20%" class="contentCell_1" align="center"><b><?= $PAGE['content']['numExpiredEntries'] ?></b></td>
+	<td width="40%" class="contentCell_2"><?= $LANG['ADMIN_NUMBER_OF_EXPIRED_ADS'] ?></td>
+	<td width="20%" class="contentCell_1" align="center"><b><?= $PAGE['content']['numExpiredAds'] ?></b></td>
 	<td width="40%" class="contentCell_1" align="center">
-		<a href="<?= $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_DELETE_EXPIRED_ENTRIES ?>">
-		<?=$LANG['ADMIN_DELETE_EXPIRED_ENTRIES']?>
+		<a href="<?= $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_DELETE_EXPIRED_ADS ?>">
+		<?=$LANG['ADMIN_DELETE_EXPIRED_ADS']?>
+		</a>
+	</td>
+</tr>
+<tr>
+	<td width="40%" class="contentCell_2"><?= $LANG['ADMIN_NUMBER_OF_REPORTED_ADS'] ?></td>
+	<td width="20%" class="contentCell_1" align="center"><b><?= $PAGE['content']['numReportedAds'] ?></b></td>
+	<td width="40%" class="contentCell_1" align="center">
+		<a href="<?= $_SERVER['PHP_SELF'].'?'.GET_PARAM_ACTION.'='.ACTION_VIEW_REPORTED_ADS ?>">
+		<?=$LANG['ADMIN_VIEW_REPORTED_ADS']?>
 		</a>
 	</td>
 </tr>

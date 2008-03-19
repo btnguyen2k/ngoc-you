@@ -48,6 +48,60 @@ class EntryDao {
     }
 
     /**
+     * Counts number of expired entries.
+     *
+     * @return integer
+     */
+    public static function countExpiredEntries() {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_NUM);
+        $sql = 'SELECT COUNT(*) FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp <= ?';
+        $rs = $adodb->Execute($sql, Array(time()));
+        $result = 0;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields[0];
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
+     * Counts number of reported entries.
+     *
+     * @return integer
+     */
+    public static function countReportedEntries() {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_NUM);
+        $sql = 'SELECT COUNT(*) FROM '.TABLE_REPORTED_ENTRY;
+        $rs = $adodb->Execute($sql);
+        $result = 0;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields[0];
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
+     * Counts number of non-expired entries.
+     *
+     * @return integer
+     */
+    public static function countEntries() {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_NUM);
+        $sql = 'SELECT COUNT(*) FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp > ?';
+        $rs = $adodb->Execute($sql, Array(time()));
+        $result = 0;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields[0];
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
      * Creates a new entry.
      *
      * @param Array()
@@ -169,6 +223,16 @@ class EntryDao {
     }
 
     /**
+     * Populates extra information to an reported entry.
+     *
+     * @param ReportedEntry
+     */
+    private static function populateReportedExtraInfo($entry) {
+        $entry->setReporter(UserDao::getUser($entry->getReporterId()));
+        $entry->setEntry(self::getEntry($entry->getId()));
+    }
+
+    /**
      * Gets a reported entry.
      *
      * @param integer
@@ -183,8 +247,32 @@ class EntryDao {
         if ( !$rs->EOF ) {
             $result = new ReportedEntry();
             $result->populate($rs->fields);
-            $result->setReporter(UserDao::getUser($result->getReporterId()));
-            $result->setEntry(self::getEntry($id));
+            self::populateReportedExtraInfo($result);
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
+     * Gets all reported entries.
+     *
+     * @return Array()
+     */
+    public static function getAllReportedEntries() {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = 'SELECT * FROM '.TABLE_REPORTED_ENTRY.' ORDER BY rcreationtimestamp DESC';
+        $rs = $adodb->Execute($sql);
+        if ( $rs === false ) {
+            die('['.__CLASS__.'.getAllReportedEntries()] Error: ' . $adodb->ErrorMsg());
+        }
+        $result = Array();
+        while ( !$rs->EOF ) {
+            $entry = new ReportedEntry();
+            $entry->populate($rs->fields);
+            self::populateReportedExtraInfo($entry);
+            $result[] = $entry;
+            $rs->MoveNext();
         }
         $rs->Close();
         return $result;
@@ -247,6 +335,16 @@ class EntryDao {
     private static function populateExtraInfo($entry) {
         self::populateAttachments($entry);
         self::populatePoster($entry);
+        self::populateCategory($entry);
+    }
+
+    /**
+     * Populates category information to an entry.
+     *
+     * @param Entry
+     */
+    private static function populateCategory($entry) {
+        $entry->setCategory(CategoryDao::getCategory($entry->getCategoryId()));
     }
 
     /**

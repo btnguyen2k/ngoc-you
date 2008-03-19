@@ -129,24 +129,24 @@ function countCategories() {
 }
 
 function countExpiredEntries() {
-    return CategoryDao::countExpiredEntries();
+    return EntryDao::countExpiredEntries();
 }
-
 
 function countEntries() {
-    return CategoryDao::countEntries();
+    return EntryDao::countEntries();
 }
 
+function countReportedEntries() {
+    return EntryDao::countReportedEntries();
+}
 
 function createCategory($name, $desc, $parent=NULL) {
     return CategoryDao::createCategory($name, $desc, $parent);
 }
 
-
 function createEntry($entryData) {
     return EntryDao::createEntry($entryData);
 }
-
 
 function deleteCategory($id) {
     CategoryDao::deleteCategory($id);
@@ -211,6 +211,14 @@ function countUsers() {
 
 function createUser($userData) {
     return UserDao::createUser($userData);
+}
+
+function getReportedEntry($id) {
+    return EntryDao::getReportedEntry($id);
+}
+
+function getAllReportedEntries() {
+    return EntryDao::getAllReportedEntries();
 }
 
 function getUser($id) {

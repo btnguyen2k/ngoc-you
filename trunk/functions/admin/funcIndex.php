@@ -4,12 +4,13 @@ require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
 $PAGE = Array();
-$PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Index';
+$PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Reported Ads';
 
 $PAGE['content'] = Array();
 $PAGE['content']['numCategories'] = countCategories();
-$PAGE['content']['numEntries'] = countEntries();
-$PAGE['content']['numExpiredEntries'] = countExpiredEntries();
+$PAGE['content']['numAds'] = countEntries();
+$PAGE['content']['numExpiredAds'] = countExpiredEntries();
+$PAGE['content']['numReportedAds'] = countReportedEntries();
 $PAGE['content']['numUsers'] = countUsers();
 
 require_once 'templates/'.TEMPLATE.'/admin/pageIndex.php';

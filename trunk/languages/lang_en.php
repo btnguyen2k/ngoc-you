@@ -107,10 +107,12 @@ $LANG['CATEGORY_PARENT'] = 'Parent';
 $LANG['ADMIN_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['ADMIN_CREATE_CATEGORY'] = 'Create Category';
 $LANG['ADMIN_NUMBER_OF_CATEGORIES'] = 'Number of categories';
-$LANG['ADMIN_NUMBER_OF_ENTRIES'] = 'Total number of entries';
-$LANG['ADMIN_NUMBER_OF_EXPIRED_ENTRIES'] = 'Total number of expired entries';
+$LANG['ADMIN_NUMBER_OF_ADS'] = 'Total number of ads';
+$LANG['ADMIN_NUMBER_OF_EXPIRED_ADS'] = 'Total number of expired ads';
+$LANG['ADMIN_NUMBER_OF_REPORTED_ADS'] = 'Total number of reported ads';
 $LANG['ADMIN_NUMBER_OF_USERS'] = 'Number of user accounts';
-$LANG['ADMIN_DELETE_EXPIRED_ENTRIES'] = 'Delete expired entries';
+$LANG['ADMIN_DELETE_EXPIRED_ADS'] = 'Delete expired ads';
+$LANG['ADMIN_VIEW_REPORTED_ADS'] = 'View reported ads';
 
 $LANG['CONFIRM_DELETE_CATEGORY'] = 'Are you sure you want to delete the following category?';
 $LANG['CONFIRM_DELETE_ADS'] = 'Are you sure you want to delete the following ads?';
@@ -122,6 +124,7 @@ $LANG['ADMIN_TITLE_CREATE_CATEGORY'] = 'Create New Category';
 $LANG['ADMIN_TITLE_DELETE_CATEGORY'] = 'Delete Category';
 $LANG['ADMIN_TITLE_EDIT_CATEGORY'] = 'Edit Category';
 $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
+$LANG['ADMIN_TITLE_REPORTED_ADS'] = 'Reported Ads';
 
 $LANG['MY_PROFILE_TITLE'] = 'My Profile';
 $LANG['MY_PROFILE_TITLE_LOGIN'] = 'Login';
