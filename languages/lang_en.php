@@ -81,6 +81,7 @@ $LANG['ADS_CONTACT_POSTER_CONTENT'] = 'Message to send';
 $LANG['ADS_CONTACT_POSTER_EMAIL_SUBJECT'] = 'New contact for your ads';
 $LANG['ADS_CONTACT_POSTER_EMAIL_BODY'] = '{0} has sent you a message regarding to your ads: {1}.';
 
+$LANG['ADS_REMOVE_REPORT_STATUS'] = 'Remove Report Status';
 $LANG['ADS_REPORT_ADMIN'] = 'Report ads to admin';
 $LANG['ADS_REPORT_ADMIN_CONFIRMATION'] = 'You may use this function to report bad ads to administrators. Are you sure you want to report this ads?';
 $LANG['ADS_REPORT_ADMIN_DONE'] = 'Ads has been reported to administrators';

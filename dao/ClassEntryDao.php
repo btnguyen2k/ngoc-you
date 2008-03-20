@@ -310,6 +310,19 @@ class EntryDao {
     }
 
     /**
+     * Unreport an entry by id.
+     *
+     * @param integer
+     */
+    public static function unreportEntry($id) {
+        $adodb = adodbGetConnection();
+        $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE nentryid=?';
+        if ( $adodb->Execute($sql, Array($id+0))===false ) {
+            die('['.__CLASS__.'.unreportEntry()] Error: ' . $adodb->ErrorMsg());
+        }
+    }
+
+    /**
      * Update an entry.
      *
      * @param Entry
