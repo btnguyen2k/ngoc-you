@@ -233,6 +233,10 @@ function getUserByLoginName($loginName) {
     return UserDao::getUserByLoginName($loginName);
 }
 
+function unreportEntry($id) {
+    EntryDao::unreportEntry($id);    
+}
+
 function updateUser($user) {
     UserDao::updateUser($user);
 }
