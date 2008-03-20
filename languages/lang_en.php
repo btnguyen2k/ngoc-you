@@ -99,6 +99,8 @@ $LANG['COFIRMED_NEW_EMAIL'] = 'Confirmed New Email';
 $LANG['FULL_NAME'] = 'Full name';
 $LANG['NEW_FULL_NAME'] = 'New full name';
 
+$LANG['REPORTED_ADS'] = 'Reported Ads';
+
 $LANG['CATEGORY'] = 'Category';
 $LANG['CATEGORY_NAME'] = 'Name';
 $LANG['CATEGORY_DESCRIPTION'] = 'Description';
@@ -125,6 +127,7 @@ $LANG['ADMIN_TITLE_DELETE_CATEGORY'] = 'Delete Category';
 $LANG['ADMIN_TITLE_EDIT_CATEGORY'] = 'Edit Category';
 $LANG['ADMIN_TITLE_CATEGORY_MANAGEMENT'] = 'Category Management';
 $LANG['ADMIN_TITLE_REPORTED_ADS'] = 'Reported Ads';
+$LANG['ADMIN_TITLE_PROCESS_REPORTED_ADS'] = 'Process Reported Ads';
 
 $LANG['MY_PROFILE_TITLE'] = 'My Profile';
 $LANG['MY_PROFILE_TITLE_LOGIN'] = 'Login';
