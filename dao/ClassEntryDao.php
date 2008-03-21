@@ -316,7 +316,7 @@ class EntryDao {
      */
     public static function unreportEntry($id) {
         $adodb = adodbGetConnection();
-        $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE nentryid=?';
+        $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE rentryid=?';
         if ( $adodb->Execute($sql, Array($id+0))===false ) {
             die('['.__CLASS__.'.unreportEntry()] Error: ' . $adodb->ErrorMsg());
         }
