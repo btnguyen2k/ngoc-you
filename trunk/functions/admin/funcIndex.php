@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
+require_once 'adminCommons.php';
+adminCheckPermission(PERM_ACCESS_ADMIN_CP);
+
 $PAGE = Array();
 $PAGE['pageTitle'] = APPLICATION_NAME.' - Admin/Reported Ads';
 

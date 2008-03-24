@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
+require_once 'adminCommons.php';
+adminCheckPermission(PERM_PROCESS_REPORTED_ADS);
+
 define("FORM_FIELD_PROCESS_ACTION", "processAction");
 
 $id = isset($_GET[GET_PARAM_ID]) ? $_GET[GET_PARAM_ID] + 0 : 0;
