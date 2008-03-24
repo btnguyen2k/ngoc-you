@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
+require_once 'adminCommons.php';
+adminCheckPermission(PERM_MANAGE_CATEGORY);
+
 $id = isset($_GET[GET_PARAM_CATEGORY]) ? $_GET[GET_PARAM_CATEGORY] + 0 : 0;
 $cat = getCategory($id);
 $tree = NULL;

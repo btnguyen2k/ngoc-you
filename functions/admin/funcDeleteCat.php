@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
+require_once 'adminCommons.php';
+adminCheckPermission(PERM_DELETE_CATEGORY);
+
 define("FORM_FIELD_CAT_ID", "id");
 
 $id = 0;

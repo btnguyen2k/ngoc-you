@@ -3,6 +3,9 @@ require_once 'includes/denyDirectInclude.php';
 require_once 'includes/config.php';
 require_once 'dao/dbUtils.php';
 
+require_once 'adminCommons.php';
+adminCheckPermission(PERM_CREATE_CATEGORY);
+
 define("FORM_FIELD_PARENT_CAT_ID", "parentId");
 define("FORM_FIELD_CAT_NAME", "name");
 define("FORM_FIELD_CAT_DESC", "desc");
