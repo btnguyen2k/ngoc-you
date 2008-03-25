@@ -151,7 +151,7 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
             $emailBody = $LANG['NEW_ADS_NOTIFY_EMAIL_BODY'];
             $emailBody = str_replace('{ADS_TITLE}', $adsTitle, $emailBody);
             $emailBody = str_replace('{CATEGORY_NAME}', $cat->getName(), $emailBody);
-            $urlAds = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'=viewAds&ads='.$newEntry->getId();
+            $urlAds = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'=viewAds&id='.$newEntry->getId();
             $emailBody = str_replace('{URL_ADS}', $urlAds, $emailBody);
             $emailBody = str_replace('{EMAIL_ADMINISTRATOR}', $siteConfig['EMAIL_ADMINISTRATOR'], $emailBody);
             $watchers = getWatcherList($cat);
