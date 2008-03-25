@@ -17,5 +17,10 @@ $PAGE['pageTitle'] = APPLICATION_NAME.' - '.($cat!==NULL?htmlspecialchars($cat->
 $PAGE['category'] = $cat;
 $PAGE['entries'] = $cat!==NULL?getEntriesForCategory($cat->getId()):Array();
 
+//check for category watching
+if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL && $cat !== NULL ) {
+    $PAGE['isWatching'] = isWatchingCategory($CURRENT_USER, $cat);
+}
+
 require_once 'templates/'.TEMPLATE.'/pageViewCat.php';
 ?>

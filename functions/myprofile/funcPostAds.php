@@ -145,6 +145,19 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
             );
             $newEntry = createEntry($params);
             addUploadFilesToEntry($newEntry, $uploadFiles);
+
+            //notify watchers
+            $emailSubject = $LANG['NEW_ADS_NOTIFY_EMAIL_SUBJECT'];
+            $emailBody = $LANG['NEW_ADS_NOTIFY_EMAIL_BODY'];
+            $emailBody = str_replace('{ADS_TITLE}', $adsTitle, $emailBody);
+            $emailBody = str_replace('{CATEGORY_NAME}', $cat->getName(), $emailBody);
+            $urlAds = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'=viewAds&ads='.$newEntry->getId();
+            $emailBody = str_replace('{URL_ADS}', $urlAds, $emailBody);
+            $emailBody = str_replace('{EMAIL_ADMINISTRATOR}', $siteConfig['EMAIL_ADMINISTRATOR'], $emailBody);
+            $watchers = getWatcherList($cat);
+            foreach ( $watchers as $user ) {
+                sendEmail($siteConfig['EMAIL_OUTGOING'], $user->getEmail(), $emailSubject, $emailBody, true);
+            }
             header('Location: myprofile.php?'.GET_PARAM_ACTION.'='.ACTION_MY_ADS);
             return;
         }

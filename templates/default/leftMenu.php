@@ -15,6 +15,17 @@ if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
 		if ( isset($PAGE['category']) ) {
 		?>
 			<li><a href="<?='myprofile.php?'.GET_PARAM_ACTION.'=postAds&cat='.$PAGE['category']->getId()?>"><?=$LANG['POST_ADS']?></a>
+		    <?php
+		    if ( isset($PAGE['isWatching']) && !$PAGE['isWatching'] ) {
+		    ?>    
+		    	<li><a href="<?='index.php?'.GET_PARAM_ACTION.'=watchCategory&cat='.$PAGE['category']->getId()?>"><?=$LANG['WATCH_CATEGORY']?></a>
+		    <?php
+		    } else if ( isset($PAGE['isWatching']) && $PAGE['isWatching'] ) {
+		    ?>
+		        <li><a href="<?='index.php?'.GET_PARAM_ACTION.'=unwatchCategory&cat='.$PAGE['category']->getId()?>"><?=$LANG['UNWATCH_CATEGORY']?></a>
+		    <?php
+		    }
+		    ?>
 		<?php
         } else {
 		?>

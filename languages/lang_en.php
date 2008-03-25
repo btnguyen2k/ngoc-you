@@ -37,6 +37,8 @@ $LANG['ACTIVATE_ACCOUNT'] = 'Activate Account';
 $LANG['RESEND_ACTIVATION_CODE'] = 'Resend Activation Code';
 $LANG['RESEND_ACTIVATION_CODE_DONE'] = 'An email with instructions to activate your account has been sent to your email address.';
 $LANG['ANONYMOUS'] = 'Anonymous';
+$LANG['WATCH_CATEGORY'] = 'Watch Category';
+$LANG['UNWATCH_CATEGORY'] = 'Unwatch Category';
 
 $LANG['REGISTER_EMAIL_SUBJECT'] = 'Account registration confirmation';
 $LANG['REGISTER_EMAIL_BODY'] = "You have registered an account at {SITE} with the following information:
@@ -44,6 +46,16 @@ Login Name: {LOGIN_NAME}
 Full Name: {FULL_NAME}
 
 Please confirm your registration by visiting the following link {URL_ACTIVATE_ACCOUNT}.
+
+Note: Please do not respond directly to this email as it is an unattended mail box!
+If you have any question or inquiry, please contact the web site's administrator at {EMAIL_ADMINISTRATOR}";
+
+$LANG['NEW_ADS_NOTIFY_EMAIL_SUBJECT'] = 'New Ads Notification';
+$LANG['NEW_ADS_NOTIFY_EMAIL_BODY'] = "A new ads \"{ADS_TITLE}\" has been posted onto category \"{CATEGORY_NAME}\".
+Please follow this link to view it: {URL_ADS}.
+
+Note: You received this email because you are watching the category. if you wish to unwatch it,
+please click on the \"Unwatch Category\" from the left menu on the web page.
 
 Note: Please do not respond directly to this email as it is an unattended mail box!
 If you have any question or inquiry, please contact the web site's administrator at {EMAIL_ADMINISTRATOR}";
