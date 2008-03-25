@@ -9,6 +9,7 @@ require_once 'ClassConfigDao.php';
 require_once 'ClassCategoryDao.php';
 require_once 'ClassEntryDao.php';
 require_once 'ClassUserDao.php';
+require_once 'ClassCategoryWatchDao.php';
 
 define("TABLE_LOCATION", "nylocation");
 define("TABLE_CONFIG", "nyconfig");
@@ -18,6 +19,7 @@ define("TABLE_CATEGORY", "nycategory");
 define("TABLE_ENTRY", "nyentry");
 define("TABLE_REPORTED_ENTRY", "nyreportedentry");
 define("TABLE_UPLOAD", "nyupload");
+define("TABLE_CATEGORY_WATCH", "nycategorywatch");
 
 /**
  * @var ADOConnection
@@ -202,6 +204,22 @@ function updateCategory($cat) {
 function updateEntry($entry) {
     EntryDao::updateEntry($entry);
 }
+
+function getWatcherList($category) {
+    return CategoryWatchDao::getWatcherList($category);
+}
+
+function isWatchingCategory($user, $category) {
+    return CategoryWatchDao::isWatching($user, $category);
+}
+
+function watchCategory($user, $category) {
+    CategoryWatchDao::watchCategory($user, $category);
+}
+
+function unwatchCategory($user, $category) {
+    CategoryWatchDao::unwatchCategory($user, $category);
+}
 /* Category and entry-related functions */
 
 /* User account-related functions */
@@ -234,7 +252,7 @@ function getUserByLoginName($loginName) {
 }
 
 function unreportEntry($id) {
-    EntryDao::unreportEntry($id);    
+    EntryDao::unreportEntry($id);
 }
 
 function updateUser($user) {

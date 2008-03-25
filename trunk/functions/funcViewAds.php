@@ -13,9 +13,14 @@ $PAGE['pageTitle'] = APPLICATION_NAME.' - '.($ads!==NULL?htmlspecialchars($ads->
 $PAGE['category'] = $cat;
 $PAGE['ads'] = $ads;
 if ( $ads !== NULL ) {
-	increaseEntryNumViews($ads);
+    increaseEntryNumViews($ads);
     $PAGE['pageKeywords'] = $ads->getTitle();
     $PAGE['pageDescription'] = $cat->getDescription();
+
+    //check for category watching
+    if ( isset($CURRENT_USER) && $CURRENT_USER !== NULL ) {
+        $PAGE['isWatching'] = isWatchingCategory($CURRENT_USER, $cat);
+    }
 }
 
 require_once 'templates/'.TEMPLATE.'/pageViewAds.php';

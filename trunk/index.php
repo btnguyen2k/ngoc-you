@@ -24,6 +24,8 @@ define("ACTION_RESEND_ACTIVATION_CODE", 'resendActivationCode');
 define("ACTION_RESEND_ACTIVATION_CODE_DONE", 'resendActivationCodeDone');
 define("ACTION_REPORT_ADS", 'reportAds');
 define("ACTION_REPORT_ADS_DONE", 'reportAdsDone');
+define("ACTION_WATCH_CATEGORY", 'watchCategory');
+define("ACTION_UNWATCH_CATEGORY", 'unwatchCategory');
 
 $CURRENT_USER = NULL;
 if ( isset($_SESSION[SESSION_CURRENT_USER_ID]) ) {
@@ -74,6 +76,10 @@ if ( $ACTION === ACTION_LOGIN ) {
 	require_once 'functions/funcReportAds.php';	
 } elseif ( $ACTION === ACTION_REPORT_ADS_DONE ) {
 	require_once 'functions/funcReportAdsDone.php';	
+} elseif ( $ACTION === ACTION_WATCH_CATEGORY ) {
+	require_once 'functions/funcWatchCat.php';	
+} elseif ( $ACTION === ACTION_UNWATCH_CATEGORY ) {
+	require_once 'functions/funcUnwatchCat.php';	
 } else {
     $_SESSION[SESSION_LAST_ACCESS_PAGE] = $_SERVER["REQUEST_URI"];
 	require_once 'functions/funcIndex.php';	
