@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS nygroup;
 DROP TABLE IF EXISTS nyupload;
 DROP TABLE IF EXISTS nyreportedentry;
 DROP TABLE IF EXISTS nyentry;
+DROP TABLE ID EXISTS nycategorywatch;
 DROP TABLE IF EXISTS nyuser;
 DROP TABLE IF EXISTS nycategory;
 
@@ -181,4 +182,13 @@ CREATE TABLE nyreportedentry (
 	rcreationtimestamp		INTEGER			NOT NULL DEFAULT 0,
 		INDEX (rcreationtimestamp),
 	rreporterid				INTEGER	
+) ENGINE=InnoDB;
+
+CREATE TABLE nycategorywatch (
+	categoryid				INTEGER			NOT NULL,
+	userid					INTEGER			NOT NULL,
+		INDEX (userid),
+	PRIMARY KEY (categoryid, userid),
+	FOREIGN KEY (categoryid) REFERENCES nycategory(cid) ON DELETE CASCADE,
+	FOREIGN KEY (userid) REFERENCES nyuser(uid) ON DELETE CASCADE
 ) ENGINE=InnoDB;
