@@ -15,6 +15,9 @@ if ( $cat !== NULL ) {
 }
 $PAGE['pageTitle'] = APPLICATION_NAME.' - '.($cat!==NULL?htmlspecialchars($cat->getName()):"");
 $PAGE['category'] = $cat;
+$PAGE['adsFilters'] = Array(
+    
+);
 $PAGE['entries'] = $cat!==NULL?getEntriesForCategory($cat->getId()):Array();
 
 //check for category watching

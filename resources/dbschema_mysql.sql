@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS nykeyword;
 DROP TABLE IF EXISTS nyconfig;
 DROP TABLE IF EXISTS nylocation;
 DROP TABLE IF EXISTS nygroup;
@@ -192,3 +193,12 @@ CREATE TABLE nycategorywatch (
 	FOREIGN KEY (categoryid) REFERENCES nycategory(cid) ON DELETE CASCADE,
 	FOREIGN KEY (userid) REFERENCES nyuser(uid) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE nykeyword (
+	kword					VARCHAR(32)		NOT NULL,
+	kentryid				INTEGER			NOT NULL,
+		INDEX (kentryid),
+	PRIMARY KEY (kword, kentryid),
+	FOREIGN KEY (kentryid) REFERENCES nyentry(eid) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
