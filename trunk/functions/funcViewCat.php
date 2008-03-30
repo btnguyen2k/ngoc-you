@@ -14,7 +14,8 @@ if ( $cat !== NULL ) {
     $PAGE['pageDescription'] = $cat->getName();
 }
 $PAGE['pageTitle'] = APPLICATION_NAME.' - '.($cat!==NULL?htmlspecialchars($cat->getName()):"");
-$PAGE['category'] = $cat;
+$PAGE['category'] = $cat; 
+$PAGE['locations'] = getAllLocations();
 $PAGE['adsFilters'] = Array(
     
 );

@@ -67,6 +67,7 @@ $LANG['ATTACH_IMAGES'] = 'Attach Images';
 $LANG['ALLOWED_UPLOAD_FILE_TYPES'] = 'Allowed file types';
 $LANG['MAX_UPLOAD_SIZE'] = 'Maximum upload size';
 
+$LANG['ADS_FILTER'] = 'Ads Filter';
 $LANG['ADS_LOCATION'] = 'City/Province';
 $LANG['ADS_PRICE'] = 'Price';
 $LANG['ADS_PRICE_CONTACT'] = 'Contact';
