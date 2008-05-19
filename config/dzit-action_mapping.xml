@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-mapping>
+	<default-handler class="You_Dzit_ReturnHomeHandler" />
+	<default-view class="You_Dzit_DefaultViewRenderer" />
+
+	<handler action="index" class="You_Dzit_IndexHandler" />
+</action-mapping>
