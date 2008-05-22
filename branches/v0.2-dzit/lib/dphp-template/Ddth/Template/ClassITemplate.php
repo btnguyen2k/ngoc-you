@@ -14,7 +14,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html  LGPL 3.0
- * @id			$Id: ClassITemplate.php 159 2008-04-07 19:54:58Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassITemplate.php 171 2008-05-19 08:11:21Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
@@ -50,12 +50,26 @@ interface Ddth_Template_ITemplate {
     
     const PROPERTY_CHARSET = "charset";
     
+//    /**
+//     * Gets absolute path of the directory where the template pack is located.
+//     * 
+//     * @return string
+//     */
+//    public function getAbsoluteDir();
+    
     /**
      * Gets description of the template pack.
      *
      * @return string
      */
     public function getDescription();
+    
+    /**
+     * Gets name of the directory where the template pack is located.
+     * 
+     * @return string
+     */
+    public function getDir();
     
     /**
      * Gets display name of the template pack.

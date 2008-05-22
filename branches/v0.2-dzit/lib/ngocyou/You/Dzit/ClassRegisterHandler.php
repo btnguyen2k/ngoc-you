@@ -1,0 +1,127 @@
+<?php
+//require_once 'includes/config.php';
+require_once 'includes/captcha.php';
+//require_once 'dbUtils.php';
+
+class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
+
+    const CAPTCHA_KEY                   = 'CAPTCHA_REGISTER';
+    const FORM_FIELD_LOGIN_NAME         = 'loginName';
+    const FORM_FIELD_PASSWORD           = 'password';
+    const FORM_FIELD_CONFIRMED_PASSWORD = 'confirmedPassword';
+    const FORM_FIELD_EMAIL              = 'email';
+    const FORM_FIELD_FULL_NAME          = 'fullName';
+    const FORM_FIELD_CAPTCHA            = 'captcha';
+
+    /**
+     * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::performAction()}
+     */
+    protected function performAction() {
+        $this->populateDataModels();
+        $form = $this->populateForm();
+        if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+            captchaCreate(self::CAPTCHA_KEY);
+        } else {
+            $language = $this->getLanguage();
+
+            $loginName = $form->getField(self::FORM_FIELD_LOGIN_NAME);
+            $pwd = $form->getField(self::FORM_FIELD_PASSWORD);
+            $pwdConfirmed = $form->getField(self::FORM_FIELD_CONFIRMED_PASSWORD);
+            $email = $form->getField(self::FORM_FIELD_EMAIL);
+            $fullName = $form->getField(self::FORM_FIELD_FULL_NAME);
+            $captcha = $form->getField(self::FORM_FIELD_CAPTCHA);
+
+            if ( $loginName === "" ) {
+                $form->addErrorMessage($lang->getMessage('error.emptyLoginName'));
+            }
+            if ( $pwd === "" ) {
+                $form->addErrorMessage($lang->getMessage('error.emptyPassword'));
+            }
+            if ( $pwd !== $pwdConfirmed ) {
+                $form->addErrorMessage($lang->getMessage('error.confirmedPasswordNotMatch'));
+            }
+            if ( $email === "" ) {
+                $form->addErrorMessage($lang->getMessage('error.emptyEmail'));
+            }
+            if ( getUserByLoginName($loginName) !== NULL ) {
+                $form->addErrorMessage($lang->getMessage('error.loginNameAlreadyExists'));
+            }
+            if ( getUserByEmail($email) !== NULL ) {
+                $form->addErrorMessage($lang->getMessage('error.emailAlreadyExists'));
+            }
+            if ( $captcha !== captchaGetCode(self::CAPTCHA_KEY) ) {
+                $form->addErrorMessage($lang->getMessage('error.captchaNotMatch'));
+            }
+            if ( !$form->hasErrorMessage() ) {
+                $activationCode = strtolower(md5(mt_rand(0, time())));
+                $user = new User();
+                $user->setActivationCode($activationCode);
+                $user->setEmail($email);
+                $user->setFullName($fullName);
+                $user->setGroupId(GROUP_MEMBER);
+                $user->setLoginName($loginName);
+                $user->setPassword($pwd);
+                $user = createUser($user);
+                captchaDelete(CAPTCHA_KEY);
+                $subject = $LANG['REGISTER_EMAIL_SUBJECT'];
+                $body = $LANG['REGISTER_EMAIL_BODY'];
+                $site = '<a href="'.getSiteUrl().'">'.$siteConfig['SITE_NAME'].'</a>';
+                $body = str_replace('{SITE}', $site, $body);
+                $body = str_replace('{LOGIN_NAME}', $user->getLoginName(), $body);
+                $body = str_replace('{FULL_NAME}', $user->getFullName(), $body);
+                $body = str_replace('{EMAIL_ADMINISTRATOR}', $siteConfig['EMAIL_ADMINISTRATOR'], $body);
+                $urlActivate = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'='.ACTION_ACTIVATE_ACCOUNT;
+                $urlActivate .= '&id='.$user->getId().'&activationCode='.$user->getActivationCode();
+                $body = str_replace('{URL_ACTIVATE_ACCOUNT}', "<a href=\"$urlActivate\">$urlActivate</a>", $body);
+                sendEmail($siteConfig['EMAIL_OUTGOING'], $user->getEmail(), $subject, $body, true);
+                $params = GET_PARAM_ACTION.'='.ACTION_REGISTER_DONE;
+                $params .= '&'.GET_PARAM_ID.'='.$user->getId();
+                header("Location: index.php?".$params);
+            }
+        }
+        return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
+    }
+
+    protected function populateForm() {
+        $formModel = $this->getRootDataModel(You_Dzit_Constants::DATA_MODEL_FORM);
+        if ( $formModel === NULL ) {
+            $form = new You_DataModel_Form('frmRegister');
+            $formModel = new Ddth_Template_DataModel_Bean(You_Dzit_Constants::DATA_MODEL_FORM, $form);
+            $this->populateRootDataModel(You_Dzit_Constants::DATA_MODEL_FORM, $formModel);
+        }
+        $form = $formModel->getValue();
+        $app = $this->getApplication();
+        $urlCreator = $app->getUrlCreator();
+        $form->setAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_REGISTER));
+        $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
+
+        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+            $field = self::FORM_FIELD_CAPTCHA;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, $value);
+
+            $field = self::FORM_FIELD_CONFIRMED_PASSWORD;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, $value);
+
+            $field = self::FORM_FIELD_EMAIL;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, $value);
+
+            $field = self::FORM_FIELD_FULL_NAME;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, $value);
+
+            $field = self::FORM_FIELD_LOGIN_NAME;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, strtolower($value));
+
+            $field = self::FORM_FIELD_PASSWORD;
+            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            $form->setField($field, $value);
+        }
+
+        return $form;
+    }
+}
+?>

@@ -15,7 +15,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html LGPL 3.0
- * @id			$Id: ClassGenericViewRenderer.php 18 2008-05-01 13:09:54Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassGenericViewRenderer.php 22 2008-05-19 04:22:44Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
