@@ -14,7 +14,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html  LGPL 3.0
- * @id			$Id: ClassAbstractTemplate.php 159 2008-04-07 19:54:58Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassAbstractTemplate.php 171 2008-05-19 08:11:21Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
@@ -140,12 +140,26 @@ abstract class Ddth_Template_AbstractTemplate implements Ddth_Template_ITemplate
     protected function getCharset() {
         return $this->getTemplateConfigProperty(self::PROPERTY_CHARSET);
     }
+    
+//    /**
+//     * {@see Ddth_Template_ITemplate::getAbsoluteDir()}.
+//     */
+//    public function getAbsoluteDir() {
+//        return $this->getLocation();
+//    }
 
     /**
      * {@see Ddth_Template_ITemplate::getDescription()}
      */
     public function getDescription() {
         return $this->description;
+    }
+    
+    /**
+     * {@see Ddth_Template_ITemplate::getDir()}.
+     */
+    public function getDir() {
+        return $this->getSetting(self::PROPERTY_LOCATION);
     }
 
     /**

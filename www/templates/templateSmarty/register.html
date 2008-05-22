@@ -192,8 +192,9 @@ function textboxBlur(el, defaultValue) {
 	</tr>	
 	<tr>
 		<td colspan="3" class="title_form">
-			<input value="Register" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input onclick='location.href="index.php"' value="Cancel" type="button" class="button"></td>
+			<input value="{$language->getMessage('register')}" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input onclick='location.href="index.php"' value="{$language->getMessage('cancel')}" type="button" class="button">
+		</td>
 	</tr>	
 	</tbody></table>
 			</div>

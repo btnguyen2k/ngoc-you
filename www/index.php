@@ -34,6 +34,8 @@ if ( !function_exists('__autoload') ) {
     }
 }
 
+define('NGOC.YOU', 1);
+
 /*
  * This is the directory where configuration files are stored.
  * It should not be reachable from the web.
@@ -60,6 +62,7 @@ define('DZIT_CONFIG_FILE', CONFIG_DIR.'/dzit.properties');
 
 /* set up include path */
 $includePath = '.'.PATH_SEPARATOR.CONFIG_DIR;
+$includePath .= PATH_SEPARATOR.'../includes';
 if ( $dh = @opendir(LIBS_DIR) ) {
     while ( ($file = readdir($dh)) !== false ) {
         if ( is_dir(LIBS_DIR."/$file") && $file!="." && $file!=".." ) {

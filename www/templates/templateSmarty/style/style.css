@@ -11,6 +11,10 @@ TD {
     font-size: 11px;
 }
 
+FORM {
+	margin: 0px;
+}
+
 INPUT {
 	height: 18px;
 	font-family: Tahoma, Arial, Verdana, Helvetica, sans-serif;
@@ -75,6 +79,11 @@ TEXTAREA {
 	border: 1px solid #17bbbd; 
 	text-align: center; vertical-align: middle;
 	cursor:pointer;
+}
+
+.error {
+	color: #FF0000;
+	font-weight: bold;
 }
 
 /*Link */
