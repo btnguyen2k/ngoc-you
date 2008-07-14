@@ -1,2 +1,1 @@
-{assign var='PAGE' value='index'}
-{include file='layout.tpl'}
+{include file='layout.tpl' CONTENT_PAGE='page_index.tpl' RIGHT_COLUMN_PAGE='rightmenu_main.tpl'}

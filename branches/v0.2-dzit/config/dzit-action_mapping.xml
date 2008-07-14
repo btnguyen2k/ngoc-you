@@ -3,6 +3,33 @@
 	<default-handler class="You_Dzit_ReturnHomeHandler" />
 	<default-view class="You_Dzit_DefaultViewRenderer" />
 
+	<handler action="captcha" class="You_Dzit_CaptchaHandler" />
 	<handler action="index" class="You_Dzit_IndexHandler" />
+	<handler action="login" class="You_Dzit_LoginHandler" />
+	<handler action="logout" class="You_Dzit_LogoutHandler" />
+	<handler action="error" class="You_Dzit_ErrorHandler" />
+
 	<handler action="register" class="You_Dzit_RegisterHandler" />
+	<handler action="registerDone" class="You_Dzit_RegisterDoneHandler" />
+	<handler action="activateAccount" class="You_Dzit_ActivateAccountHandler" />
+
+	<handler action="myprofile" class="You_Dzit_MyProfileHandler" />
+	<handler action="myAds" class="You_Dzit_MyAdsHandler" />
+	<handler action="changeEmail" class="You_Dzit_ChangeEmailHandler" />
+	<handler action="changeFullName" class="You_Dzit_ChangeFullNameHandler" />
+	<handler action="changePassword" class="You_Dzit_ChangePasswordHandler" />
+	<handler action="postAds" class="You_Dzit_PostAdsHandler" />
+	<handler action="reportAds" class="You_Dzit_ReportAdsHandler" />
+	<handler action="contactPoster" class="You_Dzit_ContactPosterHandler" />
+	
+	<handler action="viewCat" class="You_Dzit_ViewCatHandler" />
+	<handler action="viewAds" class="You_Dzit_ViewAdsHandler" />
+
+	<handler action="adminCp" class="You_Dzit_AdminCpHandler" />
+	<handler action="adminCategoryList" class="You_Dzit_AdminCategoryListHandler" />
+	<handler action="adminCreateCategory" class="You_Dzit_AdminCreateCategoryHandler" />
+	<handler action="adminEditCategory" class="You_Dzit_AdminEditCategoryHandler" />
+	<handler action="adminDeleteCategory" class="You_Dzit_AdminDeleteCategoryHandler" />
+	<handler action="adminMoveupCategory" class="You_Dzit_AdminMoveupCategoryHandler" />
+	<handler action="adminMovedownCategory" class="You_Dzit_AdminMovedownCategoryHandler" />
 </action-mapping>

@@ -2,8 +2,8 @@
 include_once 'denyDirectInclude.php';
 define('SESSION_CAPTCHA', 'CAPTCHA');
 
-function captchaGetImage($width=64, $height=32, $key) {
-    $font = 'includes/monofont.ttf';
+function captchaGetImage($width=96, $height=48, $key) {
+    $font = 'resources/monofont.ttf';
     $code = captchaGetCode($key);
     if ( $code === NULL ) {
         $code = "ERROR!";

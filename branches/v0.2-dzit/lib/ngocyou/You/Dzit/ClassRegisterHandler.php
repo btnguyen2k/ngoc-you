@@ -1,7 +1,8 @@
 <?php
-//require_once 'includes/config.php';
 require_once 'includes/captcha.php';
-//require_once 'dbUtils.php';
+require_once 'includes/utils.php';
+require_once 'dao/dbUtils.php';
+require_once 'dao/ClassUser.php';
 
 class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
 
@@ -22,7 +23,7 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
         if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
             captchaCreate(self::CAPTCHA_KEY);
         } else {
-            $language = $this->getLanguage();
+            $lang = $this->getLanguage();
 
             $loginName = $form->getField(self::FORM_FIELD_LOGIN_NAME);
             $pwd = $form->getField(self::FORM_FIELD_PASSWORD);
@@ -50,7 +51,7 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
                 $form->addErrorMessage($lang->getMessage('error.emailAlreadyExists'));
             }
             if ( $captcha !== captchaGetCode(self::CAPTCHA_KEY) ) {
-                $form->addErrorMessage($lang->getMessage('error.captchaNotMatch'));
+                $form->addErrorMessage($lang->getMessage('error.captchaCodeNotMatch'));
             }
             if ( !$form->hasErrorMessage() ) {
                 $activationCode = strtolower(md5(mt_rand(0, time())));
@@ -62,21 +63,35 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
                 $user->setLoginName($loginName);
                 $user->setPassword($pwd);
                 $user = createUser($user);
-                captchaDelete(CAPTCHA_KEY);
-                $subject = $LANG['REGISTER_EMAIL_SUBJECT'];
-                $body = $LANG['REGISTER_EMAIL_BODY'];
-                $site = '<a href="'.getSiteUrl().'">'.$siteConfig['SITE_NAME'].'</a>';
+                captchaDelete(self::CAPTCHA_KEY);
+
+                $app = $this->getApplication();
+                $urlCreator = $app->getUrlCreator();
+                
+                $subject = $lang->getMessage('email.register.subject');
+                $body = $lang->getMessage('email.register.body');                
+                $site = '<a href="'.$urlCreator->getHomeUrl(true).'">'.$app->getYouProperty('you.site.name').'</a>';
                 $body = str_replace('{SITE}', $site, $body);
                 $body = str_replace('{LOGIN_NAME}', $user->getLoginName(), $body);
                 $body = str_replace('{FULL_NAME}', $user->getFullName(), $body);
-                $body = str_replace('{EMAIL_ADMINISTRATOR}', $siteConfig['EMAIL_ADMINISTRATOR'], $body);
-                $urlActivate = getSiteUrl().'/index.php?'.GET_PARAM_ACTION.'='.ACTION_ACTIVATE_ACCOUNT;
-                $urlActivate .= '&id='.$user->getId().'&activationCode='.$user->getActivationCode();
+                $body = str_replace('{EMAIL_ADMINISTRATOR}', $app->getYouProperty('you.administrator.email'), $body);
+                $urlActivate = $urlCreator->createUrl(
+                    You_Dzit_Constants::ACTION_MEMBER_ACTIVATE_ACCOUNT,
+                    Array(),
+                    Array('id' => $user->getId(), 'activationCode' => $user->getActivationCode()),
+                    "",
+                    true
+                );
                 $body = str_replace('{URL_ACTIVATE_ACCOUNT}', "<a href=\"$urlActivate\">$urlActivate</a>", $body);
-                sendEmail($siteConfig['EMAIL_OUTGOING'], $user->getEmail(), $subject, $body, true);
-                $params = GET_PARAM_ACTION.'='.ACTION_REGISTER_DONE;
-                $params .= '&'.GET_PARAM_ID.'='.$user->getId();
-                header("Location: index.php?".$params);
+                sendEmail($app->getYouProperty('you.email.outgoing'), $user->getEmail(), $subject, $body, true);
+                echo 'hehehe';
+                $result = new Ddth_Dzit_ControlForward_UrlRedirectControlForward($urlCreator->createUrl(
+                        You_Dzit_Constants::ACTION_MEMBER_REGISTER_DONE,
+                        Array(),
+                        Array('id' => $user->getId())
+                    )
+                );
+                return $result;
             }
         }
         return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
@@ -94,6 +109,7 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
         $urlCreator = $app->getUrlCreator();
         $form->setAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_REGISTER));
         $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
+        $form->setCaptchaUrl($urlCreator->createUrl(You_Dzit_Constants::ACTION_CAPTCHA, Array(), Array('key'=>self::CAPTCHA_KEY)));
 
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
             $field = self::FORM_FIELD_CAPTCHA;

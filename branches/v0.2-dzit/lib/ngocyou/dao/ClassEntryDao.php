@@ -180,13 +180,26 @@ class EntryDao {
      * Gets all non-expired entries for a category.
      *
      * @param int
+     * @param int
+     * @param int
      * @return Array()
      */
-    public static function getEntriesForCategory($catId) {
+    public static function getEntriesForCategory($catId, $page=1, $entriesPerPage=20) {
+        $cat = CategoryDao::getCategory($catId);
+        if ( $cat === NULL ) {
+            return Array();
+        }
+        $params = Array($catId);
+        foreach ( $cat->getChildren() as $child ) {
+            $params[] = $child->getId();
+        }
         $adodb = adodbGetConnection();
         $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
-        $sql = 'SELECT * FROM '.TABLE_ENTRY.' WHERE ecatid=? AND eexpirytimestamp>? ORDER BY eexpirytimestamp DESC';
-        $rs = $adodb->Execute($sql, Array($catId, time()));
+        $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params));        
+        $sql = 'SELECT * FROM '.TABLE_ENTRY.' WHERE ecatid IN ('.$catIdsParam.') AND eexpirytimestamp>? ORDER BY eexpirytimestamp DESC';
+        $params[] = time();
+        $rs = $adodb->SelectLimit($sql, $entriesPerPage, ($page-1)*$entriesPerPage, $params);
+        //$rs = $adodb->Execute($sql, Array($catId, time()));
         $result = Array();
         while ( !$rs->EOF ) {
             $entry = new Entry();

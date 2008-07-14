@@ -1,0 +1,1 @@
+{include file='layout.tpl' CONTENT_PAGE='page_adminCreateCategory.tpl' LEFT_COLUMN_PAGE='leftmenu_admin.tpl'}

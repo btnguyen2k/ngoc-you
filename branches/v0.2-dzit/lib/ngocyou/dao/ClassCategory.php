@@ -55,6 +55,14 @@ class Category {
 	public function getNumEntries() {
 		return $this->numEntries+0;
 	}
+	
+	public function getNumEntriesIncChildren() {
+	    $result = $this->getNumEntries();
+	    foreach ( $this->getChildren() as $child ) {
+	        $result += $child->getNumEntriesIncChildren();
+	    }
+	    return $result;
+	}
 
 	public function setNumEntries($value) {
 		$this->numEntries = $value;

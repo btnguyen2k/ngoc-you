@@ -19,16 +19,22 @@ class You_DataModel_Form {
      * @var Array
      */
     private $fields = Array();
-    
+
+    /**
+     * @var string
+     */
+    private $captchaUrl = '';
+
     /**
      * @var Array
      */
     private $errorMessages = Array();
 
-    public function __construct($name=NULL, $action=NULL, $cancelAction=NULL) {
+    public function __construct($name=NULL, $action=NULL, $cancelAction=NULL, $captchaUrl=NULL) {
         $this->setName($name);
         $this->setAction($action);
         $this->setCancelAction($cancelAction);
+        $this->setCaptchaUrl($captchaUrl);
     }
 
     public function setAction($action=NULL) {
@@ -47,6 +53,14 @@ class You_DataModel_Form {
         return $this->cancelAction;
     }
 
+    public function getCaptchaUrl() {
+        return $this->captchaUrl;
+    }
+
+    public function setCaptchaUrl($url=NULL) {
+        $this->captchaUrl = trim(isset($url) ? $url : NULL);
+    }
+
     public function setName($name=NULL) {
         $this->name = trim(isset($name) ? $name : NULL);
     }
@@ -62,27 +76,27 @@ class You_DataModel_Form {
     public function getField($name) {
         return isset($this->fields[$name]) ? $this->fields[$name] : '';
     }
-    
+
     public function hasErrorMessage() {
         return count($this->errorMessages) > 0;
     }
-    
+
     public function hasErrorMessages() {
         return $this->hasErrorMessage();
     }
-    
+
     public function numErrorMessages() {
         return count($this->errorMessages);
     }
-    
+
     public function getErrorMessages() {
         return $this->errorMessages;
     }
-    
+
     public function getErrorMessage($index) {
         return isset($this->errorMessages[$index]) ? $this->errorMessages[$index] : "";
     }
-    
+
     public function addErrorMessage($msg) {
         $this->errorMessages[] = $msg;
     }
