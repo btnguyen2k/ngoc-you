@@ -1,0 +1,1 @@
+{include file='layout.tpl' CONTENT_PAGE='page_login.tpl'}

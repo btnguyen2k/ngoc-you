@@ -14,7 +14,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html LGPL 3.0
- * @id			$Id: ClassDzitConstants.php 21 2008-05-07 08:05:18Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassDzitConstants.php 25 2008-06-16 02:35:24Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
@@ -30,7 +30,6 @@
  */
 class Ddth_Dzit_DzitConstants {
     const APP_ATTR_ROOT_DATA_MODELS     = 'ROOT_DATA_MODELS';
-
     const APP_ATTR_CURRENT_ACTION       = 'CURRENT_ACTION';
 
     const SCRIPT_DEFAULT                = 'index.php';
@@ -40,6 +39,10 @@ class Ddth_Dzit_DzitConstants {
     const LANGUAGE_DEFAULT              = 'default';
     
     const TEMPLATE_DEFAULT              = 'default';
+    
+    const SESSION_TRANSMISSION          = 'TRANSMISSIONS';
+    
+    const URL_PARAM_TRANSMISSION        = 'trans';
 
     //roots data models
     const DATAMODEL_LANGUAGE            = 'language';
@@ -53,6 +56,8 @@ class Ddth_Dzit_DzitConstants {
     const DATAMODEL_PAGE_HEADER_KEYWORDS       = 'keywords';
     const DATAMODEL_PAGE_HEADER_REDIRECT_URL   = 'redirectUrl';
 
+    const DATAMODEL_PAGE_FORM                  = 'form';
+    
     const DATAMODEL_PAGE_CONTENT               = 'content';
 }
 ?>

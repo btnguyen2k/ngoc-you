@@ -14,7 +14,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html LGPL 3.0
- * @id			$Id: ClassDefaultUrlCreator.php 22 2008-05-19 04:22:44Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassDefaultUrlCreator.php 26 2008-07-09 08:31:07Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
@@ -34,22 +34,27 @@ class Ddth_Dzit_DefaultUrlCreator implements Ddth_Dzit_IUrlCreator {
     /**
      * {@see Ddth_Dzit_IUrlCreator::createUrl()}
      */
-    public function createUrl($action, $pathInfoParams=Array(), $urlParams=Array(),
-    $script="", $includeDomain=false, $forceHttps=false) {
+    public function createUrl($action, $pathInfoParams=Array(), $urlParams=Array(), $script="", $includeDomain=false, $forceHttps=false) {
         if ( $script === NULL || trim($script) === "" ) {
             $url = $_SERVER['PHP_SELF'];
         } else {
             $url = trim($script);
         }
         $url .= '?'.self::GET_PARAM_ACTION.'='.$action;
-        if ( count($pathInfoParams) > 0 || count($urlParams) > 0 ) {
+        $ok1 = $pathInfoParams!==NULL && is_array($pathInfoParams) && count($pathInfoParams) > 0;
+        $ok2 = $urlParams!==NULL && is_array($urlParams) && count($urlParams) > 0;
+        if ( $ok1 || $ok2 ) {
             $i = 1;
-            foreach ( $pathInfoParams as $param ) {
-                $url .= "&amp;$i=$param";
-                $i++;
+            if ( $pathInfoParams !== NULL ) {
+                foreach ( $pathInfoParams as $param ) {
+                    $url .= "&$i=$param";
+                    $i++;
+                }
             }
-            foreach ( $urlParams as $key=>$value ) {
-                $url .= "&amp;$key=$value";
+            if ( $urlParams !== NULL ) {
+                foreach ( $urlParams as $key=>$value ) {
+                    $url .= "&$key=$value";
+                }
             }
         }
         if ( $includeDomain || $forceHttps ) {

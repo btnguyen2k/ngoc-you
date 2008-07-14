@@ -21,10 +21,10 @@ define("TABLE_REPORTED_ENTRY", "nyreportedentry");
 define("TABLE_UPLOAD", "nyupload");
 define("TABLE_CATEGORY_WATCH", "nycategorywatch");
 
-/**
- * @var ADOConnection
- */
-$ADODB_CONN = NULL;
+///**
+// * @var ADOConnection
+// */
+//$ADODB_CONN = NULL;
 
 if ( DEBUG_MODE ) {
     $EXECS = 0;
@@ -56,46 +56,36 @@ if ( DEBUG_MODE ) {
 }
 
 function adodbGetConnection() {
-    /**
-     * @var ADOConnection
-     */
-    global $ADODB_CONN;
-    global $DB_SETUP_SQLS;
+    //    /**
+    //     * @var ADOConnection
+    //     */
+    //    global $ADODB_CONN;
+
+    $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
+    $ADODB_CONN = $app->getAdodbConnection();
+
     if ( $ADODB_CONN === NULL ) {
-        $dsn = DB_TYPE.'://'.DB_USER.':'.DB_PASSWORD.'@'.DB_SERVER.':'.DB_PORT.'/'.DB_SCHEMA;
-        $ADODB_CONN = NewADOConnection($dsn);
-        if ( $ADODB_CONN === false ) {
-            die("Can not connect to database!");
-        }
-        if ( isset($DB_SETUP_SQLS) ) {
-            if ( is_array($DB_SETUP_SQLS) ) {
-                foreach ( $DB_SETUP_SQLS as $sql ) {
-                    $ADODB_CONN->Execute($sql);
-                }
-            } else{
-                $ADODB_CONN->Execute($DB_SETUP_SQLS);
-            }
-        }
-        register_shutdown_function('adodbCloseConnection');
+        die("Can not connect to database!");
+
+        //        register_shutdown_function('adodbCloseConnection');
         if ( DEBUG_MODE ) {
             $ADODB_CONN->fnExecute = 'adodbCountExecs';
             $ADODB_CONN->fnCacheExecute = 'adodbCountCachedExecs';
         }
-        $ADODB_CONN->StartTrans();
     }
     return $ADODB_CONN;
 }
 
-function adodbCloseConnection() {
-    /**
-     * @var ADOConnection
-     */
-    global $ADODB_CONN;
-    if ( $ADODB_CONN !== NULL ) {
-        $ADODB_CONN->CompleteTrans();
-        $ADODB_CONN = NULL;
-    }
-}
+//function adodbCloseConnection() {
+//    /**
+//     * @var ADOConnection
+//     */
+//    global $ADODB_CONN;
+//    if ( $ADODB_CONN !== NULL ) {
+//        $ADODB_CONN->CompleteTrans();
+//        $ADODB_CONN = NULL;
+//    }
+//}
 
 /* Location-related functions */
 function getAllLocations() {
@@ -172,8 +162,8 @@ function getCategoryTree() {
     return CategoryDao::getCategoryTree();
 }
 
-function getEntriesForCategory($catId) {
-    return EntryDao::getEntriesForCategory($catId);
+function getEntriesForCategory($catId, $page=1, $entriesPerPage=20) {
+    return EntryDao::getEntriesForCategory($catId, $page, $entriesPerPage);
 }
 
 function getEntriesForRss($catId=0) {

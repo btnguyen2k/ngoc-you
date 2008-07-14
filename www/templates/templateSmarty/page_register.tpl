@@ -1,5 +1,6 @@
+<br>
 <div align="center">
-	<table border="0" width="970" id="table10" cellspacing="0" cellpadding="0">
+	<table border="0" width="970" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="970" class="celltop">&nbsp;</td>
 	</tr>
@@ -7,7 +8,7 @@
 		<td width="970" class="cellcenter">
 			<div align="center">
 				<form method="POST" action="{$form->getAction()}" name="{$form->getName()}">
-    				<table border="0" cellpadding="4" cellspacing="5" id="table30" class="register_form" width="400">
+    				<table border="0" cellpadding="4" cellspacing="5" class="register_form" width="400">
     				<tbody>
     					<tr>
     						<td colspan="3" class="title_form">{$language->getMessage('title.register')}</td>
@@ -74,28 +75,25 @@
     							<input name="fullName" value="{$form->getField('fullName')}" style="width: 160px;" type="text">
     						</td>
     					</tr>
-    					<tr>
-    						<td width="35">&nbsp;</td>
-    						<td>&nbsp;</td>
-    						<td><img src="images/img_register.jpg" border="0"></td>
-    					</tr>
-    					<tr>
-    						<td width="35">&nbsp;</td>
-    						<td>{$language->getMessage('captchaCode')}:</td>
-    						<td>
-    							<input name="captcha" style="width: 160px;" type="text" value="">
-    							<span class="mandatory_field"> *</span>
-    						</td>
-    					</tr>
-    					<tr>
-    						<td width="35">&nbsp;</td>
-    						<td>&nbsp;</td>
-    						<td>&nbsp;</td>
-    					</tr>	
+    					{if $form->getCaptchaUrl() != ""}
+							<tr>
+        						<td width="35">&nbsp;</td>
+        						<td>&nbsp;</td>
+        						<td><img src="{$form->getCaptchaUrl()}" border="0"></td>
+        					</tr>
+        					<tr>
+        						<td width="35">&nbsp;</td>
+        						<td>{$language->getMessage('captchaCode')}:</td>
+        						<td>
+        							<input name="captcha" style="width: 160px;" type="text" value="">
+        							<span class="mandatory_field"> *</span>
+        						</td>
+        					</tr>
+    					{/if}
     					<tr>
     						<td colspan="3" class="title_form">
-    							<input value="Register" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
-    							<input onclick='location.href="{$form->getCancelAction()}"' value="Cancel" type="button" class="button">
+    							<input value="{$language->getMessage('register')}" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
+    							<input onclick='location.href="{$form->getCancelAction()}"' value="{$language->getMessage('cancel')}" type="button" class="button">
     						</td>
     					</tr>
     				</tbody>
@@ -109,3 +107,4 @@
 	</tr>
 	</table>
 </div>
+<br>

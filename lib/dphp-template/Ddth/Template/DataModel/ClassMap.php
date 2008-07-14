@@ -87,7 +87,7 @@ class Ddth_Template_DataModel_Map extends Ddth_Template_DataModel_AbstractNode {
         $myValue = Array();
         parent::setValue($myValue);
         if ( is_array($value) ) {
-            foreach ( array_values($value) as $k=>$v ) {
+            foreach ( $value as $k=>$v ) {
                 $this->addChild($k, $v);
             }
         } else {

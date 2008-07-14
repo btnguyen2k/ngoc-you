@@ -15,7 +15,7 @@
  * @author		NGUYEN, Ba Thanh <btnguyen2k@gmail.com>
  * @copyright	2008 DDTH.ORG
  * @license    	http://www.gnu.org/licenses/lgpl.html LGPL 3.0
- * @id			$Id: ClassAbstractActionHandler.php 22 2008-05-19 04:22:44Z btnguyen2k@gmail.com $
+ * @id			$Id: ClassAbstractActionHandler.php 24 2008-06-05 07:03:43Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
 
@@ -188,9 +188,11 @@ abstract class Ddth_Dzit_ActionHandler_AbstractActionHandler implements Ddth_Dzi
      */
     protected function populateModelPage() {
         $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
-        $node = new Ddth_Template_DataModel_Map($name);
-        $this->populateRootDataModel($name, $node);
-
+        $node = $this->getRootDataModel($name);
+        if ( $node === NULL ) {
+            $node = new Ddth_Template_DataModel_Map($name);
+            $this->populateRootDataModel($name, $node);
+        }
         $this->populateModelPageForm($node);
         $this->populateModelPageHeader($node);
         $this->populateModelPageContent($node);
@@ -294,10 +296,13 @@ abstract class Ddth_Dzit_ActionHandler_AbstractActionHandler implements Ddth_Dzi
      * @throws Ddth_Dzit_DzitException
      */
     protected function populateModelLanguage() {
-        $language = $this->getLanguage();
         $name = Ddth_Dzit_DzitConstants::DATAMODEL_LANGUAGE;
-        $node = new Ddth_Template_DataModel_Bean($name, $language);
-        $this->populateRootDataModel($name, $node);
+        $node = $this->getRootDataModel($name);
+        if ( $node === NULL ) {
+            $language = $this->getLanguage();
+            $node = new Ddth_Template_DataModel_Bean($name, $language);
+            $this->populateRootDataModel($name, $node);
+        }
     }
 }
 ?>

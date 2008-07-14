@@ -17,6 +17,9 @@
  * @id			$Id: index.php 16 2008-04-28 14:55:53Z btnguyen2k@gmail.com $
  * @since      	File available since v0.1
  */
+global $logger;
+$logger = NULL;
+
 if ( !function_exists('__autoload') ) {
     /**
      * Automatically loads class source file when used.
@@ -25,6 +28,7 @@ if ( !function_exists('__autoload') ) {
      * @ignore
      */
     function __autoload($className) {        
+        global $logger;
         require_once 'Ddth/Commons/ClassDefaultClassNameTranslator.php';
         require_once 'Ddth/Commons/ClassLoader.php';
         $translator = Ddth_Commons_DefaultClassNameTranslator::getInstance();

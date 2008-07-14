@@ -1,0 +1,1 @@
+{include file='layout.tpl' CONTENT_PAGE='page_viewCat.tpl' RIGHT_COLUMN_PAGE='rightmenu_main.tpl'}

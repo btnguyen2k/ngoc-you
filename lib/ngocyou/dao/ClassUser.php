@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/config.php';
+
 class User {
     private $id = 0;
     private $loginName = NULL;
@@ -21,6 +23,10 @@ class User {
         $this->setGroupId(isset($tblRow['ugroupid'])?$tblRow['ugroupid']+0:0);
         $this->setCreationTimestamp(isset($tblRow['ucreationtimestamp'])?$tblRow['ucreationtimestamp']+0:0);
         $this->setActivationCode(isset($tblRow['uactivationcode'])?$tblRow['uactivationcode']:NULL);
+    }
+    
+    public function canAccessAdminCP() {
+        return $this->groupId == GROUP_ADMINISTRATOR || $this->groupId == GROUP_MODERATOR;
     }
 
     public function authenticate($pwd) {
