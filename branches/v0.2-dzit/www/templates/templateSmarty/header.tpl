@@ -30,7 +30,7 @@ function textboxBlur(el, defaultValue) {
 	<td class="head">
 		<table border="0" width="970" cellspacing="0" cellpadding="0" align="center">
 		<tr>
-			<td width="42"><img border="0" src="images/02.gif" width="108" height="75"></td>
+			<td width="42"><a href="{$commonUrls.home}"><img border="0" src="images/02.gif" width="108" height="75"></a></td>
 			<td class="headbanner" align="right">
 				{if $currentUser !== NULL}
 				{else}
