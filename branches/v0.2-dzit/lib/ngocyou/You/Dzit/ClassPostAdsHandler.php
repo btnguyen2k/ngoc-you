@@ -1,6 +1,6 @@
 <?php
 require_once 'dao/dbUtils.php';
-class You_Dzit_PostAdsHandler extends You_Dzit_AdminHandler {
+class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
 
     const DATAMODEL_CATEGORY_TREE                = 'categoryTree';
     const DATAMODEL_ADS_LOCATION_LIST            = 'adsLocationList';
