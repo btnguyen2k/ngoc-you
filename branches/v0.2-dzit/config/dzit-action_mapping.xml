@@ -21,9 +21,12 @@
 	<handler action="postAds" class="You_Dzit_PostAdsHandler" />
 	<handler action="reportAds" class="You_Dzit_ReportAdsHandler" />
 	<handler action="contactPoster" class="You_Dzit_ContactPosterHandler" />
+	<handler action="deleteAds" class="You_Dzit_DeleteAdsHandler" />
+    <handler action="editAds" class="You_Dzit_EditAdsHandler" />
 	
 	<handler action="viewCat" class="You_Dzit_ViewCatHandler" />
 	<handler action="viewAds" class="You_Dzit_ViewAdsHandler" />
+	<handler action="thumbAttachment" class="You_Dzit_AttachmentThumbnailHandler" />
 
 	<handler action="adminCp" class="You_Dzit_AdminCpHandler" />
 	<handler action="adminCategoryList" class="You_Dzit_AdminCategoryListHandler" />
@@ -32,4 +35,9 @@
 	<handler action="adminDeleteCategory" class="You_Dzit_AdminDeleteCategoryHandler" />
 	<handler action="adminMoveupCategory" class="You_Dzit_AdminMoveupCategoryHandler" />
 	<handler action="adminMovedownCategory" class="You_Dzit_AdminMovedownCategoryHandler" />
+    <handler action="adminDeleteExpiredAds" class="You_Dzit_AdminDeleteExpiredAdsHandler" />
+    <handler action="adminViewReportedAds" class="You_Dzit_AdminViewReportedAdsHandler" />
+    <handler action="adminReviewReportedAds" class="You_Dzit_AdminReviewReportedAdsHandler" />
+    <handler action="adminDeleteReportedAds" class="You_Dzit_AdminDeleteReportedAdsHandler" />
+    <handler action="adminUnreportAds" class="You_Dzit_AdminUnreportAdsHandler" />
 </action-mapping>

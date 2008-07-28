@@ -21,12 +21,18 @@ class You_Dzit_Constants {
     const ACTION_REPORT_ADS              = 'reportAds';
     const ACTION_VIEW_CATEGORY           = 'viewCat';
     const ACTION_CONTACT_POSTER          = 'contactPoster';
+    const ACTION_ATTACHMENT_THUMBNAIL    = 'thumbAttachment';
     
-    const ACTION_ADMIN_CP                = 'adminCp';
-    const ACTION_ADMIN_CREATE_CATEGORY   = 'adminCreateCategory';
-    const ACTION_ADMIN_EDIT_CATEGORY     = 'adminEditCategory';
-    const ACTION_ADMIN_DELETE_CATEGORY   = 'adminDeleteCategory';
-    const ACTION_ADMIN_CATEGORY_LIST     = 'adminCategoryList';
+    const ACTION_ADMIN_CP                  = 'adminCp';
+    const ACTION_ADMIN_CREATE_CATEGORY     = 'adminCreateCategory';
+    const ACTION_ADMIN_EDIT_CATEGORY       = 'adminEditCategory';
+    const ACTION_ADMIN_DELETE_CATEGORY     = 'adminDeleteCategory';
+    const ACTION_ADMIN_CATEGORY_LIST       = 'adminCategoryList';
+    const ACTION_ADMIN_DELETE_EXPIRED_ADS  = 'adminDeleteExpiredAds';
+    const ACTION_ADMIN_VIEW_REPORTED_ADS   = 'adminViewReportedAds';
+    const ACTION_ADMIN_REVIEW_REPORTED_ADS = 'adminReviewReportedAds';
+    const ACTION_ADMIN_DELETE_REPORTED_ADS = 'adminDeleteReportedAds';
+    const ACTION_ADMIN_UNREPORT_ADS        = 'adminUnreportAds';
     
     const ACTION_MEMBER_REGISTER         = 'register';
     const ACTION_MEMBER_REGISTER_DONE    = 'registerDone';
