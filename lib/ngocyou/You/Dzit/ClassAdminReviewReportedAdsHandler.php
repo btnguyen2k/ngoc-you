@@ -1,14 +1,10 @@
 <?php
 require_once 'dao/dbUtils.php';
-require_once 'includes/captcha.php';
-class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
+class You_Dzit_AdminReviewReportedAdsHandler extends You_Dzit_AdminHandler {
 
     const DATAMODEL_ADS             = 'ads';
     const DATAMODEL_NAVIGATOR       = 'navigator';
     const DATAMODEL_CATEGORY_TREE   = 'categoryTree';
-
-    const CAPTCHA_KEY               = 'CAPTCHA_REPORT_ADS';
-    const FORM_FIELD_CAPTCHA        = 'captcha';
 
     private $form = NULL;
     private $ads  = NULL;
@@ -27,23 +23,6 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
             return new Ddth_Dzit_ControlForward_ActionControlForward(You_Dzit_Constants::ACTION_ERROR);
         }
         $this->populateDataModels();
-        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-            $form = $this->form;
-            $captcha = $form->getField(self::FORM_FIELD_CAPTCHA);
-            if ( $captcha !== captchaGetCode(self::CAPTCHA_KEY) ) {
-                $form->addErrorMessage($lang->getMessage('error.captchaCodeNotMatch'));
-            }
-            if ( !$form->hasErrorMessage() ) {
-                reportEntry($this->ads, $app->getCurrentUser());
-                captchaDelete(self::CAPTCHA_KEY);
-                $msg = $lang->getMessage('ads.report.done');
-                $transmission = $app->createTransmission($msg);
-                $urlCreator = $app->getUrlCreator();
-                $urlParams = Array('id'=>$this->ads->getId(), Ddth_Dzit_DzitConstants::URL_PARAM_TRANSMISSION=>$transmission->getId());
-                $url = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), $urlParams);
-                return new Ddth_Dzit_ControlForward_UrlRedirectControlForward($url);
-            }
-        }
         return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
     }
 
@@ -55,7 +34,7 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
         $node = $page->getChild($name);
         $form = NULL;
         if ( $node === NULL ) {
-            $form = new You_DataModel_Form('frmPostAds');
+            $form = new You_DataModel_Form('frmReviewAds');
             $node = new Ddth_Template_DataModel_Bean($name, $form);
             $page->addChild($name, $node);
         } else {
@@ -64,17 +43,7 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
         $this->form = $form;
         $app = $this->getApplication();
         $urlCreator = $app->getUrlCreator();
-        $form->setAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_REPORT_ADS, Array(), Array('id'=>$this->ads->getId())));
-        $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), Array('id'=>$this->ads->getId())));
-        $form->setCaptchaUrl($urlCreator->createUrl(You_Dzit_Constants::ACTION_CAPTCHA, Array(), Array('key'=>self::CAPTCHA_KEY)));
-
-        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-            $field = self::FORM_FIELD_CAPTCHA;
-            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
-            $form->setField($field, $value);
-        } else {
-            captchaCreate(self::CAPTCHA_KEY);
-        }
+        $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_ADMIN_VIEW_REPORTED_ADS));
     }
 
     /**
@@ -92,7 +61,7 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
         $urlCreator = $app->getUrlCreator();
 
         /* ads */
-        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_Ads($this->ads));
+        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_ReportedAds(getReportedEntry($this->ads->getId())));
 
         /* category tree */
         $catTree = getCategoryTree();
@@ -101,16 +70,6 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Category($cat);
         }
         $node->addChild(self::DATAMODEL_CATEGORY_TREE, $model);
-
-        /* navigator */
-        $model = Array();
-        $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('home'), $urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
-        $dmCat = new You_DataModel_Category($this->ads->getCategory());
-        $model[] = new You_DataModel_NavigatorEntry($dmCat->getName(), $dmCat->getUrlView());
-        $dmAds = new You_DataModel_Ads($this->ads);
-        $model[] = new You_DataModel_NavigatorEntry($this->ads->getTitle(), $dmAds->getUrlView());
-        $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('ads.report'));
-        $node->addChild(self::DATAMODEL_NAVIGATOR, $model);
     }
 
     /**
@@ -119,7 +78,7 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
     protected function populateModelPageHeaderTitle($pageHeader) {
         $app = $this->getApplication();
         $lang = $app->getLanguage();
-        $title = $lang->getMessage('ads.report') . ': ';
+        $title = $lang->getMessage('review') . ': ';
         $title .= $this->ads->getTitle() . ' - ' . $app->getYouProperty('you.site.name');
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
