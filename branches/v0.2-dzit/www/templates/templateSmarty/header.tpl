@@ -106,37 +106,38 @@ function textboxBlur(el, defaultValue) {
 	<td class="head1">
 		<table border="0" width="970" cellspacing="0" cellpadding="0" align="center">
 		<tr>
-				<td class="bg_timkiem">
-				<table border="0" width="80%" cellspacing="5"
-					cellpadding="0">
-					<tr>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><span class="text_bold text_upper">tìm kiếm</span></td>
-						<td><input type="text" name="T3" size="33"></td>
-						<td><select size="1" name="D1">
-							<option selected>------------ Tất cả ------------</option>
-						</select></td>
-						<td><img border="0" src="images/icon_search.gif" width="16"
-							height="16"></td>
-						<td><a href="#">Tìm kiếm nâng cao</a></td>
-					</tr>
+			<td class="bg_timkiem">
+				<form name="{$page.formQuickSearch->getName()}" method="POST" action="{$page.formQuickSearch->getAction()}">
+    				<table border="0" width="80%" cellspacing="5" cellpadding="0">
+    				<tr>
+    					<td>&nbsp;</td>
+    					<td><span class="text_bold text_upper">{$language->getMessage('search')}</span></td>
+    					<td><input type="text" name="q" style="width: 256px"></td>
+    					<td>
+    						{include file='inc_displayLocationSelectionList.tpl' FIELD_NAME='l' LOCATIONS=$page.formQuickSearch->getField('adsLocations')}
+    					</td>
+    					<td>
+    						<input type="image" style="border: 0px" src="images/icon_search.gif" width="16" height="16">
+    					</td>
+    					<td><a href="{$page.formQuickSearch->getAction()}">{$language->getMessage('advancedSearch')}</a></td>
+    				</tr>
+    				</table>
+    			</form>
+			</td>
+			<td class="bg_timkiem cellright">
+				<table border="0" width="80%" cellspacing="5" cellpadding="0">
+				<tr>
+					<td><span class="text_normal">Xem tin trên </span><span
+						class="text_bold">64 tỉnh/ thành </span></td>
+					<td><img border="0" src="images/b_dropdown.gif" width="15"
+						height="16"></td>
+				</tr>
 				</table>
-				</td>
-				<td class="bg_timkiem cellright">
-				<table border="0" width="80%" cellspacing="5"
-					cellpadding="0">
-					<tr>
-						<td><span class="text_normal">Xem tin trên </span><span
-							class="text_bold">64 tỉnh/ thành </span></td>
-						<td><img border="0" src="images/b_dropdown.gif" width="15"
-							height="16"></td>
-					</tr>
-				</table>
-				</td>
-			</tr>
+			</td>
+		</tr>
 		</table>
-		</td>
-	</tr>
+	</td>
+</tr>
 	<tr>
 		<td class="cellcenter">
 		<table border="0" width="970" cellspacing="0" cellpadding="0" align="center">

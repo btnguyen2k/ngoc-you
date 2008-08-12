@@ -1,7 +1,8 @@
 <?php
 include_once 'dao/ClassEntry.php';
+require_once 'dao/dbUtils.php';
 
-class You_DataModel_Entry {
+class You_DataModel_Ads {
     /**
      * @var Entry
      */
@@ -11,8 +12,20 @@ class You_DataModel_Entry {
         $this->entry = $entry;
     }
     
+    public function countAttachments() {
+        return $this->entry->countAttachments();
+    }
+    
     public function getId() {
         return $this->entry->getId();
+    }
+    
+    public function getAllAttachments() {
+        $result = Array();
+        foreach ( $this->entry->getAllAttachments() as $attachment ) {
+            $result[] = new You_DataModel_Attachment($attachment);
+        }
+        return $result;
     }
     
     public function getContent() {
@@ -29,6 +42,10 @@ class You_DataModel_Entry {
         return isset($locations[$loc]) ? $locations[$loc] : '';
     }
     
+    public function getPrice() {
+        return $this->entry->getPrice();
+    }
+    
     public function getTitle() {
         return $this->entry->getTitle();
     }
@@ -38,14 +55,12 @@ class You_DataModel_Entry {
     }
     
     public function getExpiryDate() {
-        $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
-        $dateFormat = $app->getYouProperty('you.format.datetime');
+        $dateFormat = getConfig(You_Dzit_Constants::CONFIG_DATETIME_FORMAT);
         return date($dateFormat, $this->entry->getExpiryTimestamp());
     }
     
     public function getPostDate() {
-        $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
-        $dateFormat = $app->getYouProperty('you.format.datetime');
+        $dateFormat = getConfig(You_Dzit_Constants::CONFIG_DATETIME_FORMAT);
         return date($dateFormat, $this->entry->getCreationTimestamp());
     }
     

@@ -47,13 +47,17 @@
                         <td>{$language->getMessage('ads.contactPoster.email')}:</td>
                         <td><input name="email" style="width: 320px;" type="text" value="{$page.form->getField('email')}"></td>
                     </tr>
+                    <tr>
+                        <td>{$language->getMessage('ads.contactPoster.content')}:</td>
+                        <td><textarea name="content" style="width: 320px; height: 200px">{$page.form->getField('content')}</textarea></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2" align="center">
+                    		<input value="{$language->getMessage('ok')}" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
+	    					<input onclick='location.href="{$page.form->getCancelAction()}"' value="{$language->getMessage('cancel')}" type="button" class="button">
+                    	</td>
+                    </tr>
                     </table>
-					<p><img src="{$page.form->getCaptchaUrl()}"></p>
-					<p><input name="captcha" style="width: 160px;" type="text" value=""></p>
-					<p>
-						<input value="{$language->getMessage('yes')}" type="submit" class="button">&nbsp;&nbsp;&nbsp;&nbsp;
-    					<input onclick='location.href="{$page.form->getCancelAction()}"' value="{$language->getMessage('no')}" type="button" class="button">
-    				</p>
 				</form>
 			</td>
 		</tr>

@@ -2,6 +2,89 @@
 include_once 'denyDirectInclude.php';
 require_once 'class.phpmailer.php';
 
+define('SEARH_QUERY_SPACE_CHARS', '\s,\.:!');
+
+function tokenizeSearchQuery($queryStr) {
+    $arr = preg_split('/[\s,]+/', trim(strip_tags($queryStr)));
+    if ( $arr === NULL ) {
+        $arr = Array();
+    }
+    $keywords = Array();
+    $utf8 = Ddth_Vnvi_Utf8::getInstance();
+    foreach ( $arr as $word ) {
+        $word = preg_replace('/^['.SEARH_QUERY_SPACE_CHARS.']+/', '', $word);
+        $word = preg_replace('/['.SEARH_QUERY_SPACE_CHARS.']+$/', '', $word);
+        if ( strlen($word) < 2 ) {
+            continue;
+        }
+        //$word = strtolower(md5(strtolower($word)));
+        $word = strtolower(md5($utf8->toLower($word)));
+        $keywords[$word] = $word;
+    }
+    return array_values($keywords);
+}
+
+function parseFileTypesString($str='') {
+    $arr = preg_split('/[\s,;|]+/', strtolower(trim($str)));
+    if ( $arr === NULL ) {
+        $arr = Array();
+    }
+    $result = Array();
+    foreach ( $arr as $fileType ) {
+        $fileType = '.'.preg_replace('/^\.+/', '', $fileType);
+        if ( !in_array($fileType, $result) ) {
+            $result[] = $fileType;
+        }
+    }
+    return $result;
+}
+
+function fileTypesToString($fileTypeArr=Array()) {
+    return implode(' ', $fileTypeArr);
+}
+
+function createThumbnail($mimeType, $imageData) {
+    $orgImg = NULL;
+    $mimeType = strtolower($mimeType);
+    $tmpfname = tempnam(NULL, NULL);
+    if ( $tmpfname === false ) {
+        return NULL;
+    }
+    
+    $imgInfo = NULL;
+    $tmpfile = fopen($tmpfname, 'wb');
+    if ( $tmpfile === false ) {
+        return NULL;
+    }
+    fwrite($tmpfile, $imageData);
+    fclose($tmpfile);
+    
+    if ( $mimeType === 'image/jpg' || $mimeType === 'image/jpeg' ) {
+        $orgImg = imagecreatefromjpeg($tmpfname);
+    } elseif ( $mimeType === 'image/gif' ) {
+        $orgImg = imagecreatefromgif($tmpfname);
+    } elseif ( $mimeType === 'image/png' ) {
+        $orgImg = imagecreatefrompng($tmpfname);
+    }
+    
+    if ( $orgImg !== NULL ) {
+        $imgInfo = getimagesize($tmpfname);
+    }
+    unlink($tmpfname);
+    if ( $orgImg === NULL ) {
+        return NULL;
+    }
+    if ( $imgInfo[0] < 60 || $imgInfo[1] < 1 ) {
+        imagedestroy($orgImg);
+        return NULL;
+    }
+    $newWidth = $imgInfo[0] <= 60 ? $imgInfo[0] : 60;
+    $newHeight = $imgInfo[0] <= 60 ? $imgInfo[1] : $newWidth*$imgInfo[1]/$imgInfo[0];
+    $newImg = imagecreatetruecolor($newWidth, $newHeight);
+    imagecopyresized($newImg, $orgImg, 0, 0, 0, 0, $newWidth, $newHeight, $imgInfo[0], $imgInfo[1]);
+    return $newImg;
+}
+
 function removeEvilHtmlTags($input) {
 	$allowedTags = array(
 		'<a>', '<p>', '<div>', '<blockquote>',

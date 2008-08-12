@@ -1,6 +1,20 @@
 <?php
 class You_Dzit_Constants {
     
+    const CONFIG_SITE_NAME				   = 'SITE_NAME';
+    const CONFIG_SITE_TITLE			       = 'SITE_TITLE';
+    const CONFIG_SITE_KEYWORDS			   = 'SITE_KEYWORDS';
+    const CONFIG_SITE_DESCRIPTION		   = 'SITE_DESCRIPTION';
+    const CONFIG_MAX_UPLOAD_FILES          = 'MAX_UPLOAD_FILES';
+    const CONFIG_MAX_UPLOAD_SIZE		   = 'MAX_UPLOAD_SIZE';
+    const CONFIG_ALLOWED_UPLOAD_FILE_TYPES = 'ALLOWED_UPLOAD_FILE_TYPES';
+    const CONFIG_EMAIL_OUTGOING			   = 'EMAIL_OUTGOING';
+    const CONFIG_EMAIL_ADMINISTRATOR       = 'EMAIL_ADMINISTRATOR';
+    const CONFIG_TEMPLATE_URI              = 'TEMPLATE_URI';
+    const CONFIG_DATE_FORMAT               = 'DATE_FORMAT';
+    const CONFIG_DATETIME_FORMAT           = 'DATETIME_FORMAT';    
+    const CONFIG_CATEGORY_NUM_TOP          = 'NUM_TOP_CATEGORIES';
+    
     const SESSION_LAST_ACCESS_PAGE       = 'LAST_ACCESS_PAGE';
     const SESSION_CURRENT_USER_ID        = 'CURRENT_USER_ID';
     
@@ -14,6 +28,8 @@ class You_Dzit_Constants {
     const ACTION_LOGIN                   = 'login';
     const ACTION_LOGOUT                  = 'logout';
     const ACTION_ERROR                   = 'error';
+    const ACTION_SEARCH                  = 'search';
+    const ACTION_SEARCH_RESULT           = 'searchResult';
     
     const ACTION_VIEW_ADS                = 'viewAds';
     const ACTION_DELETE_ADS              = 'deleteAds';
@@ -33,6 +49,7 @@ class You_Dzit_Constants {
     const ACTION_ADMIN_REVIEW_REPORTED_ADS = 'adminReviewReportedAds';
     const ACTION_ADMIN_DELETE_REPORTED_ADS = 'adminDeleteReportedAds';
     const ACTION_ADMIN_UNREPORT_ADS        = 'adminUnreportAds';
+    const ACTION_ADMIN_EMAIL_SETTINGS      = 'adminEmailSettings';
     
     const ACTION_MEMBER_REGISTER         = 'register';
     const ACTION_MEMBER_REGISTER_DONE    = 'registerDone';

@@ -119,9 +119,9 @@ final class Ddth_Commons_Loader {
      */
     public static function loadFile($fileName, $singleton=true) {
         if ( $singleton ) {
-            return (@include_once $fileName) !== FALSE;
+            return (include_once $fileName) !== FALSE;
         } else {
-            return (@include $fileName) !== FALSE;
+            return (include $fileName) !== FALSE;
         }
     }
 

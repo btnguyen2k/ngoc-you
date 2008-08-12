@@ -10,16 +10,20 @@ require_once 'ClassCategoryDao.php';
 require_once 'ClassEntryDao.php';
 require_once 'ClassUserDao.php';
 require_once 'ClassCategoryWatchDao.php';
+require_once 'ClassIndexingDao.php';
 
-define("TABLE_LOCATION", "nylocation");
-define("TABLE_CONFIG", "nyconfig");
-define("TABLE_USER", "nyuser");
-define("TABLE_GROUP", "nygroup");
-define("TABLE_CATEGORY", "nycategory");
-define("TABLE_ENTRY", "nyentry");
+define("TABLE_LOCATION", 	   "nylocation");
+define("TABLE_CONFIG",   	   "nyconfig");
+define("TABLE_USER",           "nyuser");
+define("TABLE_GROUP",    	   "nygroup");
+define("TABLE_CATEGORY", 	   "nycategory");
+define("TABLE_ENTRY",          "nyentry");
 define("TABLE_REPORTED_ENTRY", "nyreportedentry");
-define("TABLE_UPLOAD", "nyupload");
+define("TABLE_UPLOAD",         "nyupload");
 define("TABLE_CATEGORY_WATCH", "nycategorywatch");
+define("TABLE_KEYWORD",        "nykeyword");
+define("TABLE_SEARCH",         "nysearch");
+define("TABLE_SEARCH_RESULT",  "nysearchresult");
 
 ///**
 // * @var ADOConnection
@@ -86,6 +90,24 @@ function adodbGetConnection() {
 //        $ADODB_CONN = NULL;
 //    }
 //}
+
+/* Indexing-related functions */
+function searchEntries($query) {
+    return IndexingDao::searchEntries($query);
+}
+
+function indexEntry($entry) {
+	IndexingDao::indexEntry($entry);
+}
+
+function reindexEntry($entry) {
+	IndexingDao::reindexEntry($entry);
+}
+
+function unindexEntry($entry) {
+	IndexingDao::unindexEntry($entry);
+}
+/* Indexing-related functions */
 
 /* Location-related functions */
 function getAllLocations() {
@@ -187,6 +209,10 @@ function reportEntry($entry, $reporter=NULL) {
     EntryDao::reportEntry($entry, $reporter);
 }
 
+function unreportEntry($entry) {
+    EntryDao::unreportEntry($entry);
+}
+
 function updateCategory($cat) {
     CategoryDao::updateCategory($cat);
 }
@@ -239,10 +265,6 @@ function getUserByEmail($email) {
 
 function getUserByLoginName($loginName) {
     return UserDao::getUserByLoginName($loginName);
-}
-
-function unreportEntry($id) {
-    EntryDao::unreportEntry($id);
 }
 
 function updateUser($user) {

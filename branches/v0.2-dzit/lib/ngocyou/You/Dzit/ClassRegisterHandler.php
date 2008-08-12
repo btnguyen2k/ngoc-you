@@ -70,11 +70,11 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
                 
                 $subject = $lang->getMessage('email.register.subject');
                 $body = $lang->getMessage('email.register.body');                
-                $site = '<a href="'.$urlCreator->getHomeUrl(true).'">'.$app->getYouProperty('you.site.name').'</a>';
+                $site = '<a href="'.$urlCreator->getHomeUrl(true).'">'.getConfig(You_Dzit_Constants::CONFIG_SITE_NAME).'</a>';
                 $body = str_replace('{SITE}', $site, $body);
                 $body = str_replace('{LOGIN_NAME}', $user->getLoginName(), $body);
                 $body = str_replace('{FULL_NAME}', $user->getFullName(), $body);
-                $body = str_replace('{EMAIL_ADMINISTRATOR}', $app->getYouProperty('you.administrator.email'), $body);
+                $body = str_replace('{EMAIL_ADMINISTRATOR}', getConfig(You_Dzit_Constants::CONFIG_EMAIL_ADMINISTRATOR), $body);
                 $urlActivate = $urlCreator->createUrl(
                     You_Dzit_Constants::ACTION_MEMBER_ACTIVATE_ACCOUNT,
                     Array(),
@@ -83,7 +83,7 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
                     true
                 );
                 $body = str_replace('{URL_ACTIVATE_ACCOUNT}', "<a href=\"$urlActivate\">$urlActivate</a>", $body);
-                sendEmail($app->getYouProperty('you.email.outgoing'), $user->getEmail(), $subject, $body, true);
+                sendEmail(getConfig(You_Dzit_Constants::CONFIG_EMAIL_OUTGOING), $user->getEmail(), $subject, $body, true);
                 echo 'hehehe';
                 $result = new Ddth_Dzit_ControlForward_UrlRedirectControlForward($urlCreator->createUrl(
                         You_Dzit_Constants::ACTION_MEMBER_REGISTER_DONE,

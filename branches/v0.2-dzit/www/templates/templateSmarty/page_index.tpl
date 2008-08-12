@@ -3,11 +3,13 @@
 {else}
 	{php}
 		//split category tree into [firstCat|otherCats]
+		/*
 		$page = $this->get_template_vars('page');
 		$categoryTree = $page['content']['categoryTree'];
 		$page['content']['firstCat'] = array_shift($categoryTree);
 		$page['content']['otherCats'] = $categoryTree;
 		$this->assign('page', $page);
+		*/
 	{/php}
 	
 	<!-- scrolling thumbnails -->
@@ -112,13 +114,20 @@
 			</table>
 			<br>
 			-->
-			{include file="inc_displayTopCat.tpl" CATEGORY=$page.content.firstCat CSS_CLASS='cam' NUM_COLUMNS=2}
+			{foreach from=$page.content.categoryTree item=cat name="topCats"}
+				{if $smarty.foreach.topCats.index < $appConfig.NUM_TOP_CATEGORIES}
+					{cycle values="cam" assign="tblClass"}
+					{include file="inc_displayTopCat.tpl" CATEGORY=$cat CSS_CLASS=$tblClass NUM_COLUMNS=2}
+				{/if}
+			{/foreach}
 		</td>
 		<td width="10"><img border="0" width="10" src="images/dot_bkground.gif" alt="blank"></td>
 		<td class="celltop">
-			{foreach from=$page.content.otherCats item=cat}
-				{cycle values="xanhduong, hong, tim" assign="tblClass"}
-				{include file="inc_displayTopCat.tpl" CATEGORY=$cat CSS_CLASS=$tblClass NUM_COLUMNS=1}
+			{foreach from=$page.content.categoryTree item=cat name="otherCats"}
+				{if $smarty.foreach.otherCats.index >= $appConfig.NUM_TOP_CATEGORIES}
+					{cycle values="xanhduong, hong, tim" assign="tblClass"}
+					{include file="inc_displayTopCat.tpl" CATEGORY=$cat CSS_CLASS=$tblClass NUM_COLUMNS=1}
+				{/if}
 			{/foreach}
 		</td>
 	</tr>

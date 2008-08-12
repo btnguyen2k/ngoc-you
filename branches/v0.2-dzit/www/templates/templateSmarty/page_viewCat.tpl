@@ -117,8 +117,13 @@
 			{cycle values="list_row1, list_row2" assign="rowStyle"}
 			<tr>
 				<td class="{$rowStyle}">
-					<img border="0" src="images/bullet1.gif" width="8" height="7">
+					<img border="0" width="8" src="{if $ads->hasAttachment()}images/icon_attachment.gif{else}images/bullet1.gif{/if}">
 					<a class="link_entry" href="{$ads->getUrlView()}">{$ads->getTitle()}</a>
+					<br>
+					{$language->getMessage('ads.price')}:
+					{if $ads->getPrice()==''}{$language->getMessage('ads.price.contact')}
+					{elseif $ads->getPrice()<0}{$language->getMessage('ads.price.free')}
+					{else}{$ads->getPrice()}{/if}
 				</td>
 				<td class="{$rowStyle}_center">{if $ads->getLocationStr()!=''}{$ads->getLocationStr()}{else}&nbsp;{/if}</td>
 				<td class="{$rowStyle}_center">{$ads->getNumViews()}</td>

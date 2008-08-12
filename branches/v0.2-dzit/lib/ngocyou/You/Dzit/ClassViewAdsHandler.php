@@ -5,19 +5,7 @@ class You_Dzit_ViewAdsHandler extends You_Dzit_BaseActionHandler {
     const DATAMODEL_ADS             = 'ads';
     const DATAMODEL_NAVIGATOR       = 'navigator';
     const DATAMODEL_CATEGORY_TREE   = 'categoryTree';
-    
-    /*
-    const DATAMODEL_CATEGORY        = 'category';
-    
-    const DATAMODEL_SUBCAT_LIST     = 'subCatList';
-    const DATAMODEL_ADS_LIST        = 'adsList';
-    const DATAMODEL_NUM_PAGES       = 'numPages';
-    const DATAMODEL_PAGE_NUM        = 'pageNum';
 
-    const ENTRIES_PER_PAGE          = 20;
-    
-    private $form;
-	*/
     private $ads;
 
     /**
@@ -53,7 +41,7 @@ class You_Dzit_ViewAdsHandler extends You_Dzit_BaseActionHandler {
         $urlCreator = $app->getUrlCreator();
         
         /* ads */
-        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_Entry($this->ads));
+        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_Ads($this->ads));
         
         /* category tree */
         $catTree = getCategoryTree();
@@ -70,36 +58,6 @@ class You_Dzit_ViewAdsHandler extends You_Dzit_BaseActionHandler {
         $model[] = new You_DataModel_NavigatorEntry($dmCat->getName(), $dmCat->getUrlView());
         $model[] = new You_DataModel_NavigatorEntry($this->ads->getTitle());
         $node->addChild(self::DATAMODEL_NAVIGATOR, $model);
-        
-        /*
-        $subCat = Array();
-        if ( $this->cat->getNumChildren() > 0 ) {
-            $subCat = $this->cat->getChildren();
-        } else {
-            $parent = getCategory($this->cat->getParentId());
-            if ( $parent !== NULL ) {
-                $subCat = $parent->getChildren();
-            }
-        }
-        $model = Array();
-        foreach ( $subCat as $cat ) {
-            $model[] = new You_DataModel_Category($cat);
-        }
-        $node->addChild(self::DATAMODEL_SUBCAT_LIST, $model);
-        
-        $pageNum = isset($_GET['page']) ? $_GET['page']+0 : 1;
-        if ( $pageNum < 1 ) {
-            $pageNum = 1;
-        }
-        $node->addChild(self::DATAMODEL_PAGE_NUM, $pageNum);
-        
-        $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
-        $model = Array();
-        foreach ( $entries as $entry ) {
-            $model[] = new You_DataModel_Entry($entry);
-        }
-        $node->addChild(self::DATAMODEL_ADS_LIST, $model);
-		*/
     }
     
     /**
@@ -107,7 +65,7 @@ class You_Dzit_ViewAdsHandler extends You_Dzit_BaseActionHandler {
      */
     protected function populateModelPageHeaderTitle($pageHeader) {
         $app = $this->getApplication();
-        $title = $this->ads->getTitle() . ' - ' . $app->getYouProperty('you.site.name');
+        $title = $this->ads->getTitle() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

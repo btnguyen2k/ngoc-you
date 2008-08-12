@@ -74,7 +74,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
         $model = Array();
         foreach ( $entries as $entry ) {
-            $model[] = new You_DataModel_Entry($entry);
+            $model[] = new You_DataModel_Ads($entry);
         }
         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
     }
@@ -84,7 +84,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
      */
     protected function populateModelPageHeaderTitle($pageHeader) {
         $app = $this->getApplication();
-        $title = $this->cat->getName() . ' - ' . $app->getYouProperty('you.site.name');
+        $title = $this->cat->getName() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

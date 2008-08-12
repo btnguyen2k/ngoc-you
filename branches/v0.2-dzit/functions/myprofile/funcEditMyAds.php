@@ -160,6 +160,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
                 $PAGE['form']['errorMessage'] .= str_replace(
                 '{0}', count($uploadFiles), $LANG['INFO_FILES_UPLOADED']);
             }
+            
+            
 
             if ( $html === 0 ) {
                 //$adsContent = str_replace("\n", "<br>", $adsContent);

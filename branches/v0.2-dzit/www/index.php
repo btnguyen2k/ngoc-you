@@ -33,6 +33,7 @@ if ( !function_exists('__autoload') ) {
         require_once 'Ddth/Commons/ClassLoader.php';
         $translator = Ddth_Commons_DefaultClassNameTranslator::getInstance();
         if ( !Ddth_Commons_Loader::loadClass($className, $translator) ) {
+            echo("Can not load class [$className]!");
             trigger_error("Can not load class [$className]!");
         }
     }

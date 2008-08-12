@@ -1,5 +1,6 @@
 <?php
 include_once 'dao/ClassReportedEntry.php';
+require_once 'dao/dbUtils.php';
 
 class You_DataModel_ReportedAds {
     /**
@@ -20,8 +21,7 @@ class You_DataModel_ReportedAds {
     }
     
     public function getExpiryDate() {
-        $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
-        $dateFormat = $app->getYouProperty('you.format.datetime');
+        $dateFormat = getConfig(You_Dzit_Constants::CONFIG_DATETIME_FORMAT);
         return date($dateFormat, $this->reportedEntry->getEntry()->getExpiryTimestamp());
     }
 
@@ -40,8 +40,7 @@ class You_DataModel_ReportedAds {
     }
     
     public function getPostDate() {
-        $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
-        $dateFormat = $app->getYouProperty('you.format.datetime');
+        $dateFormat = getConfig(You_Dzit_Constants::CONFIG_DATETIME_FORMAT);
         return date($dateFormat, $this->reportedEntry->getCreationTimestamp());
     }
     
