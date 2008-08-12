@@ -7,8 +7,8 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
     const DATAMODEL_NAVIGATOR       = 'navigator';
     const DATAMODEL_CATEGORY_TREE   = 'categoryTree';
 
-    const CAPTCHA_KEY               = 'CAPTCHA_REPORT_ADS';
-    const FORM_FIELD_CAPTCHA        = 'captcha';
+    //const CAPTCHA_KEY               = 'CAPTCHA_REPORT_ADS';
+    //const FORM_FIELD_CAPTCHA        = 'captcha';
     const FORM_FIELD_EMAIL          = 'email';
     const FORM_FIELD_CONTENT        = 'content';
 
@@ -31,16 +31,40 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
         $this->populateDataModels();
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
             $form = $this->form;
-            $captcha = $form->getField(self::FORM_FIELD_CAPTCHA);
-            if ( $captcha !== captchaGetCode(self::CAPTCHA_KEY) ) {
-                $form->addErrorMessage($lang->getMessage('error.captchaCodeNotMatch'));
+            //$captcha = $form->getField(self::FORM_FIELD_CAPTCHA);
+            //if ( $captcha !== captchaGetCode(self::CAPTCHA_KEY) ) {
+            //    $form->addErrorMessage($lang->getMessage('error.captchaCodeNotMatch'));
+            //}
+            $email = $form->getField(self::FORM_FIELD_EMAIL);
+            if ( $email === '' ) {
+                $form->addErrorMessage($lang->getMessage('error.contactPoster.emptyEmail'));
+            }
+            $content = $form->getField(self::FORM_FIELD_CONTENT);
+            if ( $content === '' ) {
+                $form->addErrorMessage($lang->getMessage('error.contactPoster.emptyContent'));
             }
             if ( !$form->hasErrorMessage() ) {
-                reportEntry($this->ads, $app->getCurrentUser());
-                captchaDelete(self::CAPTCHA_KEY);
-                $msg = $lang->getMessage('ads.report.done');
-                $transmission = $app->createTransmission($msg);
+                $user = $app->getCurrentUser();
                 $urlCreator = $app->getUrlCreator();
+                $urlParams = Array('id'=>$this->ads->getId());
+                $adsUrl = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), $urlParams, '', true);
+                
+                $replacements = Array();
+                $replacements['CONTACTOR_NAME'] = '<b>'.$user->getLoginName().'</b>';
+                $replacements['CONTACTOR_EMAIL'] = $email;
+                $replacements['CONTACTOR_MESSAGE'] = $content;
+                $replacements['ADS_TITLE'] = $this->ads->getTitle();
+                $replacements['ADS_URL'] = $adsUrl;
+                                
+                $subject = $lang->getMessage('email.contactPoster.subject');
+                $body = $lang->getMessage('email.contactPoster.body', $replacements);
+                sendEmail(getConfig(You_Dzit_Constants::CONFIG_EMAIL_OUTGOING), $this->ads->getPoster()->getEmail(), $subject, $body);
+                
+                //reportEntry($this->ads, $app->getCurrentUser());
+                //captchaDelete(self::CAPTCHA_KEY);
+
+                $msg = $lang->getMessage('ads.contactPoster.done');
+                $transmission = $app->createTransmission($msg);
                 $urlParams = Array('id'=>$this->ads->getId(), Ddth_Dzit_DzitConstants::URL_PARAM_TRANSMISSION=>$transmission->getId());
                 $url = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), $urlParams);
                 return new Ddth_Dzit_ControlForward_UrlRedirectControlForward($url);
@@ -68,22 +92,23 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
         $urlCreator = $app->getUrlCreator();
         $form->setAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_CONTACT_POSTER, Array(), Array('id'=>$this->ads->getId())));
         $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), Array('id'=>$this->ads->getId())));
-        $form->setCaptchaUrl($urlCreator->createUrl(You_Dzit_Constants::ACTION_CAPTCHA, Array(), Array('key'=>self::CAPTCHA_KEY)));
+        //$form->setCaptchaUrl($urlCreator->createUrl(You_Dzit_Constants::ACTION_CAPTCHA, Array(), Array('key'=>self::CAPTCHA_KEY)));
 
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-            $field = self::FORM_FIELD_CAPTCHA;
-            $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
-            $form->setField($field, $value);
-            
+            //$field = self::FORM_FIELD_CAPTCHA;
+            //$value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+            //$form->setField($field, $value);
+
             $field = self::FORM_FIELD_EMAIL;
             $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
             $form->setField($field, $value);
-            
+
             $field = self::FORM_FIELD_CONTENT;
             $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
             $form->setField($field, $value);
         } else {
-            captchaCreate(self::CAPTCHA_KEY);
+            //captchaCreate(self::CAPTCHA_KEY);
+
             $user = $app->getCurrentUser();
             $field = self::FORM_FIELD_EMAIL;
             $value = $user->getEmail();
@@ -106,7 +131,7 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
         $urlCreator = $app->getUrlCreator();
 
         /* ads */
-        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_Entry($this->ads));
+        $node->addChild(self::DATAMODEL_ADS, new You_DataModel_Ads($this->ads));
 
         /* category tree */
         $catTree = getCategoryTree();
@@ -121,40 +146,10 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
         $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('home'), $urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
         $dmCat = new You_DataModel_Category($this->ads->getCategory());
         $model[] = new You_DataModel_NavigatorEntry($dmCat->getName(), $dmCat->getUrlView());
-        $dmAds = new You_DataModel_Entry($this->ads);
+        $dmAds = new You_DataModel_Ads($this->ads);
         $model[] = new You_DataModel_NavigatorEntry($this->ads->getTitle(), $dmAds->getUrlView());
         $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('ads.contactPoster'));
         $node->addChild(self::DATAMODEL_NAVIGATOR, $model);
-
-        /*
-         $subCat = Array();
-         if ( $this->cat->getNumChildren() > 0 ) {
-         $subCat = $this->cat->getChildren();
-         } else {
-         $parent = getCategory($this->cat->getParentId());
-         if ( $parent !== NULL ) {
-         $subCat = $parent->getChildren();
-         }
-         }
-         $model = Array();
-         foreach ( $subCat as $cat ) {
-         $model[] = new You_DataModel_Category($cat);
-         }
-         $node->addChild(self::DATAMODEL_SUBCAT_LIST, $model);
-
-         $pageNum = isset($_GET['page']) ? $_GET['page']+0 : 1;
-         if ( $pageNum < 1 ) {
-         $pageNum = 1;
-         }
-         $node->addChild(self::DATAMODEL_PAGE_NUM, $pageNum);
-
-         $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
-         $model = Array();
-         foreach ( $entries as $entry ) {
-         $model[] = new You_DataModel_Entry($entry);
-         }
-         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
-         */
     }
 
     /**
@@ -164,7 +159,7 @@ class You_Dzit_ContactPosterHandler extends You_Dzit_RequireLoggedInHandler {
         $app = $this->getApplication();
         $lang = $app->getLanguage();
         $title = $lang->getMessage('ads.contactPoster') . ': ';
-        $title .= $this->ads->getTitle() . ' - ' . $app->getYouProperty('you.site.name');
+        $title .= $this->ads->getTitle() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

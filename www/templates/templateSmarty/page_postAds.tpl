@@ -88,12 +88,7 @@
 					</script>
 					<br>
 					{$language->getMessage('ads.location')}:
-					<select name="adsLocation">
-						<option value="0">-----</option>
-						{foreach from=$page.content.adsLocationList item=location}
-							<option {if $page.form->getField('adsLocation')===$location.key}selected{/if} value="{$location.key}">{$location.value}</option>
-						{/foreach}
-					</select>
+					{include file='inc_displayLocationSelectionList.tpl' FIELD_NAME='adsLocation' SELECTED_VALUE=$page.form->getField('adsLocation') LOCATIONS=$page.content.adsLocationList}
     			</td>
     		</tr>
     		<tr>
@@ -105,7 +100,18 @@
     		<tr>
     			<td width="30%">{$language->getMessage('ads.content')}</td>
     			<td width="70%">
+                    {php}
+                        $page = $this->get_template_vars('page');
+                        $this->assign('FORM_NAME', $page['form']->getName());
+                        $this->assign('FIELD_NAME', 'adsContent');
+                        $this->assign('FIELD_VALUE', $page['form']->getField('adsContent'));
+                        $this->assign('FIELD_HEIGHT', 400);
+                        $this->assign('FIELD_WIDTH', 440);
+                    {/php}
+                    {include file='editor_fckeditor.tpl'}
+                    <!--
     				<textarea name="adsContent" style="width: 440px; height: 256px">{$page.form->getField('adsContent')}</textarea>
+                    -->
     			</td>
     		</tr>
     		</table>
@@ -133,7 +139,7 @@
             			{php}
 							$maxUploadFiles = Array();
 							$page = $this->get_template_vars('page');
-							for ( $i = 1; $i <= $page['content']['adsMaxUploadFiles']; $i++ ) {
+							for ( $i = 0; $i < $page['content']['adsMaxUploadFiles']; $i++ ) {
 								$maxUploadFiles[] = $i;
 							}
             				$this->assign('maxUploadFiles', $maxUploadFiles);

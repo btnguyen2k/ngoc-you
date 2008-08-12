@@ -64,7 +64,7 @@
 <tr>
 	{if $LEFT_COLUMN_PAGE != NULL && $LEFT_COLUMN_PAGE != ''}
 		<td width="200" class="celltop">{include file=$LEFT_COLUMN_PAGE}</td>
-		<td class="celltop">&nbsp;</td>
+		<td class="celltop"><img border="0" src="images/dot_bkground.gif" width="8"></td>
 	{/if}
 	<td class="celltop">
 		{if $CONTENT_PAGE != NULL && $CONTENT_PAGE != ''}
@@ -72,7 +72,7 @@
 		{/if}
 	</td>
 	{if $RIGHT_COLUMN_PAGE != NULL && $RIGHT_COLUMN_PAGE != ''}
-		<td class="celltop">&nbsp;</td>
+		<td class="celltop"><img border="0" src="images/dot_bkground.gif" width="8"></td>
 		<td width="200" class="celltop">{include file=$RIGHT_COLUMN_PAGE}</td>
 	{/if}
 </tr>

@@ -120,7 +120,7 @@ class You_Dzit_ReportAdsHandler extends You_Dzit_BaseActionHandler {
         $app = $this->getApplication();
         $lang = $app->getLanguage();
         $title = $lang->getMessage('ads.report') . ': ';
-        $title .= $this->ads->getTitle() . ' - ' . $app->getYouProperty('you.site.name');
+        $title .= $this->ads->getTitle() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

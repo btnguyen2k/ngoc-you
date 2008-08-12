@@ -26,7 +26,7 @@ class You_Dzit_MyAdsHandler extends You_Dzit_RequireLoggedInHandler {
         $adsForUser = getEntriesForUser($user->getId());
         $model = Array();
         foreach ( $adsForUser as $entry ) {
-            $model[] = new You_DataModel_Entry($entry);
+            $model[] = new You_DataModel_Ads($entry);
         }
         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
     }

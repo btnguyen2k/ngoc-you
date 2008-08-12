@@ -134,7 +134,7 @@ class EntryDao {
     /**
      * Deletes expired entries.
      */
-    public static function deleteExpiredEntries($id) {
+    public static function deleteExpiredEntries() {
         $adodb = adodbGetConnection();
         $sql = 'DELETE FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp <= ?';
         if ( $adodb->Execute($sql, Array(time())) === false ) {
@@ -321,16 +321,17 @@ class EntryDao {
             die('['.__CLASS__.'.reportEntry()] Error: ' . $adodb->ErrorMsg());
         }
     }
-
-    /**
-     * Unreport an entry by id.
+	
+	/**
+     * Un-reports an reported entry.
      *
-     * @param integer
+     * @param Entry
      */
-    public static function unreportEntry($id) {
-        $adodb = adodbGetConnection();
-        $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE rentryid=?';
-        if ( $adodb->Execute($sql, Array($id+0))===false ) {
+    public static function unreportEntry($entry) {
+		$adodb = adodbGetConnection();
+        $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE rentryid = ?';
+        $params = Array($entry->getId());
+        if ( $adodb->Execute($sql, $params)===false ) {
             die('['.__CLASS__.'.unreportEntry()] Error: ' . $adodb->ErrorMsg());
         }
     }

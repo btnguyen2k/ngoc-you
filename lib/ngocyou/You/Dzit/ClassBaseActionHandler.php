@@ -2,25 +2,26 @@
 require_once 'dao/dbUtils.php';
 
 abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_AbstractActionHandler {
-
+    
     const DATAMODEL_CURRENT_USER        = 'currentUser';
 
     const DATAMODEL_URL_CREATOR         = 'urlCreator';
 
-    const DATAMODEL_PAGE_CONTENT        = 'content';
-    
-    const DATAMODEL_PAGE_TRANSMISSION   = 'transmission';
+    const DATAMODEL_PAGE_CONTENT           = 'content';    
+    const DATAMODEL_PAGE_TRANSMISSION      = 'transmission';
+    const DATAMODEL_PAGE_FORM_QUICK_SEARCH = 'formQuickSearch';
 
     const DATAMODEL_ERROR_MESSAGE       = 'errorMessage';
     const DATAMODEL_INFORMATION_MESSAGE = 'informationMessage';
-
-
+    
     const DATAMODEL_CONFIG              = 'config';
     const DATAMODEL_CONFIG_HOME_URI     = 'homeUri';
     const DATAMODEL_CONFIG_HOME_URL     = 'homeUrl';
     const DATAMODEL_CONFIG_TEMPLATE_URI = 'templateUri';
     const DATAMODEL_CONFIG_TEMPLATE_URL = 'templateUrl';
 
+    const DATAMODEL_APP_CONFIG          = 'appConfig';
+    
     const DATAMODEL_COMMON_URLS                 = 'commonUrls';
     const DATAMODEL_COMMON_URLS_HOME            = 'home';
     const DATAMODEL_COMMON_URLS_REGISTER        = 'register';
@@ -74,9 +75,40 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         $this->populateCurrentUser();
         $this->populateUrlCreator();
         $this->populateModelConfig();
+        $this->populateModelAppConfig();
         $this->populateCommonUrls();
         parent::populateDataModels();
+        $this->populatePageFormQuickSearch();
         $this->populatePageTransmission();
+    }
+    
+    protected function populatePageFormQuickSearch() {
+        $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
+        $modelPage = $this->getRootDataModel($name);
+        if ( $modelPage !== NULL ) {
+            $name = self::DATAMODEL_PAGE_FORM_QUICK_SEARCH;
+            $app = $this->getApplication();
+            $urlCreator = $app->getUrlCreator();
+            $urlAction = $urlCreator->createUrl(You_Dzit_Constants::ACTION_SEARCH);
+            $formNode = new You_DataModel_Form('frmQuickSearch', $urlAction);
+            
+            $allLocations = getAllLocations();
+            $locations = Array();
+            foreach ( $allLocations as $k=>$v ) {
+                $locations[] = Array('key'=>$k, 'value'=>$v);
+            }
+            $formNode->setField('adsLocations', $locations);
+            /*
+            $locationNode = new Ddth_Template_DataModel_List('adsLocations');
+            $locations = getAllLocations();
+            foreach ( $locations as $k=>$v ) {
+                $locationNode->addChild(new Ddth_Template_DataModel_Map('', Array('key'=>$k, 'value'=>$v)));
+            }
+            
+            $formNode->setField('adsLocations', $locationNode);
+			*/
+            $modelPage->addChild($name, $formNode);
+        }
     }
     
     protected function populatePageTransmission() {
@@ -190,7 +222,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         $homeUri = $urlCreator->getHomeUrl(false);
         $homeUrl = $urlCreator->getHomeUrl(true);
         $template = $app->getTemplate();
-        $templateUri = $app->getYouProperty('you.templateUri');
+        $templateUri = getConfig(You_Dzit_Constants::CONFIG_TEMPLATE_URI);
         $templateUri = preg_replace('/\{folder\}/i', $template->getDir(), $templateUri);
         $templateUri = preg_replace('/\{name\}/i', $template->getName(), $templateUri);
         $templateUrl = preg_replace('/([^:])[\/]+/', '$1/', $homeUrl . '/' . $templateUri);
@@ -201,13 +233,30 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         $node->addChild(self::DATAMODEL_CONFIG_TEMPLATE_URI, $templateUri);
         $node->addChild(self::DATAMODEL_CONFIG_TEMPLATE_URL, $templateUrl);
     }
+    
+	/**
+     * Populates the application's raw configuration properties.
+     *
+     * @throws Ddth_Dzit_DzitException
+     */
+    protected function populateModelAppConfig() {
+        $name = self::DATAMODEL_APP_CONFIG;
+        $node = $this->getRootDataModel($name);
+        if ( $node === NULL ) {
+            $node = new Ddth_Template_DataModel_Map($name);
+            $this->populateRootDataModel($name, $node);
+        }
+        $allConfigs = getAllConfigs();
+        foreach ( $allConfigs as $key => $value ) {
+            $node->addChild($key, $value);    
+        }
+    }
 
     /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageHeaderTitle()}
      */
     protected function populateModelPageHeaderTitle($pageHeader) {
-        $app = $this->getApplication();
-        $title = $app->getYouProperty('you.site.name');
+        $title = getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

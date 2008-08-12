@@ -6,6 +6,11 @@
 </tr>
 <tr>
 	<td class="level2">
+		<a class="link_leftmenu_l2" href="{$commonUrls.myprofile}">{$language->getMessage('home')}</a>
+	</td>
+</tr>
+<tr>
+	<td class="level2">
 		<a class="link_leftmenu_l2" href="{$urlCreator->createUrl('changeEmail')}">{$language->getMessage('member.changeEmail')}</a>
 	</td>
 </tr>

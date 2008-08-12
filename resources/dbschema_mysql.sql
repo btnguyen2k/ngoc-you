@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS nysearchresult;
+DROP TABLE IF EXISTS nysearch;
 DROP TABLE IF EXISTS nykeyword;
 DROP TABLE IF EXISTS nyconfig;
 DROP TABLE IF EXISTS nylocation;
@@ -5,7 +7,7 @@ DROP TABLE IF EXISTS nygroup;
 DROP TABLE IF EXISTS nyupload;
 DROP TABLE IF EXISTS nyreportedentry;
 DROP TABLE IF EXISTS nyentry;
-DROP TABLE ID EXISTS nycategorywatch;
+DROP TABLE IF EXISTS nycategorywatch;
 DROP TABLE IF EXISTS nyuser;
 DROP TABLE IF EXISTS nycategory;
 
@@ -23,6 +25,10 @@ INSERT INTO nyconfig VALUES ('MAX_UPLOAD_SIZE', '1000000');
 INSERT INTO nyconfig VALUES ('ALLOWED_UPLOAD_FILE_TYPES', '.gif .png .jpg');
 INSERT INTO nyconfig VALUES ('EMAIL_OUTGOING', 'noreply@domain.com');
 INSERT INTO nyconfig VALUES ('EMAIL_ADMINISTRATOR', 'admin@domain.com');
+INSERT INTO nyconfig VALUES ('TEMPLATE_URI', '/templates/{folder}/');
+INSERT INTO nyconfig VALUES ('DATE_FORMAT', 'd-m-Y');
+INSERT INTO nyconfig VALUES ('DATETIME_FORMAT', 'h:ia d-m-Y');
+INSERT INTO nyconfig VALUES ('NUM_TOP_CATEGORIES', '1');
 
 CREATE TABLE nylocation (
 	lid						INTEGER			NOT NULL AUTO_INCREMENT,
@@ -144,6 +150,7 @@ CREATE TABLE nyentry (
 	ecatid					INTEGER			NOT NULL,
 		INDEX (ecatid),
 		FOREIGN KEY (ecatid) REFERENCES nycategory(cid) ON DELETE CASCADE,
+	INDEX (eid, ecatid),
 	euserid					INTEGER			NOT NULL,
 		INDEX (euserid),
 		FOREIGN KEY (euserid) REFERENCES nyuser(uid) ON DELETE CASCADE,
@@ -202,3 +209,20 @@ CREATE TABLE nykeyword (
 	FOREIGN KEY (kentryid) REFERENCES nyentry(eid) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE nysearch (
+	sid						INTEGER			NOT NULL AUTO_INCREMENT,
+	skeyword				VARCHAR(64)		NOT NULL,
+		INDEX (skeyword),
+	stimestamp				INTEGER			NOT NULL,
+		INDEX (stimestamp),
+	PRIMARY KEY (sid)
+) ENGINE=InnoDB;
+
+CREATE TABLE nysearchresult (
+	sid						INTEGER			NOT NULL,
+	sentryid				INTEGER			NOT NULL,
+		INDEX (sentryid),
+	PRIMARY KEY (sid, sentryid),
+	FOREIGN KEY (sid) REFERENCES nysearch (sid) ON DELETE CASCADE,
+	FOREIGN KEY (sentryid) REFERENCES nyentry (eid) ON DELETE CASCADE
+) ENGINE=InnoDB;

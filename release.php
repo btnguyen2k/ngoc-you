@@ -28,7 +28,7 @@ if ( !function_exists('fnmatch') ) {
 }
 
 $IGNORE_FIRST_LEVEL = Array('.', '..', '.cache', '.settings', '.project', '.externalToolBuilders', 'test', 'phpinfo.php', 'release.php', '.svn', 'release', 'resources');
-$IGNORE_SECOND_LEVEL = Array('.', '..', '.svn');
+$IGNORE_SECOND_LEVEL = Array('.', '..', '.svn', '%%*.*');
 
 function copyDir($src, $desc, $secondLevel = false) {
     global $IGNORE_FIRST_LEVEL;
@@ -54,7 +54,7 @@ function copyDir($src, $desc, $secondLevel = false) {
             }
             if ( is_dir($src."/".$file) ) {
                 mkdir($desc."/".$file);
-                copyDir($src."/".$file, $desc."/".$file);
+                copyDir($src."/".$file, $desc."/".$file, true);
             } else {
                 echo $desc, "/", $file, "\n";
                 copy($src."/".$file, $desc."/".$file);

@@ -24,7 +24,7 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
             $app = $this->getApplication();
             $lang = $this->getLanguage();
             $totalSize = 0;
-            $fileTypes = $app->getYouProperty('you.upload.allowedFiletypes');
+            $fileTypes = getConfig(You_Dzit_Constants::CONFIG_ALLOWED_UPLOAD_FILE_TYPES);
             $allowedFileTypes = preg_split('/[\s,;|]+/', strtolower(trim($fileTypes)));
 
             for ( $i = 0; $i < count($allowedFileTypes); $i++ ) {
@@ -101,8 +101,8 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
                 $form->addErrorMessage($lang->getMessage('error.emptyAdsContent'));
             } else {
                 $urlCreator = $app->getUrlCreator();
-                $maxUploadFiles = $app->getYouProperty('you.upload.max.files');
-                $maxUploadSize = $app->getYouProperty('you.upload.max.size');
+                $maxUploadFiles = getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_FILES);
+                $maxUploadSize = getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_SIZE);
                 $uploadFiles = $this->checkUploadFiles($form, $maxUploadFiles, $maxUploadSize);
                 if ( !$form->hasErrorMessage() ) {
                     $expiry = 7*24*3600; //expires in 7 days!
@@ -119,12 +119,13 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
                     );
                     $newEntry = createEntry($params);
                     addUploadFilesToEntry($newEntry, $uploadFiles);
+					indexEntry($newEntry);
 
                     //notify watchers
                     $emailSubject = $lang->getMessage('email.adsWatch.subject');
                     $urlAds = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), Array('id'=>$newEntry->getId()), "", true);
-                    $emailAdmin = $app->getYouProperty('you.administrator.email');
-                    $emailOutgoing = $app->getYouProperty('you.email.outgoing');
+                    $emailAdmin = getConfig(You_Dzit_Constants::CONFIG_EMAIL_ADMINISTRATOR);
+                    $emailOutgoing = getConfig(You_Dzit_Constants::CONFIG_EMAIL_OUTGOING);
                     $replacements = Array(
                         'ADS_TITLE'           => $adsTitle,
                         'CATEGORY_NAME'       => $cat->getName(),
@@ -233,9 +234,9 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
         }
 
         $app = $this->getApplication();
-        $node->addChild(self::DATAMODEL_ADS_MAX_UPLOAD_FILES, $app->getYouProperty('you.upload.max.files'));
-        $node->addChild(self::DATAMODEL_ADS_ALLOWED_UPLOAD_FILETYPES, $app->getYouProperty('you.upload.allowedFiletypes'));
-        $node->addChild(self::DATAMODEL_ADS_MAX_UPLOAD_SIZE, $app->getYouProperty('you.upload.max.size'));
+        $node->addChild(self::DATAMODEL_ADS_MAX_UPLOAD_FILES, getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_FILES));
+        $node->addChild(self::DATAMODEL_ADS_ALLOWED_UPLOAD_FILETYPES, getConfig(You_Dzit_Constants::CONFIG_ALLOWED_UPLOAD_FILE_TYPES));
+        $node->addChild(self::DATAMODEL_ADS_MAX_UPLOAD_SIZE, getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_SIZE));
     }
 }
 ?>

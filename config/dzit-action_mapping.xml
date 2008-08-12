@@ -13,6 +13,9 @@
 	<handler action="registerDone" class="You_Dzit_RegisterDoneHandler" />
 	<handler action="activateAccount" class="You_Dzit_ActivateAccountHandler" />
 
+	<handler action="search" class="You_Dzit_SearchHandler" />
+	<handler action="searchResult" class="You_Dzit_SearchResultHandler" />
+
 	<handler action="myprofile" class="You_Dzit_MyProfileHandler" />
 	<handler action="myAds" class="You_Dzit_MyAdsHandler" />
 	<handler action="changeEmail" class="You_Dzit_ChangeEmailHandler" />
@@ -23,7 +26,7 @@
 	<handler action="contactPoster" class="You_Dzit_ContactPosterHandler" />
 	<handler action="deleteAds" class="You_Dzit_DeleteAdsHandler" />
     <handler action="editAds" class="You_Dzit_EditAdsHandler" />
-	
+
 	<handler action="viewCat" class="You_Dzit_ViewCatHandler" />
 	<handler action="viewAds" class="You_Dzit_ViewAdsHandler" />
 	<handler action="thumbAttachment" class="You_Dzit_AttachmentThumbnailHandler" />
@@ -40,4 +43,9 @@
     <handler action="adminReviewReportedAds" class="You_Dzit_AdminReviewReportedAdsHandler" />
     <handler action="adminDeleteReportedAds" class="You_Dzit_AdminDeleteReportedAdsHandler" />
     <handler action="adminUnreportAds" class="You_Dzit_AdminUnreportAdsHandler" />
+	<handler action="adminCategorySettings" class="You_Dzit_AdminCategorySettingsHandler" />
+	<handler action="adminEmailSettings" class="You_Dzit_AdminEmailSettingsHandler" />
+	<handler action="adminSiteSettings" class="You_Dzit_AdminSiteSettingsHandler" />
+	<handler action="adminUploadSettings" class="You_Dzit_AdminUploadSettingsHandler" />
+	<handler action="adminMiscSettings" class="You_Dzit_AdminMiscSettingsHandler" />
 </action-mapping>

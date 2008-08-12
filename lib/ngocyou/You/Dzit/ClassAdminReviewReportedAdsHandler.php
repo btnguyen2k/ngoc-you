@@ -1,5 +1,6 @@
 <?php
 require_once 'dao/dbUtils.php';
+
 class You_Dzit_AdminReviewReportedAdsHandler extends You_Dzit_AdminHandler {
 
     const DATAMODEL_ADS             = 'ads';
@@ -79,7 +80,7 @@ class You_Dzit_AdminReviewReportedAdsHandler extends You_Dzit_AdminHandler {
         $app = $this->getApplication();
         $lang = $app->getLanguage();
         $title = $lang->getMessage('review') . ': ';
-        $title .= $this->ads->getTitle() . ' - ' . $app->getYouProperty('you.site.name');
+        $title .= $this->ads->getTitle() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }

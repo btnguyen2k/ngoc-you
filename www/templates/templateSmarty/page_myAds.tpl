@@ -14,8 +14,9 @@
 		{foreach from=$page.content.adsList item=ads}
 			{cycle assign="tdclass" values="list_row1, list_row2"}
 			<tr>
-				<td class="{$tdclass}" width="50%" target="_blank"><img border="0" width="7" {if $ads->hasAttachment()}src="images/icon_attachment.gif"{/if}><a
-					href="{$ads->getUrlView()}">{$ads->getTitle()}</a></td>
+				<td class="{$tdclass}" width="50%" target="_blank"><img border="0" width="8"
+					src="{if $ads->hasAttachment()}images/icon_attachment.gif{else}images/bullet1.gif{/if}">
+					<a href="{$ads->getUrlView()}">{$ads->getTitle()}</a></td>
 				<td class="{$tdclass}" width="10%" align="center">{$ads->getNumViews()}</td>
 				<td class="{$tdclass}" width="20%" align="center">{$ads->getExpiryDate()}</td>
 				<td class="{$tdclass}" width="10%" align="center"><a href="{$ads->getUrlEdit()}">{$language->getMessage('edit')}</a></td>
