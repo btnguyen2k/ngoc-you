@@ -125,6 +125,7 @@ function textboxBlur(el, defaultValue) {
     			</form>
 			</td>
 			<td class="bg_timkiem cellright">
+				<!--
 				<table border="0" width="80%" cellspacing="5" cellpadding="0">
 				<tr>
 					<td><span class="text_normal">Xem tin trên </span><span
@@ -133,6 +134,8 @@ function textboxBlur(el, defaultValue) {
 						height="16"></td>
 				</tr>
 				</table>
+				-->
+				&nbsp;
 			</td>
 		</tr>
 		</table>
@@ -142,13 +145,17 @@ function textboxBlur(el, defaultValue) {
 		<td class="cellcenter">
 		<table border="0" width="970" cellspacing="0" cellpadding="0" align="center">
 			<tr>
-				<td class="bg_chude"><span class="text_bold">Chủ đề được tìm kiếm
+				<td class="bg_chude">
+					&nbsp;
+					<!--
+					<span class="text_bold">Chủ đề được tìm kiếm
 				nhiều nhất: </span> <a class="link_orange" href="#">Gia sư</a>, <a
 					class="link_orange" href="#">Thiết kế web</a>, <a
 					class="link_orange" href="#">Phát triển phần mềm</a>, <a
 					class="link_orange" href="#">Kỹ sư phần cứng / mạng</a>, <a
 					class="link_orange" href="#">Kế toán/Tài chính</a>, <a
 					class="link_orange" href="#">Thẩm mỹ viện / Spa / Nails, Bảo vệ</a>
+					-->
 				</td>
 			</tr>
 		</table>
