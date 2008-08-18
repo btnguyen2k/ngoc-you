@@ -6,8 +6,74 @@ require_once 'dbUtils.php';
 require_once 'ClassEntry.php';
 require_once 'ClassCategory.php';
 require_once 'ClassSearchQuery.php';
+require_once 'ClassSearchResult.php';
 
 class IndexingDao {
+    
+    const SORT_TIME = 0;
+    
+    /**
+     * Counts number of hits for a search result.
+     *
+     * @param int
+     * @return int
+     */
+    public static function countSearchResult($searchResultId) {
+        $searchResultId += 0;
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_NUM);
+        $sql = 'SELECT count(sentryid) FROM '.TABLE_SEARCH_RESULT.' WHERE sid=?';
+        $rs = $adodb->Execute($sql, Array($searchResultId));
+        $result = 0;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields[0];
+        }
+        $rs->Close();
+        return $result;        
+    }
+    
+    /**
+     * Retrieves entries from a search result
+     *
+     * @param int
+     * @param int
+     * @param int
+     * @param int
+     * @param boolean
+     * @return SearchResult
+     */
+    public static function getSearchResult($searchResultId, $page=1, $entriesPerPage=20, $sortBy=self::SORT_TIME, $sortAsc=false) {
+        $searchResultId += 0;
+        $page += 0; if ( $page < 1 ) { $page = 1; }
+        $entriesPerPage += 0; if ( $entriesPerPage < 1 ) { $entriesPerPage = 1; }
+        
+        $tableList = Array(TABLE_SEARCH_RESULT.' AS sr', TABLE_ENTRY.' AS e');
+        $whereClause = Array('sr.sentryid=e.eid', 'sr.sid='.$searchResultId);
+
+        $sql = 'SELECT sr.sentryid AS entryid FROM ' . implode(',', $tableList);
+        $sql .= ' WHERE ' . implode(' AND ', $whereClause);
+        $sql .= ' ORDER BY e.eexpirytimestamp ' . $sortAsc ? '' : 'DESC';
+
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $rs = $adodb->SelectLimit($sql, $entriesPerPage, ($page-1)*$entriesPerPage);
+        if ( $rs === false ) {
+            die('['.__CLASS__.'.getSearchResult()] Error: ' . $adodb->ErrorMsg());
+        }
+        
+        $result = new SearchResult($searchResultId);
+        while ( !$rs->EOF ) {
+            $entryId = $rs->fields['entryid'];
+            $entry = EntryDao::getEntry($entryId);
+            if ( $entry != NULL ) {
+                $result->addAds($entry);
+            }
+            $rs->MoveNext();
+        }
+        $rs->Close();
+
+        return $result;
+    }
 
     /**
      * Index an entry.

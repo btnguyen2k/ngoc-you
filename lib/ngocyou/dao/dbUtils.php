@@ -92,6 +92,14 @@ function adodbGetConnection() {
 //}
 
 /* Indexing-related functions */
+function countSearchResult($searchResultId) {
+    return IndexingDao::countSearchResult($searchResultId);
+}
+
+function getSearchResult($searchResultId, $page=1, $entriesPerPage=20, $sortBy=IndexingDao::SORT_TIME, $sortAsc=false) {
+    return IndexingDao::getSearchResult($searchResultId, $page, $entriesPerPage, $sortBy, $sortAsc);
+}
+
 function searchEntries($query) {
     return IndexingDao::searchEntries($query);
 }

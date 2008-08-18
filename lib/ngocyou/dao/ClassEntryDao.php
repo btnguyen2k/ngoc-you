@@ -209,7 +209,7 @@ class EntryDao {
             $rs->MoveNext();
         }
         $rs->Close();
-        return $result;
+        return count($result) > 0 ? $result : NULL;
     }
 
     /**
