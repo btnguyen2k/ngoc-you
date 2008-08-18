@@ -1,6 +1,7 @@
 				<table border="0" width="100%" cellspacing="0" cellpadding="0">
 				<tr>
 					<td>
+					<!--
 					<table border="0" width="100%" cellspacing="0" cellpadding="0" class="table_tintuc">
 						<tr>
 							<td class="head_tintuc" colspan="2">&nbsp;</td>
@@ -38,6 +39,8 @@
 							&nbsp;</td>
 						</tr>
 					</table>
+					-->
+					&nbsp;
 					</td>
 				</tr>
 				<tr>
