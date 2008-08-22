@@ -148,7 +148,7 @@ class IndexingDao {
             $whereClause[] = 'e.elocation IN ('.Ddth_Adodb_AdodbHelper::buildArrayParams(count($locationList)).')';
         }
 
-        $sql = 'SELECT kw.kentryid AS entryid FROM ' . implode(',', $tableList);
+        $sql = 'SELECT DISTINCT kw.kentryid AS entryid FROM ' . implode(',', $tableList);
         $sql .= ' WHERE ' . implode(' AND ', $whereClause);
 
         $params = Array();
@@ -174,7 +174,13 @@ class IndexingDao {
         while ( !$rs->EOF ) {
             $hasResult = true;
             $entryId = $rs->fields['entryid'];
-            $adodb->Execute('INSERT INTO '.TABLE_SEARCH_RESULT.'(sid, sentryid) VALUES (?, ?)', Array($searchId, $entryId));
+            try {
+                $adodb->Execute('INSERT INTO '.TABLE_SEARCH_RESULT.'(sid, sentryid) VALUES (?, ?)', Array($searchId, $entryId));
+            } catch ( ADODB_Exception $e ) {
+                if ( stripos($e->getMessage(), "duplicate") === false ) {
+                    throw $e;
+                }
+            }
             $rs->MoveNext();
         }
         $rs->Close();
