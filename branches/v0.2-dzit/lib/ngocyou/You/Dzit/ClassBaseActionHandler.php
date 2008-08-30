@@ -2,18 +2,21 @@
 require_once 'dao/dbUtils.php';
 
 abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_AbstractActionHandler {
-    
+
     const DATAMODEL_CURRENT_USER        = 'currentUser';
 
     const DATAMODEL_URL_CREATOR         = 'urlCreator';
 
-    const DATAMODEL_PAGE_CONTENT           = 'content';    
+    const DATAMODEL_PAGE_CONTENT            = 'content';
+    const DATAMODEL_PAGE_CONTENT_LATEST_ADS = 'latestAds';
+
+    const DATAMODEL_PAGE_URL_RSS           = 'urlRss';
     const DATAMODEL_PAGE_TRANSMISSION      = 'transmission';
     const DATAMODEL_PAGE_FORM_QUICK_SEARCH = 'formQuickSearch';
 
     const DATAMODEL_ERROR_MESSAGE       = 'errorMessage';
     const DATAMODEL_INFORMATION_MESSAGE = 'informationMessage';
-    
+
     const DATAMODEL_CONFIG              = 'config';
     const DATAMODEL_CONFIG_HOME_URI     = 'homeUri';
     const DATAMODEL_CONFIG_HOME_URL     = 'homeUrl';
@@ -21,7 +24,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
     const DATAMODEL_CONFIG_TEMPLATE_URL = 'templateUrl';
 
     const DATAMODEL_APP_CONFIG          = 'appConfig';
-    
+
     const DATAMODEL_COMMON_URLS                 = 'commonUrls';
     const DATAMODEL_COMMON_URLS_HOME            = 'home';
     const DATAMODEL_COMMON_URLS_REGISTER        = 'register';
@@ -72,17 +75,53 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateDataModels()}
      */
     protected function populateDataModels() {
-        $this->populateCurrentUser();
-        $this->populateUrlCreator();
+        $this->populateModelCurrentUser();
+        $this->populateModelUrlCreator();
         $this->populateModelConfig();
         $this->populateModelAppConfig();
-        $this->populateCommonUrls();
+        $this->populateModelCommonUrls();
         parent::populateDataModels();
-        $this->populatePageFormQuickSearch();
-        $this->populatePageTransmission();
+        $this->populateModelPageFormQuickSearch();
+        $this->populateModelPageTransmission();
+        $this->populateModelPageUrlRss();
+
+        $this->populateModelPageContentLatestAds();
     }
-    
-    protected function populatePageFormQuickSearch() {
+
+
+    protected function getUrlRss() { return NULL; }
+    protected function populateModelPageUrlRss() {
+        $url = $this->getUrlRss();
+        if ( $url !== NULL && trim($url) !== '' ) {
+            $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
+            $modelPage = $this->getRootDataModel($name);
+            if ( $modelPage !== NULL ) {
+                $modelPage->addChild(self::DATAMODEL_PAGE_URL_RSS, $url);
+            }
+        }
+    }
+
+    protected function populateModelPageContentLatestAds() {
+        $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
+        $modelPage = $this->getRootDataModel($name);
+        if ( $modelPage !== NULL ) {
+            $name = self::DATAMODEL_PAGE_CONTENT;
+            $modelPageContent = $modelPage->getChild($name);
+            if ( $modelPageContent === NULL ) {
+                $modelPageContent = new Ddth_Template_DataModel_Map($name);
+                $modelPage->addChild($name, $modelPageContent);
+            }
+
+            $modelLatestAds = Array();
+            $latestAds = getLatestEntries(10);
+            foreach ( $latestAds as $ads ) {
+                $modelLatestAds[] = new You_DataModel_Ads($ads);
+            }
+            $modelPageContent->addChild(self::DATAMODEL_PAGE_CONTENT_LATEST_ADS, $modelLatestAds);
+        }
+    }
+
+    protected function populateModelPageFormQuickSearch() {
         $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
         $modelPage = $this->getRootDataModel($name);
         if ( $modelPage !== NULL ) {
@@ -91,7 +130,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
             $urlCreator = $app->getUrlCreator();
             $urlAction = $urlCreator->createUrl(You_Dzit_Constants::ACTION_SEARCH);
             $formNode = new You_DataModel_Form('frmQuickSearch', $urlAction);
-            
+
             $allLocations = getAllLocations();
             $locations = Array();
             foreach ( $allLocations as $k=>$v ) {
@@ -99,19 +138,19 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
             }
             $formNode->setField('adsLocations', $locations);
             /*
-            $locationNode = new Ddth_Template_DataModel_List('adsLocations');
-            $locations = getAllLocations();
-            foreach ( $locations as $k=>$v ) {
-                $locationNode->addChild(new Ddth_Template_DataModel_Map('', Array('key'=>$k, 'value'=>$v)));
-            }
-            
-            $formNode->setField('adsLocations', $locationNode);
-			*/
+             $locationNode = new Ddth_Template_DataModel_List('adsLocations');
+             $locations = getAllLocations();
+             foreach ( $locations as $k=>$v ) {
+             $locationNode->addChild(new Ddth_Template_DataModel_Map('', Array('key'=>$k, 'value'=>$v)));
+             }
+
+             $formNode->setField('adsLocations', $locationNode);
+             */
             $modelPage->addChild($name, $formNode);
         }
     }
-    
-    protected function populatePageTransmission() {
+
+    protected function populateModelPageTransmission() {
         $name = Ddth_Dzit_DzitConstants::DATAMODEL_PAGE;
         $modelPage = $this->getRootDataModel($name);
         if ( $modelPage !== NULL ) {
@@ -126,7 +165,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         }
     }
 
-    protected function populateCurrentUser() {
+    protected function populateModelCurrentUser() {
         $sessionName = You_Dzit_Constants::SESSION_CURRENT_USER_ID;
         $currentUser = isset($_SESSION[$sessionName]) ? getUser($_SESSION[$sessionName]) : NULL;
         if ( $currentUser !== NULL ) {
@@ -136,7 +175,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         }
     }
 
-    protected function populateUrlCreator() {
+    protected function populateModelUrlCreator() {
         $app = $this->getApplication();
         $urlCreator = $app->getUrlCreator();
         $name = self::DATAMODEL_URL_CREATOR;
@@ -187,7 +226,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
      *
      * @throws Ddth_Dzit_DzitException
      */
-    protected function populateCommonUrls() {
+    protected function populateModelCommonUrls() {
         $name = self::DATAMODEL_COMMON_URLS;
         $node = $this->getRootDataModel($name);
         if ( $node === NULL ) {
@@ -233,8 +272,8 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         $node->addChild(self::DATAMODEL_CONFIG_TEMPLATE_URI, $templateUri);
         $node->addChild(self::DATAMODEL_CONFIG_TEMPLATE_URL, $templateUrl);
     }
-    
-	/**
+
+    /**
      * Populates the application's raw configuration properties.
      *
      * @throws Ddth_Dzit_DzitException
@@ -248,7 +287,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         }
         $allConfigs = getAllConfigs();
         foreach ( $allConfigs as $key => $value ) {
-            $node->addChild($key, $value);    
+            $node->addChild($key, $value);
         }
     }
 

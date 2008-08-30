@@ -30,6 +30,7 @@ class You_Dzit_Constants {
     const ACTION_ERROR                   = 'error';
     const ACTION_SEARCH                  = 'search';
     const ACTION_SEARCH_RESULT           = 'searchResult';
+    const ACTION_RSS                     = 'rss';
     
     const ACTION_VIEW_ADS                = 'viewAds';
     const ACTION_DELETE_ADS              = 'deleteAds';

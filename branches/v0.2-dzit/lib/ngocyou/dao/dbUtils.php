@@ -192,6 +192,10 @@ function getCategoryTree() {
     return CategoryDao::getCategoryTree();
 }
 
+function getLatestEntries($numEntries, $catId=0) {
+    return EntryDao::getLatestEntries($numEntries, $catId);
+}
+
 function getEntriesForCategory($catId, $page=1, $entriesPerPage=20) {
     return EntryDao::getEntriesForCategory($catId, $page, $entriesPerPage);
 }
