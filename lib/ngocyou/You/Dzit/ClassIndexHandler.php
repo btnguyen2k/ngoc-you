@@ -13,6 +13,15 @@ class You_Dzit_IndexHandler extends You_Dzit_BaseActionHandler {
     }
 
     /**
+     * {@see You_Dzit_BaseActionHandler::getUrlRss()}
+     */
+    protected function getUrlRss() {
+        $app = $this->getApplication();
+        $urlCreator = $app->getUrlCreator();
+        return $urlCreator->createUrl(You_Dzit_Constants::ACTION_RSS);
+    }
+
+    /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageContent()}
      */
     protected function populateModelPageContent($page) {

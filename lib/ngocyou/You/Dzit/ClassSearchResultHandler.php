@@ -6,9 +6,9 @@ class You_Dzit_SearchResultHandler extends You_Dzit_BaseActionHandler {
     const DATAMODEL_LOCATION_LIST = 'locationList';
     const DATAMODEL_NAVIGATOR     = 'navigator';
     const DATAMODEL_SEARCH_RESULT = 'searchResult';
-    
+
     const ENTRIES_PER_PAGE = 20;
-    
+
     private $searchResult;
     private $searchId;
     private $page;
@@ -25,10 +25,19 @@ class You_Dzit_SearchResultHandler extends You_Dzit_BaseActionHandler {
         $this->searchResult = getSearchResult($this->id, $this->page, self::ENTRIES_PER_PAGE);
         if ( $this->searchResult === NULL ) {
             echo NULL;
-            return;   
+            return;
         }
         $this->populateDataModels();
         return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
+    }
+
+    /**
+     * {@see You_Dzit_BaseActionHandler::getUrlRss()}
+     */
+    protected function getUrlRss() {
+        $app = $this->getApplication();
+        $urlCreator = $app->getUrlCreator();
+        return $urlCreator->createUrl(You_Dzit_Constants::ACTION_RSS);
     }
 
     /**
@@ -66,7 +75,7 @@ class You_Dzit_SearchResultHandler extends You_Dzit_BaseActionHandler {
         $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('home'), $urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
         $model[] = new You_DataModel_NavigatorEntry($lang->getMessage('search'));
         $node->addChild(self::DATAMODEL_NAVIGATOR, $model);
-        
+
         /* search result */
         $model = new You_DataModel_SearchResult($this->searchResult);
         $node->addChild(self::DATAMODEL_SEARCH_RESULT, $model);

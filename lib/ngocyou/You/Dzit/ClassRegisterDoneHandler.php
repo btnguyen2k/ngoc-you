@@ -17,7 +17,7 @@ class You_Dzit_RegisterDoneHandler extends You_Dzit_BaseActionHandler {
         return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
     }
     
-    protected function populateModelPageContent() {
+    protected function populateModelPageContent($page) {
         $lang = $this->getLanguage();
         $msg = $lang->getMessage('register.done', $this->user!==NULL ? Array($this->user->getLoginName()) : NULL);
         $this->populateModelPageInformationMessage($msg);

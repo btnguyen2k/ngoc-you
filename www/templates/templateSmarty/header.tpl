@@ -4,6 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>{$page.header.title}</title>
 <link rel="stylesheet" type="text/css" href="style/style.css">
+{if $page.urlRss !== NULL && $page.urlRss !== ''}
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="{$page.urlRss}">
+{/if}
 <script language="javascript" type="text/javascript">
 {literal}
 function textboxFocus(el, defaultValue) {
@@ -82,6 +85,12 @@ function textboxBlur(el, defaultValue) {
 					{if $currentUser !== NULL && $currentUser->canAccessAdminCP()}
 						<td class="menu_seperate"></td>
 						<td class="menu_green"><a class="link_menu" href="{$urlCreator->createUrl('adminCp')}">{$language->getMessage('adminControlPanel')}</a></td>
+					{/if}
+					{if $page.urlRss !== NULL && $page.urlRss !== ''}
+						<td class="menu_seperate"></td>
+						<td>
+							<a href="{$page.urlRss}"><img alt="RSS" border="0" src="images/rss.gif"></a>
+						</td>
 					{/if}
 					<td align="right">
 						{if $currentUser !== NULL}

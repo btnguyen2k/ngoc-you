@@ -244,6 +244,40 @@ class EntryDao {
         $entry->setReporter(UserDao::getUser($entry->getReporterId()));
         $entry->setEntry(self::getEntry($entry->getId()));
     }
+    
+    public static function getLatestEntries($numEntries, $catId=0) {
+        $numEntries += 0; if ( $numEntries < 1 ) { $numEntries = 1; }
+        $catId+=0;
+        
+        $params = Array(time());
+        $sql = 'SELECT * FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp>?';
+        
+        $cat = CategoryDao::getCategory($catId);
+        if ( $cat != null ) {
+            $params[] = $catId;
+            foreach ( $cat->getChildren() as $child ) {
+                $params[] = $child->getId();
+            }
+            $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params)-1);        
+            $sql .= ' AND ecatid IN ('.$catIdsParam.')';
+        }
+
+        $sql .= ' ORDER BY eexpirytimestamp DESC';
+
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $rs = $adodb->Execute($sql, $params);
+        $result = Array();
+        while ( !$rs->EOF ) {
+            $entry = new Entry();
+            $entry->populate($rs->fields);
+            self::populateExtraInfo($entry);
+            $result[] = $entry;
+            $rs->MoveNext();
+        }
+        $rs->Close();
+        return $result;
+    }
 
     /**
      * Gets a reported entry.

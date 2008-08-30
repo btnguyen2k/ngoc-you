@@ -10,7 +10,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
     const DATAMODEL_PAGE_NUM        = 'pageNum';
 
     const ENTRIES_PER_PAGE          = 20;
-    
+
     private $form;
     private $cat;
 
@@ -32,6 +32,16 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
     }
 
     /**
+     * {@see You_Dzit_BaseActionHandler::getUrlRss()}
+     */
+    protected function getUrlRss() {
+        $app = $this->getApplication();
+        $urlCreator = $app->getUrlCreator();
+        $params = Array('cat'=>$this->cat->getId());
+        return $urlCreator->createUrl(You_Dzit_Constants::ACTION_RSS, Array(), $params);
+    }
+
+    /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageContent()}
      */
     protected function populateModelPageContent($page) {
@@ -49,7 +59,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Category($cat);
         }
         $node->addChild(self::DATAMODEL_CATEGORY_TREE, $model);
-        
+
         $subCat = Array();
         if ( $this->cat->getNumChildren() > 0 ) {
             $subCat = $this->cat->getChildren();
@@ -64,13 +74,13 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Category($cat);
         }
         $node->addChild(self::DATAMODEL_SUBCAT_LIST, $model);
-        
+
         $pageNum = isset($_GET['page']) ? $_GET['page']+0 : 1;
         if ( $pageNum < 1 ) {
             $pageNum = 1;
         }
         $node->addChild(self::DATAMODEL_PAGE_NUM, $pageNum);
-        
+
         $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
         $model = Array();
         foreach ( $entries as $entry ) {
@@ -78,7 +88,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         }
         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
     }
-    
+
     /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageHeaderTitle()}
      */
