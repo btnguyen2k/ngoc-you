@@ -5,10 +5,9 @@
 </script>
 {include file="avim.tpl"}
 <table border="0" width="100%" cellspacing="0" cellpadding="0" class="table_footer">
-	<tr>
-		<td>Lượt truy cập thứ: <span class="text_orange">001000</span></td>
-		<td class="cellright">© Bản quyền 2008 Etvee</td>
-	</tr>
+<tr>
+	<td class="cellleft">© Copyright <script language="javascript" type="text/javascript">var d = new Date(); document.write(d.getYear()+1900)</script> {$appConfig.SITE_NAME} - All Rights Reserved</td>
+</tr>
 </table>
 </body>
 </html>
