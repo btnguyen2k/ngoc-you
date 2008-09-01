@@ -387,6 +387,22 @@ class EntryDao {
             die('['.__CLASS__.'.updateEntry()] Error: ' . $adodb->ErrorMsg());
         }
     }
+    
+	/**
+     * Sets new extry expiry days
+     *
+     * @param int
+     */
+    public static function updateEntryExpiry($expiryDays) {
+        if ( $expiryDays < 1 ) {
+            $expiryDays = 1;
+        }
+        $adodb = adodbGetConnection();
+        $sql = 'UPDATE ' . TABLE_ENTRY . ' SET eexpirytimestamp=ecreationtimestamp+'.($expiryDays*24*3600);
+        if ( $adodb->Execute($sql)===false ) {
+            die('['.__CLASS__.'.updateEntryExpiry()] Error: ' . $adodb->ErrorMsg());
+        }
+    }
 
     /**
      * Populates extra information to an entry.
