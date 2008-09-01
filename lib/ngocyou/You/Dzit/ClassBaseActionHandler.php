@@ -295,7 +295,7 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageHeaderTitle()}
      */
     protected function populateModelPageHeaderTitle($pageHeader) {
-        $title = getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
+        $title = getConfig(You_Dzit_Constants::CONFIG_SITE_NAME) . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_TITLE);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
 }
