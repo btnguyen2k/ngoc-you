@@ -233,6 +233,10 @@ function updateEntry($entry) {
     EntryDao::updateEntry($entry);
 }
 
+function updateEntryExpiry($expiryDays) {
+    EntryDao::updateEntryExpiry($expiryDays);
+}
+
 function getWatcherList($category) {
     return CategoryWatchDao::getWatcherList($category);
 }
