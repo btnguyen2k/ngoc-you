@@ -17,6 +17,10 @@ class You_DataModel_Category {
         return $this->category->getId();
     }
     
+    public function getDescription() {
+        return $this->category->getDescription();
+    }
+    
     public function getParentId() {
         return $this->category->getParentId();
     }
