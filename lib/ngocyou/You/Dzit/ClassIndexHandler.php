@@ -8,6 +8,11 @@ class You_Dzit_IndexHandler extends You_Dzit_BaseActionHandler {
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::performAction()}
      */
     protected function performAction() {
+        if ( (rand(0, 10) > 7)
+                && (getConfig(You_Dzit_Constants::CONFIG_AUTO_DELETE_EXPIRED_ADS) > 0) ) {
+            deleteExpiredEntries();
+        }
+        
         $this->populateDataModels();
         return new Ddth_Dzit_ControlForward_ViewControlForward($this->getAction());
     }

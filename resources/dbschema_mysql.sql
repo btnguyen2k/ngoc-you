@@ -29,6 +29,8 @@ INSERT INTO nyconfig VALUES ('TEMPLATE_URI', '/templates/{folder}/');
 INSERT INTO nyconfig VALUES ('DATE_FORMAT', 'd-m-Y');
 INSERT INTO nyconfig VALUES ('DATETIME_FORMAT', 'h:ia d-m-Y');
 INSERT INTO nyconfig VALUES ('NUM_TOP_CATEGORIES', '1');
+INSERT INTO nyconfig VALUES ('ADS_EXPIRY_DAYS', '7');
+INSERT INTO nyconfig VALUES ('AUTO_DELETE_EXPIRED_ADS', '1');
 
 CREATE TABLE nylocation (
 	lid						INTEGER			NOT NULL AUTO_INCREMENT,

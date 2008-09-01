@@ -13,9 +13,14 @@
 		</tr>
 		-->
 		<tr>
-			<td class="caption" width="40%">{$language->getMessage('numberCategories')}</td>
-			<td class="value" width="30%">{$page.content.numberCategories}</td>
-			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCategoryList')}" class="link_orange">{$language->getMessage('admin.categoryList')}</a></td>
+			<td class="caption" width="40%">{$language->getMessage('admin.adsSetting.expiryDays')}</td>
+			<td class="value" width="30%">{$appConfig.ADS_EXPIRY_DAYS}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminAdsSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
+		</tr>
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('admin.adsSetting.autoDeleteExpired')}</td>
+			<td class="value" width="30%">{if $appConfig.AUTO_DELETE_EXPIRED_ADS > 0}{$language->getMessage('yes')}{else}{$language->getMessage('no')}{/if}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminAdsSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
 		</tr>
 		<tr>
 			<td class="caption" width="40%">{$language->getMessage('numberAds')}</td>
@@ -31,6 +36,11 @@
 			<td class="caption" width="40%">{$language->getMessage('numberReportedAds')}</td>
 			<td class="value" width="30%">{$page.content.numberReportedAds}</td>
 			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminViewReportedAds')}" class="link_orange">{$language->getMessage('admin.viewReportedAds')}</a></td>
+		</tr>
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('numberCategories')}</td>
+			<td class="value" width="30%">{$page.content.numberCategories}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCategoryList')}" class="link_orange">{$language->getMessage('admin.categoryList')}</a></td>
 		</tr>
 		<tr>
 			<td class="caption" width="40%">{$language->getMessage('admin.categorySetting.numTopCategories')}</td>
