@@ -11,6 +11,11 @@
 </tr>
 <tr>
 	<td class="level2">
+		<a class="link_leftmenu_l2" href="{$urlCreator->createUrl('adminAdsSettings')}">{$language->getMessage('admin.adsSettings')}</a>
+	</td>
+</tr>
+<tr>
+	<td class="level2">
 		<a class="link_leftmenu_l2" href="{$urlCreator->createUrl('adminEmailSettings')}">{$language->getMessage('admin.emailSettings')}</a>
 	</td>
 </tr>

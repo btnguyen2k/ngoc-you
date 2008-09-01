@@ -14,6 +14,8 @@ class You_Dzit_Constants {
     const CONFIG_DATE_FORMAT               = 'DATE_FORMAT';
     const CONFIG_DATETIME_FORMAT           = 'DATETIME_FORMAT';    
     const CONFIG_CATEGORY_NUM_TOP          = 'NUM_TOP_CATEGORIES';
+    const CONFIG_ADS_EXPIRY_DAYS           = 'ADS_EXPIRY_DAYS';
+    const CONFIG_AUTO_DELETE_EXPIRED_ADS   = 'AUTO_DELETE_EXPIRED_ADS';
     
     const SESSION_LAST_ACCESS_PAGE       = 'LAST_ACCESS_PAGE';
     const SESSION_CURRENT_USER_ID        = 'CURRENT_USER_ID';

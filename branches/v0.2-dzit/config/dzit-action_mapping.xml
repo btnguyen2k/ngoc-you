@@ -44,6 +44,7 @@
     <handler action="adminReviewReportedAds" class="You_Dzit_AdminReviewReportedAdsHandler" />
     <handler action="adminDeleteReportedAds" class="You_Dzit_AdminDeleteReportedAdsHandler" />
     <handler action="adminUnreportAds" class="You_Dzit_AdminUnreportAdsHandler" />
+    <handler action="adminAdsSettings" class="You_Dzit_AdminAdsSettingsHandler" />
 	<handler action="adminCategorySettings" class="You_Dzit_AdminCategorySettingsHandler" />
 	<handler action="adminEmailSettings" class="You_Dzit_AdminEmailSettingsHandler" />
 	<handler action="adminSiteSettings" class="You_Dzit_AdminSiteSettingsHandler" />

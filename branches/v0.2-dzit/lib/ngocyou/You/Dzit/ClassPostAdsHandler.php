@@ -105,7 +105,7 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
                 $maxUploadSize = getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_SIZE);
                 $uploadFiles = $this->checkUploadFiles($form, $maxUploadFiles, $maxUploadSize);
                 if ( !$form->hasErrorMessage() ) {
-                    $expiry = 7*24*3600; //expires in 7 days!
+                    $expiry = getConfig(You_Dzit_Constants::CONFIG_ADS_EXPIRY_DAYS)*24*3600;
                     $params = Array(
                 		'category' => $cat,
                 		'user'        => $app->getCurrentUser(),
