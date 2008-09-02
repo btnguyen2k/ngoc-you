@@ -1,17 +1,27 @@
 <table border="0" width="100%" cellspacing="3" cellpadding="0" class="table_view">
 <tr>
-	<td class="title_form">{$language->getMessage('admin.adsSummary')}</td>
+	<td class="title_form">{$language->getMessage('admin.userSummary')}</td>
 </tr>
 <tr>
 	<td>
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
-		<!--
 		<tr>
 			<td class="caption" width="40%">{$language->getMessage('numberUserAccounts')}</td>
 			<td class="value" width="30%">{$page.content.numberUserAccounts}</td>
 			<td class="value1" width="30%">&nbsp;</td>
 		</tr>
-		-->
+		</table>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td class="title_form">{$language->getMessage('admin.adsSummary')}</td>
+</tr>
+<tr>
+	<td>
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td class="caption" width="40%">{$language->getMessage('admin.adsSetting.expiryDays')}</td>
 			<td class="value" width="30%">{$appConfig.ADS_EXPIRY_DAYS}</td>

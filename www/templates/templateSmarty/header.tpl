@@ -82,6 +82,8 @@ function textboxBlur(el, defaultValue) {
 					<td class="menu"><a class="link_menu" href="{$commonUrls.myprofile}">{$language->getMessage('myprofile')}</a></td>
 					<td class="menu_seperate"></td>
 					<td class="menu"><a class="link_menu" href="{$urlCreator->createUrl('postAds')}">{$language->getMessage('postAds')}</a></td>
+					<td class="menu_seperate"></td>
+					<td class="menu_green"><a target="_blank" class="link_menu" href="http://youcomvn.wordpress.com/">Dev Blog</a></td>
 					{if $currentUser !== NULL && $currentUser->canAccessAdminCP()}
 						<td class="menu_seperate"></td>
 						<td class="menu_green"><a class="link_menu" href="{$urlCreator->createUrl('adminCp')}">{$language->getMessage('adminControlPanel')}</a></td>
@@ -117,7 +119,7 @@ function textboxBlur(el, defaultValue) {
 		<tr>
 			<td class="bg_timkiem">
 				<form name="{$page.formQuickSearch->getName()}" method="POST" action="{$page.formQuickSearch->getAction()}">
-    				<table border="0" width="80%" cellspacing="5" cellpadding="0">
+    				<table border="0" cellspacing="5" cellpadding="0">
     				<tr>
     					<td>&nbsp;</td>
     					<td><span class="text_bold text_upper">{$language->getMessage('search')}</span></td>

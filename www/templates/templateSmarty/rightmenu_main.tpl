@@ -50,10 +50,4 @@
 					<td class="cellcenter">
 					<img border="0" src="images/logo_banner2.gif" width="190" height="53"></td>
 				</tr>
-				<tr>
-					<td class="cellcenter">
-						<br>
-						<big><b><a target="_blank" href="http://youcomvn.wordpress.com/">Góp ý cho website</a></b></big>
-					</td>
-				</tr>
 			</table>
