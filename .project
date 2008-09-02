@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ngoc.you</name>
+	<name>ngoc.you-v0.2-dzit</name>
 	<comment></comment>
 	<projects>
+		<project>dphp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
