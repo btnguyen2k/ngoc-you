@@ -266,7 +266,7 @@ class EntryDao {
 
         $adodb = adodbGetConnection();
         $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
-        $rs = $adodb->Execute($sql, $params);
+        $rs = $adodb->SelectLimit($sql, $numEntries, 0, $params);
         $result = Array();
         while ( !$rs->EOF ) {
             $entry = new Entry();
