@@ -83,7 +83,7 @@ function textboxBlur(el, defaultValue) {
 					<td class="menu_seperate"></td>
 					<td class="menu"><a class="link_menu" href="{$urlCreator->createUrl('postAds')}">{$language->getMessage('postAds')}</a></td>
 					<td class="menu_seperate"></td>
-					<td class="menu_green"><a target="_blank" class="link_menu" href="http://youcomvn.wordpress.com/">Dev Blog</a></td>
+					<td class="menu_blue"><a target="_blank" class="link_menu" href="http://youcomvn.wordpress.com/">Dev Blog</a></td>
 					{if $currentUser !== NULL && $currentUser->canAccessAdminCP()}
 						<td class="menu_seperate"></td>
 						<td class="menu_green"><a class="link_menu" href="{$urlCreator->createUrl('adminCp')}">{$language->getMessage('adminControlPanel')}</a></td>

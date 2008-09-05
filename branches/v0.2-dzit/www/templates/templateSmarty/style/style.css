@@ -283,6 +283,14 @@ td.menu_green{
 	font-size: 11px;
 }
 
+td.menu_blue{
+	background-image: url('../images/bg_menu_blue.gif');
+	width: 115px; height: 23px;
+	text-align: center;	
+	font-family: Tahoma, Arial, Verdana, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
 td.menu_seperate{
 	width: 2px; height: 23px;
 }
