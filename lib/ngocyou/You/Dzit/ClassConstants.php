@@ -54,15 +54,17 @@ class You_Dzit_Constants {
     const ACTION_ADMIN_UNREPORT_ADS        = 'adminUnreportAds';
     const ACTION_ADMIN_EMAIL_SETTINGS      = 'adminEmailSettings';
     
-    const ACTION_MEMBER_REGISTER         = 'register';
-    const ACTION_MEMBER_REGISTER_DONE    = 'registerDone';
-    const ACTION_MEMBER_FORGOT_PASSWORD  = 'forgotPassword';
-    const ACTION_MEMBER_ACTIVATE_ACCOUNT = 'activateAccount';
-    const ACTION_MEMBER_MYPROFILE        = 'myprofile';
-    const ACTION_MEMBER_CHANGE_EMAIL     = 'changeEmail';
-    const ACTION_MEMBER_CHANGE_FULL_NAME = 'changeFullName';
-    const ACTION_MEMBER_CHANGE_PASSWORD  = 'changePassword';
-    const ACTION_MEMBER_MY_ADS           = 'myAds';
-    const ACTION_MEMBER_POST_ADS         = 'postAds';
+    const ACTION_MEMBER_REGISTER                    = 'register';
+    const ACTION_MEMBER_REGISTER_DONE               = 'registerDone';
+    const ACTION_MEMBER_FORGOT_PASSWORD             = 'forgotPassword';
+    const ACTION_MEMBER_RESEND_ACTIVATION_CODE      = 'resendActivationCode';
+    const ACTION_MEMBER_RESEND_ACTIVATION_CODE_DONE = 'resendActivationCodeDone';
+    const ACTION_MEMBER_ACTIVATE_ACCOUNT            = 'activateAccount';
+    const ACTION_MEMBER_MYPROFILE                   = 'myprofile';
+    const ACTION_MEMBER_CHANGE_EMAIL                = 'changeEmail';
+    const ACTION_MEMBER_CHANGE_FULL_NAME            = 'changeFullName';
+    const ACTION_MEMBER_CHANGE_PASSWORD             = 'changePassword';
+    const ACTION_MEMBER_MY_ADS                      = 'myAds';
+    const ACTION_MEMBER_POST_ADS                    = 'postAds';
 }
 ?>

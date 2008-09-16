@@ -25,14 +25,15 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
 
     const DATAMODEL_APP_CONFIG          = 'appConfig';
 
-    const DATAMODEL_COMMON_URLS                 = 'commonUrls';
-    const DATAMODEL_COMMON_URLS_HOME            = 'home';
-    const DATAMODEL_COMMON_URLS_REGISTER        = 'register';
-    const DATAMODEL_COMMON_URLS_LOGIN           = 'login';
-    const DATAMODEL_COMMON_URLS_LOGOUT          = 'logout';
-    const DATAMODEL_COMMON_URLS_FORGOT_PASSWORD = 'forgotPassword';
-    const DATAMODEL_COMMON_URLS_MYPROFILE       = 'myprofile';
-    const DATAMODEL_COMMON_URLS_ADMINCP         = 'adminCp';
+    const DATAMODEL_COMMON_URLS                        = 'commonUrls';
+    const DATAMODEL_COMMON_URLS_HOME                   = 'home';
+    const DATAMODEL_COMMON_URLS_REGISTER               = 'register';
+    const DATAMODEL_COMMON_URLS_LOGIN                  = 'login';
+    const DATAMODEL_COMMON_URLS_LOGOUT                 = 'logout';
+    const DATAMODEL_COMMON_URLS_FORGOT_PASSWORD        = 'forgotPassword';
+    const DATAMODEL_COMMON_URLS_RESEND_ACTIVATION_CODE = 'resendActivationCode';
+    const DATAMODEL_COMMON_URLS_MYPROFILE              = 'myprofile';
+    const DATAMODEL_COMMON_URLS_ADMINCP                = 'adminCp';
 
     /**
      * {@see Ddth_Dzit_IActionHandler::execute()}
@@ -235,13 +236,22 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
         }
         $app = $this->getApplication();
         $urlCreator = $app->getUrlCreator();
-        $node->addChild(self::DATAMODEL_COMMON_URLS_HOME, $urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_REGISTER, $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_REGISTER));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_FORGOT_PASSWORD, $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_FORGOT_PASSWORD));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_LOGIN, $urlCreator->createUrl(You_Dzit_Constants::ACTION_LOGIN));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_LOGOUT, $urlCreator->createUrl(You_Dzit_Constants::ACTION_LOGOUT));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_MYPROFILE, $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_MYPROFILE));
-        $node->addChild(self::DATAMODEL_COMMON_URLS_ADMINCP, $urlCreator->createUrl(You_Dzit_Constants::ACTION_ADMIN_CP));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_HOME, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_INDEX));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_REGISTER, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_REGISTER));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_FORGOT_PASSWORD, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_FORGOT_PASSWORD));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_RESEND_ACTIVATION_CODE, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_RESEND_ACTIVATION_CODE));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_LOGIN, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_LOGIN));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_LOGOUT, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_LOGOUT));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_MYPROFILE, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_MYPROFILE));
+        $node->addChild(self::DATAMODEL_COMMON_URLS_ADMINCP, 
+            $urlCreator->createUrl(You_Dzit_Constants::ACTION_ADMIN_CP));
     }
 
     /**

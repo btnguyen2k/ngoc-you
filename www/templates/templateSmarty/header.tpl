@@ -59,13 +59,19 @@ function textboxBlur(el, defaultValue) {
         							<td><input type="image" src="images/login_button.gif" style="border: 0px; height: 17px; width: 17px"></td>
         						</tr>
         						<tr>
-        							<td colspan="3" class="cellcenter"><a class="link_login"
+        							<td colspan="3" class="cellcenter"><b><a class="link_login"
         								href="{$commonUrls.forgotPassword}">{$language->getMessage('forgotPassword')}</a>
-        								| <a class="link_login" href="{$commonUrls.register}">{$language->getMessage('register')}</a></td>
+        								| <a class="link_login" href="{$commonUrls.register}">{$language->getMessage('register')}</a></b>
+        							</td>
         						</tr>
         						</table>
         					</td>
         					<td class="login_right">&nbsp;</td>
+        				</tr>
+        				<tr>
+        					<td colspan="3" class="cellcenter">
+        						<a class="link_login" href="{$commonUrls.resendActivationCode}">{$language->getMessage('resendActivationCode')}</a>
+        					</td>
         				</tr>
         				</table>
     				</form>
