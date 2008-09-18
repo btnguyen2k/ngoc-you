@@ -16,6 +16,8 @@
 	<handler action="resendActivationCode" class="You_Dzit_ResendActivationCodeHandler" />
 	<handler action="resendActivationCodeDone" class="You_Dzit_ResendActivationCodeDoneHandler" />
 	<handler action="forgotPassword" class="You_Dzit_ForgotPasswordHandler" />
+	<handler action="forgotPasswordDone" class="You_Dzit_ForgotPasswordDoneHandler" />
+	<handler action="resetPassword" class="You_Dzit_ResetPasswordHandler" />
 
 	<handler action="search" class="You_Dzit_SearchHandler" />
 	<handler action="searchResult" class="You_Dzit_SearchResultHandler" />

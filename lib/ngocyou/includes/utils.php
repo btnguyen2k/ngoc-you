@@ -1,8 +1,24 @@
 <?php
 include_once 'denyDirectInclude.php';
 require_once 'class.phpmailer.php';
+require_once 'dao/dbUtils.php';
 
 define('SEARH_QUERY_SPACE_CHARS', '\s,\.:!');
+
+function processEmailContent($msg) {
+    $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
+    $urlCreator = $app->getUrlCreator();
+    $site = '<a href="'.$urlCreator->getHomeUrl(true).'">'.getConfig(You_Dzit_Constants::CONFIG_SITE_NAME).'</a>';
+    
+    //$msg = str_replace("\n", "<br>", $msg);
+    $msg = str_replace('{SITE}', $site, $msg);
+    $msg = str_replace('{SITE_NAME}', getConfig(You_Dzit_Constants::CONFIG_SITE_NAME), $msg);
+    $msg = str_replace('{SITE_TITLE}', getConfig(You_Dzit_Constants::CONFIG_SITE_TITLE), $msg);
+    $msg = str_replace('{EMAIL_ADMINISTRATOR}', getConfig(You_Dzit_Constants::CONFIG_EMAIL_ADMINISTRATOR), $msg);
+    $msg = str_replace('{URL_SITE}', $urlCreator->getHomeUrl(true), $msg);
+    
+    return $msg;
+}
 
 function tokenizeSearchQuery($queryStr) {
     $arr = preg_split('/[\s,]+/', trim(strip_tags($queryStr)));
@@ -114,7 +130,7 @@ function sendEmail($from, $to, $subject, $body, $html=true, $extra=Array()) {
     if ( isset($extra['fromName']) ) {
         $mail->FromName = $extra['fromName'];
     } else {
-        $mail->FromName = $FromName;
+        $mail->FromName = $from;
     }
     $mail->Sender = $from; //return-path
     $mail->AddAddress($to);
