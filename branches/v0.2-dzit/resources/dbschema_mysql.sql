@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS nyupload;
 DROP TABLE IF EXISTS nyreportedentry;
 DROP TABLE IF EXISTS nyentry;
 DROP TABLE IF EXISTS nycategorywatch;
+DROP TABLE IF EXISTS nypwdresetrequest;
 DROP TABLE IF EXISTS nyuser;
 DROP TABLE IF EXISTS nycategory;
 
@@ -133,6 +134,16 @@ INSERT INTO nyuser (uid, uloginname, upassword, uemail, ufullname, ugroupid, ucr
 VALUES (1, 'admin', MD5('password'), 'admin@domain.com', 'Administrator', 1, UNIX_TIMESTAMP());
 INSERT INTO nyuser (uid, uloginname, upassword, uemail, ufullname, ugroupid, ucreationtimestamp)
 VALUES (2, 'moderator', MD5('password'), 'moderator@domain.com', 'Moderator', 1, UNIX_TIMESTAMP());
+
+CREATE TABLE nypwdresetrequest (
+	pruid					INTEGER			NOT NULL,
+	prtimestamp				INTEGER			NOT NULL DEFAULT 0,
+		INDEX (prtimestamp),
+	prpwdresetcode			CHAR(32),
+		INDEX (prpwdresetcode),
+	PRIMARY KEY (pruid),
+	FOREIGN KEY (pruid) REFERENCES nyuser(uid) ON DELETE CASCADE
+) ENGINE=InnoDb;
 
 CREATE TABLE nycategory (
 	cid						INTEGER			NOT NULL AUTO_INCREMENT,

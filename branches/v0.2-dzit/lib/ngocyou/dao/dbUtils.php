@@ -12,18 +12,19 @@ require_once 'ClassUserDao.php';
 require_once 'ClassCategoryWatchDao.php';
 require_once 'ClassIndexingDao.php';
 
-define("TABLE_LOCATION", 	   "nylocation");
-define("TABLE_CONFIG",   	   "nyconfig");
-define("TABLE_USER",           "nyuser");
-define("TABLE_GROUP",    	   "nygroup");
-define("TABLE_CATEGORY", 	   "nycategory");
-define("TABLE_ENTRY",          "nyentry");
-define("TABLE_REPORTED_ENTRY", "nyreportedentry");
-define("TABLE_UPLOAD",         "nyupload");
-define("TABLE_CATEGORY_WATCH", "nycategorywatch");
-define("TABLE_KEYWORD",        "nykeyword");
-define("TABLE_SEARCH",         "nysearch");
-define("TABLE_SEARCH_RESULT",  "nysearchresult");
+define("TABLE_LOCATION", 	           "nylocation");
+define("TABLE_CONFIG",   	           "nyconfig");
+define("TABLE_USER",                   "nyuser");
+define("TABLE_GROUP",    	           "nygroup");
+define("TABLE_CATEGORY", 	           "nycategory");
+define("TABLE_ENTRY",                  "nyentry");
+define("TABLE_REPORTED_ENTRY",         "nyreportedentry");
+define("TABLE_UPLOAD",                 "nyupload");
+define("TABLE_CATEGORY_WATCH",         "nycategorywatch");
+define("TABLE_KEYWORD",                "nykeyword");
+define("TABLE_SEARCH",                 "nysearch");
+define("TABLE_SEARCH_RESULT",          "nysearchresult");
+define("TABLE_PASSWORD_RESET_REQUEST", "nypwdresetrequest");
 
 ///**
 // * @var ADOConnection
@@ -281,6 +282,10 @@ function getUserByEmail($email) {
 
 function getUserByLoginName($loginName) {
     return UserDao::getUserByLoginName($loginName);
+}
+
+function logResetPasswordRequest($user, $resetCode) {
+    UserDao::logResetPasswordRequest($user, $resetCode);
 }
 
 function updateUser($user) {

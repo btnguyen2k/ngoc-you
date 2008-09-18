@@ -3,17 +3,17 @@ require_once 'denyDirectInclude.php';
 
 define("DEBUG_MODE", true);
 
-define("DB_TYPE", "mysql");
-define("DB_SERVER", "192.168.199.250");
-define("DB_PORT", 3306); //default port for mysql is 3306
-define("DB_USER", "ngocyou");
-define("DB_PASSWORD", "ngocyou");
-define("DB_SCHEMA", "ngocyou");
-$DB_SETUP_SQLS = Array("SET NAMES 'utf8'");
+#define("DB_TYPE", "mysql");
+#define("DB_SERVER", "192.168.199.250");
+#define("DB_PORT", 3306); //default port for mysql is 3306
+#define("DB_USER", "ngocyou");
+#define("DB_PASSWORD", "ngocyou");
+#define("DB_SCHEMA", "ngocyou");
+#$DB_SETUP_SQLS = Array("SET NAMES 'utf8'");
 
 define("CHARSET", "utf-8");
 
-define("SMTP_SERVER", "localhost");
+define("SMTP_SERVER", "127.0.0.1");
 define("SMTP_PORT", 25);
 
 define("TEMPLATE", "default");

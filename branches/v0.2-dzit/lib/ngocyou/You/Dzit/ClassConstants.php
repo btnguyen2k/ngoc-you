@@ -57,6 +57,8 @@ class You_Dzit_Constants {
     const ACTION_MEMBER_REGISTER                    = 'register';
     const ACTION_MEMBER_REGISTER_DONE               = 'registerDone';
     const ACTION_MEMBER_FORGOT_PASSWORD             = 'forgotPassword';
+    const ACTION_MEMBER_FORGOT_PASSWORD_DONE        = 'forgotPasswordDone';
+    const ACTION_MEMBER_RESET_PASSWORD              = 'resetPassword';
     const ACTION_MEMBER_RESEND_ACTIVATION_CODE      = 'resendActivationCode';
     const ACTION_MEMBER_RESEND_ACTIVATION_CODE_DONE = 'resendActivationCodeDone';
     const ACTION_MEMBER_ACTIVATE_ACCOUNT            = 'activateAccount';

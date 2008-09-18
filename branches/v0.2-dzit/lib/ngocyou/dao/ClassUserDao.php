@@ -37,7 +37,7 @@ class UserDao {
         $params = Array();
         $params[] = strtolower(trim($userData->getLoginName()));
         $params[] = md5(trim($userData->getPassword()));
-        $params[] = strtolower(trim($userData->getEmail()));        
+        $params[] = strtolower(trim($userData->getEmail()));
         $params[] = trim($userData->getFullName());
         $params[] = time();
         $groupId = $userData->getGroupId();
@@ -112,6 +112,26 @@ class UserDao {
         }
         $rs->Close();
         return $user;
+    }
+
+    /**
+     * Logs a password reset request.
+     *
+     * @param User
+     * @param string
+     */
+    public static function logResetPasswordRequest($user, $resetCode) {
+        $adodb = adodbGetConnection();
+
+        $sql = 'DELETE FROM '.TABLE_PASSWORD_RESET_REQUEST.' WHERE pruid=?';
+        if ( $adodb->Execute($sql, Array($user->getId())) === false ) {
+            die('['.__CLASS__.'.logResetPasswordRequest()] Error: ' . $adodb->ErrorMsg());
+        }
+
+        $sql = 'INSERT INTO '.TABLE_PASSWORD_RESET_REQUEST.' (pruid, prtimestamp, prpwdresetcode) VALUES (?, ?, ?)';
+        if ( $adodb->Execute($sql, Array($user->getId(), time(), $resetCode)) === false ) {
+            die('['.__CLASS__.'.logResetPasswordRequest()] Error: ' . $adodb->ErrorMsg());
+        }
     }
 
     /**
