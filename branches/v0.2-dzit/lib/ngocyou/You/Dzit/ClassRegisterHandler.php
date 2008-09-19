@@ -84,7 +84,7 @@ class You_Dzit_RegisterHandler extends You_Dzit_BaseActionHandler {
                 );
                 $body = str_replace('{URL_ACTIVATE_ACCOUNT}', "<a href=\"$urlActivate\">$urlActivate</a>", $body);
                 sendEmail(getConfig(You_Dzit_Constants::CONFIG_EMAIL_OUTGOING), $user->getEmail(), $subject, $body, true);
-                echo 'hehehe';
+
                 $result = new Ddth_Dzit_ControlForward_UrlRedirectControlForward($urlCreator->createUrl(
                         You_Dzit_Constants::ACTION_MEMBER_REGISTER_DONE,
                         Array(),
