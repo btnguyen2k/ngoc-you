@@ -115,6 +115,25 @@ class UserDao {
     }
 
     /**
+     * Gets password reset request's code of a user.
+     *
+     * @param User
+     * @return string
+     */
+    public static function getResetPasswordCode($user) {
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = 'SELECT * FROM '.TABLE_PASSWORD_RESET_REQUEST.' WHERE pruid=?';
+        $rs = $adodb->Execute($sql, Array($user->getId()));
+        $result = NULL;
+        if ( !$rs->EOF ) {
+            $result = $rs->fields['prpwdresetcode'];
+        }
+        $rs->Close();
+        return $result;
+    }
+
+    /**
      * Logs a password reset request.
      *
      * @param User
@@ -131,6 +150,20 @@ class UserDao {
         $sql = 'INSERT INTO '.TABLE_PASSWORD_RESET_REQUEST.' (pruid, prtimestamp, prpwdresetcode) VALUES (?, ?, ?)';
         if ( $adodb->Execute($sql, Array($user->getId(), time(), $resetCode)) === false ) {
             die('['.__CLASS__.'.logResetPasswordRequest()] Error: ' . $adodb->ErrorMsg());
+        }
+    }
+
+    /**
+     * Removes password reset request of a user.
+     *
+     * @param User
+     */
+    public static function removeResetPasswordRequest($user) {
+        $adodb = adodbGetConnection();
+
+        $sql = 'DELETE FROM '.TABLE_PASSWORD_RESET_REQUEST.' WHERE pruid=?';
+        if ( $adodb->Execute($sql, Array($user->getId())) === false ) {
+            die('['.__CLASS__.'.removeResetPasswordRequest()] Error: ' . $adodb->ErrorMsg());
         }
     }
 

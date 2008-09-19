@@ -284,8 +284,16 @@ function getUserByLoginName($loginName) {
     return UserDao::getUserByLoginName($loginName);
 }
 
+function getResetPasswordCode($user) {
+    return UserDao::getResetPasswordCode($user);
+}
+
 function logResetPasswordRequest($user, $resetCode) {
     UserDao::logResetPasswordRequest($user, $resetCode);
+}
+
+function removeResetPasswordRequest($user) {
+    UserDao::removeResetPasswordRequest($user);
 }
 
 function updateUser($user) {
