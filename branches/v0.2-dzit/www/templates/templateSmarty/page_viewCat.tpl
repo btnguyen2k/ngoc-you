@@ -66,7 +66,15 @@
 </tr>
 <tr>
 	<td>
-		Page: {$page.content.pageNum}
+		{$language->getMessage('page')}: <span style="font-size: 14px">
+		{foreach from=$page.content.pagination item=p}
+			{if $p.page == $page.content.pageNum}
+				[{$p.page}]
+			{else}
+				<a href="{$p.url}">{$p.page}</a>
+			{/if}
+		{/foreach}
+		</span>
 		<!--  
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
@@ -142,7 +150,15 @@
 </tr>
 <tr>
 	<td>
-		Page: {$page.content.pageNum}
+		{$language->getMessage('page')}: <span style="font-size: 14px">
+		{foreach from=$page.content.pagination item=p}
+			{if $p.page == $page.content.pageNum}
+				[{$p.page}]
+			{else}
+				<a href="{$p.url}">{$p.page}</a>
+			{/if}
+		{/foreach}
+		</span>
 		<!--  
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
 		<tr>

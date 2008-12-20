@@ -2,24 +2,31 @@
 require_once 'dao/dbUtils.php';
 class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
 
-    const DATAMODEL_CATEGORY        = 'category';
-    const DATAMODEL_CATEGORY_TREE   = 'categoryTree';
-    const DATAMODEL_SUBCAT_LIST     = 'subCatList';
-    const DATAMODEL_ADS_LIST        = 'adsList';
-    const DATAMODEL_NUM_PAGES       = 'numPages';
-    const DATAMODEL_PAGE_NUM        = 'pageNum';
-    const DATAMODEL_PAGINATION      = 'pagination';
+    const DATAMODEL_CATEGORY = 'category';
 
-    const ENTRIES_PER_PAGE          = 20;
+    const DATAMODEL_CATEGORY_TREE = 'categoryTree';
+
+    const DATAMODEL_SUBCAT_LIST = 'subCatList';
+
+    const DATAMODEL_ADS_LIST = 'adsList';
+
+    const DATAMODEL_NUM_PAGES = 'numPages';
+
+    const DATAMODEL_PAGE_NUM = 'pageNum';
+
+    const DATAMODEL_PAGINATION = 'pagination';
+
+    const ENTRIES_PER_PAGE = 20;
 
     private $form;
+
     private $cat;
 
     /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::performAction()}
      */
     protected function performAction() {
-        $id = isset($_GET['id']) ? $_GET['id']+0 : 0;
+        $id = isset($_GET['id']) ? $_GET['id'] + 0 : 0;
         $this->cat = getCategory($id);
         $app = $this->getApplication();
         $lang = $this->getLanguage();
@@ -38,7 +45,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
     protected function getUrlRss() {
         $app = $this->getApplication();
         $urlCreator = $app->getUrlCreator();
-        $params = Array('cat'=>$this->cat->getId());
+        $params = Array('cat' => $this->cat->getId());
         return $urlCreator->createUrl(You_Dzit_Constants::ACTION_RSS, Array(), $params);
     }
 
@@ -52,10 +59,10 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $node = new Ddth_Template_DataModel_Map($name);
             $page->addChild($name, $node);
         }
-
+        
         //current category
         $node->addChild(self::DATAMODEL_CATEGORY, new You_DataModel_Category($this->cat));
-
+        
         //category tree
         $catTree = getCategoryTree();
         $model = Array();
@@ -63,7 +70,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Category($cat);
         }
         $node->addChild(self::DATAMODEL_CATEGORY_TREE, $model);
-
+        
         //sub-categories
         $subCat = Array();
         if ( $this->cat->getNumChildren() > 0 ) {
@@ -79,14 +86,14 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Category($cat);
         }
         $node->addChild(self::DATAMODEL_SUBCAT_LIST, $model);
-
+        
         //current page
-        $pageNum = isset($_GET['page']) ? $_GET['page']+0 : 1;
+        $pageNum = isset($_GET['page']) ? $_GET['page'] + 0 : 1;
         if ( $pageNum < 1 ) {
             $pageNum = 1;
         }
         $node->addChild(self::DATAMODEL_PAGE_NUM, $pageNum);
-
+        
         //entries
         $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
         $model = Array();
@@ -94,7 +101,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $model[] = new You_DataModel_Ads($entry);
         }
         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
-
+        
         //paging
         $numEntries = countEntriesForCategory($this->cat->getId());
         $numPages = $numEntries / self::ENTRIES_PER_PAGE;
@@ -105,9 +112,15 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         $app = $this->getApplication();
         $lang = $app->getLanguage();
         $urlCreator = $app->getUrlCreator();
+        $urlParams = Array('id' => $this->cat->getId());
         for ( $i = 1; $i <= $numPages; $i++ ) {
-            
+            $p = new Ddth_Template_DataModel_Map("");
+            $urlParams['page'] = $i;
+            $url = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_CATEGORY, Array(), $urlParams);
+            $p->setValue(Array('page' => $i, 'url' => $url));
+            $pagination->addChild($p);
         }
+        $node->addChild(self::DATAMODEL_PAGINATION, $pagination);
     }
 
     /**
