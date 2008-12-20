@@ -8,6 +8,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
     const DATAMODEL_ADS_LIST        = 'adsList';
     const DATAMODEL_NUM_PAGES       = 'numPages';
     const DATAMODEL_PAGE_NUM        = 'pageNum';
+    const DATAMODEL_PAGINATION      = 'pagination';
 
     const ENTRIES_PER_PAGE          = 20;
 
@@ -51,8 +52,11 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
             $node = new Ddth_Template_DataModel_Map($name);
             $page->addChild($name, $node);
         }
+
+        //current category
         $node->addChild(self::DATAMODEL_CATEGORY, new You_DataModel_Category($this->cat));
 
+        //category tree
         $catTree = getCategoryTree();
         $model = Array();
         foreach ( $catTree as $cat ) {
@@ -60,6 +64,7 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         }
         $node->addChild(self::DATAMODEL_CATEGORY_TREE, $model);
 
+        //sub-categories
         $subCat = Array();
         if ( $this->cat->getNumChildren() > 0 ) {
             $subCat = $this->cat->getChildren();
@@ -75,18 +80,34 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         }
         $node->addChild(self::DATAMODEL_SUBCAT_LIST, $model);
 
+        //current page
         $pageNum = isset($_GET['page']) ? $_GET['page']+0 : 1;
         if ( $pageNum < 1 ) {
             $pageNum = 1;
         }
         $node->addChild(self::DATAMODEL_PAGE_NUM, $pageNum);
 
+        //entries
         $entries = getEntriesForCategory($this->cat->getId(), $pageNum, self::ENTRIES_PER_PAGE);
         $model = Array();
         foreach ( $entries as $entry ) {
             $model[] = new You_DataModel_Ads($entry);
         }
         $node->addChild(self::DATAMODEL_ADS_LIST, $model);
+
+        //paging
+        $numEntries = countEntriesForCategory($this->cat->getId());
+        $numPages = $numEntries / self::ENTRIES_PER_PAGE;
+        if ( $numPages * self::ENTRIES_PER_PAGE < $numEntries ) {
+            $numPages++;
+        }
+        $pagination = new Ddth_Template_DataModel_List(self::DATAMODEL_PAGINATION);
+        $app = $this->getApplication();
+        $lang = $app->getLanguage();
+        $urlCreator = $app->getUrlCreator();
+        for ( $i = 1; $i <= $numPages; $i++ ) {
+            
+        }
     }
 
     /**

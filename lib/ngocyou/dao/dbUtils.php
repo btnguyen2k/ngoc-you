@@ -159,6 +159,10 @@ function countEntries() {
     return EntryDao::countEntries();
 }
 
+function countEntriesForCategory($catId) {
+    return EntryDao::countEntriesForCategory($catId);
+}
+
 function countReportedEntries() {
     return EntryDao::countReportedEntries();
 }
