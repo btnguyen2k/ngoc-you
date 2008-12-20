@@ -102,6 +102,31 @@ class EntryDao {
     }
 
     /**
+     * Counts number of non-expired entries for a category.
+     *
+     * @param integer $catId
+     */
+    public static function countEntriesForCategory($catId) {
+        $cat = CategoryDao::getCategory($catId);
+        if ( $cat === NULL ) {
+            return Array();
+        }
+        $params = Array($catId);
+        foreach ( $cat->getChildren() as $child ) {
+            $params[] = $child->getId();
+        }
+        $adodb = adodbGetConnection();
+        $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
+        $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params));
+        $sql = 'SELECT count(*) AS numEntries FROM '.TABLE_ENTRY.' WHERE ecatid IN ('.$catIdsParam.') AND eexpirytimestamp>?';
+        $params[] = time();
+        $rs = $adodb->Execute($sql, $params);
+        $numEntries = $rs->fields['numEntries'];
+        $rs->Close();
+        return $numEntries;
+    }
+
+    /**
      * Creates a new entry.
      *
      * @param Array()
@@ -195,7 +220,7 @@ class EntryDao {
         }
         $adodb = adodbGetConnection();
         $adodb->SetFetchMode(ADODB_FETCH_ASSOC);
-        $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params));        
+        $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params));
         $sql = 'SELECT * FROM '.TABLE_ENTRY.' WHERE ecatid IN ('.$catIdsParam.') AND eexpirytimestamp>? ORDER BY eexpirytimestamp DESC';
         $params[] = time();
         $rs = $adodb->SelectLimit($sql, $entriesPerPage, ($page-1)*$entriesPerPage, $params);
@@ -244,21 +269,21 @@ class EntryDao {
         $entry->setReporter(UserDao::getUser($entry->getReporterId()));
         $entry->setEntry(self::getEntry($entry->getId()));
     }
-    
+
     public static function getLatestEntries($numEntries, $catId=0) {
         $numEntries += 0; if ( $numEntries < 1 ) { $numEntries = 1; }
         $catId+=0;
-        
+
         $params = Array(time());
         $sql = 'SELECT * FROM '.TABLE_ENTRY.' WHERE eexpirytimestamp>?';
-        
+
         $cat = CategoryDao::getCategory($catId);
         if ( $cat != null ) {
             $params[] = $catId;
             foreach ( $cat->getChildren() as $child ) {
                 $params[] = $child->getId();
             }
-            $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params)-1);        
+            $catIdsParam = Ddth_Adodb_AdodbHelper::buildArrayParams(count($params)-1);
             $sql .= ' AND ecatid IN ('.$catIdsParam.')';
         }
 
@@ -355,14 +380,14 @@ class EntryDao {
             die('['.__CLASS__.'.reportEntry()] Error: ' . $adodb->ErrorMsg());
         }
     }
-	
-	/**
+
+    /**
      * Un-reports an reported entry.
      *
      * @param Entry
      */
     public static function unreportEntry($entry) {
-		$adodb = adodbGetConnection();
+        $adodb = adodbGetConnection();
         $sql = 'DELETE FROM '.TABLE_REPORTED_ENTRY.' WHERE rentryid = ?';
         $params = Array($entry->getId());
         if ( $adodb->Execute($sql, $params)===false ) {
@@ -387,8 +412,8 @@ class EntryDao {
             die('['.__CLASS__.'.updateEntry()] Error: ' . $adodb->ErrorMsg());
         }
     }
-    
-	/**
+
+    /**
      * Sets new extry expiry days
      *
      * @param int

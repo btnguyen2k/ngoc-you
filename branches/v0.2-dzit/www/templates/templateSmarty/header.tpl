@@ -26,8 +26,58 @@ function textboxBlur(el, defaultValue) {
 }
 {/literal}
 </script>
+<style type="text/css">
+{literal}
+table.ncode_imageresizer_warning {
+	background: #FFFFE1;
+	color: #000000;
+	border: 1px solid #CCC;
+	cursor: pointer;
+}
+table.ncode_imageresizer_warning td {
+	font-size: 10px;
+	vertical-align: middle;
+	text-decoration: none;
+}
+/*
+table.ncode_imageresizer_warning td.td1 {
+	padding: 2px;
+}
+table.ncode_imageresizer_warning td.td2 {
+	padding: 2px;
+}
+*/
+{/literal}
+</style>
+<script language="javascript" type="text/javascript" src="js/ncode_imageresizer.js"></script>
+<script language="javascript" type="text/javascript">
+NcodeImageResizer.TEMPLATE_PATH = '{$config.templateUrl}';
+NcodeImageResizer.MODE = 'enlarge';
+NcodeImageResizer.MAXWIDTH = 640;
+NcodeImageResizer.MAXHEIGHT = 0;
+NcodeText = new Array();
+NcodeText['ncode_imageresizer_warning_small'] = "{$language->getMessage('ncode_imageresizer_warning_small')}";
+NcodeText['ncode_imageresizer_warning_filesize'] = "{$language->getMessage('ncode_imageresizer_warning_filesize')}";
+NcodeText['ncode_imageresizer_warning_no_filesize'] = "{$language->getMessage('ncode_imageresizer_warning_no_filesize')}";
+NcodeText['ncode_imageresizer_warning_fullsize'] = "{$language->getMessage('ncode_imageresizer_warning_fullsize')}";
+warning = '';
+{literal}
+function autoResizeLargeImgs() {
+	var i;
+	var n;
+	var str;
+	for ( i = 0, n = document.images.length; i < n; i++ ) {
+		var img;
+		img = document.images[i];
+		if ( img.width > 320 ) {
+			NcodeImageResizer.createOn(img);
+		}
+	} 
+}
+{/literal}
+</script>
 </head>
-<body>
+<body onload="autoResizeLargeImgs();">
 <table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tr>
 	<td class="head">
