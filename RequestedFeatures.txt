@@ -1,0 +1,15 @@
+[2008.12.20]:
+* Giao diện:
+    - Có diện tích cho quảng cáo Google Adsense và Banner dựa trên độ phân giải 1024:
+        + 800px cho phần content
+        + 200px cho phần quảng cáo banner
+* Hệ thống:
+    - Hệ thống quản lý quảng cáo Banner & tin VIP
+    - Phân cấp quản lý cây thư mục 3 cấp.
+    - Comment phản hồi trên từng bài post
+    - Quản lý người dùng:
+        + Reset account
+        + Nâng cấp account
+        + Xóa account
+* Người dùng:
+    - Reset ads về đầu trang 
