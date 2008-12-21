@@ -48,6 +48,13 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         $params = Array('cat' => $this->cat->getId());
         return $urlCreator->createUrl(You_Dzit_Constants::ACTION_RSS, Array(), $params);
     }
+    
+    /**
+     * {@see You_Dzit_BaseActionHandler::getCurrentCat()}
+     */
+    protected function getCurrentCat() {
+        return $this->cat;
+    }
 
     /**
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageContent()}
