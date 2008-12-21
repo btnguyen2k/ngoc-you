@@ -104,13 +104,12 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
         
         //paging
         $numEntries = countEntriesForCategory($this->cat->getId());
-        $numPages = $numEntries / self::ENTRIES_PER_PAGE;
+        $numPages = (int)($numEntries / self::ENTRIES_PER_PAGE);
         if ( $numPages * self::ENTRIES_PER_PAGE < $numEntries ) {
             $numPages++;
         }
         $pagination = new Ddth_Template_DataModel_List(self::DATAMODEL_PAGINATION);
         $app = $this->getApplication();
-        $lang = $app->getLanguage();
         $urlCreator = $app->getUrlCreator();
         $urlParams = Array('id' => $this->cat->getId());
         for ( $i = 1; $i <= $numPages; $i++ ) {
@@ -127,7 +126,6 @@ class You_Dzit_ViewCatHandler extends You_Dzit_BaseActionHandler {
      * {@see Ddth_Dzit_ActionHandler_AbstractActionHandler::populateModelPageHeaderTitle()}
      */
     protected function populateModelPageHeaderTitle($pageHeader) {
-        $app = $this->getApplication();
         $title = $this->cat->getName() . ' - ' . getConfig(You_Dzit_Constants::CONFIG_SITE_NAME);
         $pageHeader->addChild(Ddth_Dzit_DzitConstants::DATAMODEL_PAGE_HEADER_TITLE, $title);
     }
