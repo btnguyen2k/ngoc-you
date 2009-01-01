@@ -31,6 +31,11 @@
 </tr>
 <tr>
 	<td class="level2">
+		<a class="link_leftmenu_l2" href="{$urlCreator->createUrl('adminCustomPageContentSettings')}">{$language->getMessage('admin.customPageContentSettings')}</a>
+	</td>
+</tr>
+<tr>
+	<td class="level2">
 		<a class="link_leftmenu_l2" href="{$urlCreator->createUrl('adminMiscSettings')}">{$language->getMessage('admin.miscSettings')}</a>
 	</td>
 </tr>

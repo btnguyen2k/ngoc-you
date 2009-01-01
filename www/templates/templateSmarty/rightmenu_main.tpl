@@ -29,6 +29,7 @@
     					</table>
 					</td>
 				</tr>
+				<!--
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
@@ -50,4 +51,5 @@
 					<td class="cellcenter">
 					<img border="0" src="images/logo_banner2.gif" width="190" height="53"></td>
 				</tr>
+				-->
 			</table>

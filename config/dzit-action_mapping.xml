@@ -54,5 +54,6 @@
 	<handler action="adminEmailSettings" class="You_Dzit_AdminEmailSettingsHandler" />
 	<handler action="adminSiteSettings" class="You_Dzit_AdminSiteSettingsHandler" />
 	<handler action="adminUploadSettings" class="You_Dzit_AdminUploadSettingsHandler" />
+	<handler action="adminCustomPageContentSettings" class="You_Dzit_AdminCustomPageContentSettingsHandler" />
 	<handler action="adminMiscSettings" class="You_Dzit_AdminMiscSettingsHandler" />
 </action-mapping>

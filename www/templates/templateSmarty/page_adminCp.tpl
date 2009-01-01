@@ -145,6 +145,35 @@
 	<td>&nbsp;</td>
 </tr>
 <tr>
+	<td class="title_form">{$language->getMessage('admin.customPageContentSettings')}</td>
+</tr>
+<tr>
+	<td>
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('admin.customPageContentSetting.left')}</td>
+			<td class="value" width="30%">{$appConfig.CUSTOM_CONTENT_LEFT|truncate:20|escape}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCustomPageContentSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
+		</tr>
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('admin.customPageContentSetting.top')}</td>
+			<td class="value" width="30%">{$appConfig.CUSTOM_CONTENT_TOP|truncate:20|escape}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCustomPageContentSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
+		</tr>
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('admin.customPageContentSetting.bottom')}</td>
+			<td class="value" width="30%">{$appConfig.CUSTOM_CONTENT_BOTTOM|truncate:20|escape}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCustomPageContentSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
+		</tr>
+		<tr>
+			<td class="caption" width="40%">{$language->getMessage('admin.customPageContentSetting.right')}</td>
+			<td class="value" width="30%">{$appConfig.CUSTOM_CONTENT_RIGHT|truncate:20|escape}</td>
+			<td class="value1" width="30%"><a href="{$urlCreator->createUrl('adminCustomPageContentSettings')}" class="link_orange">{$language->getMessage('update')}</a></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
 	<td class="title_form">{$language->getMessage('admin.miscSettings')}</td>
 </tr>
 <tr>
