@@ -13,6 +13,7 @@
 	{/php}
 	
 	<!-- scrolling thumbnails -->
+	<!-- 
 	<table border="0" width="100%" cellspacing="0" cellpadding="0" class="table_thumb">
 	<tr>
 		<td class="thumb_left">&nbsp;</td>
@@ -20,13 +21,16 @@
 		<td class="thumb_right">&nbsp;</td>
 	</tr>
 	</table>
+	-->
 	
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<!-- 
 	<tr>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 	</tr>
+	 -->
 	<tr>
 		<td class="celltop">
 			<!-- top middle ads banners -->
