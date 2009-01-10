@@ -42,7 +42,9 @@
 		</tr>
 		<tr>
 			<td class="list_row1">
+				<div id="VietAd">
 				{$page.content.ads->getContentForDisplay()}
+				</div>
 			</td>
 		</tr>
 		<tr>
