@@ -17,9 +17,5 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 var pageTracker = _gat._getTracker("UA-5466368-1");
 pageTracker._trackPageview();
 </script>
-<!-- Begin: VietAd -->
-<script src="http://www.vietad.vn/keyword.aspx?pubid=696"></script>
-<script src="http://www.vietad.vn/MagicWords.js"></script>
-<!-- End: VietAd -->
 </body>
 </html>
