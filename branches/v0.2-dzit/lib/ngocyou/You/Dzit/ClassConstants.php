@@ -45,6 +45,7 @@ class You_Dzit_Constants {
     const ACTION_VIEW_CATEGORY           = 'viewCat';
     const ACTION_CONTACT_POSTER          = 'contactPoster';
     const ACTION_ATTACHMENT_THUMBNAIL    = 'thumbAttachment';
+    const ACTION_ATTACHMENT_VIEW         = 'viewAttachment';
     
     const ACTION_ADMIN_CP                  = 'adminCp';
     const ACTION_ADMIN_CREATE_CATEGORY     = 'adminCreateCategory';

@@ -21,5 +21,12 @@ class You_DataModel_Attachment {
         $urlParams = Array('id' => $this->getId(), 'ads' => $this->attachment->getEntryId());
         return $urlCreator->createUrl(You_Dzit_Constants::ACTION_ATTACHMENT_THUMBNAIL, Array(), $urlParams);
     }
+    
+    public function getUrlView() {
+        $app = Ddth_Dzit_ApplicationRegistry::getCurrentApplication();
+        $urlCreator = $app->getUrlCreator();
+        $urlParams = Array('id' => $this->getId(), 'ads' => $this->attachment->getEntryId());
+        return $urlCreator->createUrl(You_Dzit_Constants::ACTION_ATTACHMENT_VIEW, Array(), $urlParams);
+    }
 }
 ?>

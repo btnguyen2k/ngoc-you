@@ -45,8 +45,30 @@
 				<div id="VietAd">
 				{$page.content.ads->getContentForDisplay()}
 				</div>
+				<!-- Begin: VietAd -->
+				<script src="http://www.vietad.vn/keyword.aspx?pubid=696"></script>
+				<script src="http://www.vietad.vn/MagicWords.js"></script>
+				<!-- End: VietAd -->
 			</td>
 		</tr>
+		{if $page.content.ads->hasAttachment()}
+			<tr>
+				<td class="list_row2" align="center"><b>{$language->getMessage('ads.attachments')}</b></td>
+			</tr>
+			<tr>
+				<td class="list_row1">
+        			<table border="0" cellpadding="4" cellspacing="1" align="center">
+        			<tr>
+	        			{foreach from=$page.content.ads->getAllAttachments() item=attachment}
+	        				<td valign="top" align="center">
+	        					<a href="{$attachment->getUrlView()}" target="_blank"><img border="1" src="{$attachment->getUrlThumbnail()}"></a>
+	        				</td>
+    	    			{/foreach}
+    	    		</tr>
+    	    		</table>
+    	    	</td>
+    	    </tr>
+        {/if}
 		<tr>
 			<td class="list_row2" align="center">
 				<a href="{$page.content.ads->getUrlReport()}">{$language->getMessage('ads.report')}</a>

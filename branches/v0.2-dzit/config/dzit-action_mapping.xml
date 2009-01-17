@@ -36,6 +36,7 @@
 	<handler action="viewCat" class="You_Dzit_ViewCatHandler" />
 	<handler action="viewAds" class="You_Dzit_ViewAdsHandler" />
 	<handler action="thumbAttachment" class="You_Dzit_AttachmentThumbnailHandler" />
+	<handler action="viewAttachment" class="You_Dzit_AttachmentViewHandler" />
 
 	<handler action="adminCp" class="You_Dzit_AdminCpHandler" />
 	<handler action="adminCategoryList" class="You_Dzit_AdminCategoryListHandler" />
