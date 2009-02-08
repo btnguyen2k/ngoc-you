@@ -97,7 +97,11 @@ class Entry {
     }
 
     public function getContentForDisplay() {
-        return removeEvilHtmlTags($this->content);
+        global $BASE_ALLOWED_TAGS;
+        global $ADMIN_ALLOWED_TAGS;
+        //TODO
+        return $this->content;
+        //return removeEvilHtmlTags($this->content);
     }
 
     public function setContent($value) {

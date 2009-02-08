@@ -1,7 +1,5 @@
 <?php
-require_once 'dao/dbUtils.php';
 class You_Dzit_EditAdsHandler extends You_Dzit_RequireLoggedInHandler {
-
     const DATAMODEL_ADS                          = 'ads';
     const DATAMODEL_NAVIGATOR                    = 'navigator';
     const DATAMODEL_CATEGORY_TREE                = 'categoryTree';
@@ -21,12 +19,19 @@ class You_Dzit_EditAdsHandler extends You_Dzit_RequireLoggedInHandler {
 
     private $form = NULL;
     private $ads  = NULL;
+    
+    private $LOGGER;
+
+    public function __construct() {
+        parent::__construct();
+        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog('You_Dzit_EditAdsHandler');
+    }
 
     private function checkUploadFiles($form, $maxUploadFiles, $maxUploadSize) {
         $uploadFiles = Array();
         $ads = $this->ads;
         if ( $maxUploadFiles - $ads->countAttachments() > 0 && count($_FILES) > 0 ) {
-            $app = $this->getApplication();
+            //$app = $this->getApplication();
             $lang = $this->getLanguage();
             $totalSize = $ads->countAttachmentSize(); //total size of existing attachments
             $fileTypes = getConfig(You_Dzit_Constants::CONFIG_ALLOWED_UPLOAD_FILE_TYPES);
@@ -139,12 +144,17 @@ class You_Dzit_EditAdsHandler extends You_Dzit_RequireLoggedInHandler {
                 if ( count($uploadFiles) > 0 ) {
                     $form->addErrorMessage($lang->getMessage('ads.attachment.added', count($uploadFiles)));
                 }
-
+                $safeAdsContent = '';
+                if ( $user->getGroupId() === GROUP_ADMINISTRATOR ) {
+                    $safeAdsContent = removeEvilHtmlTags($adsContent, You_Dzit_Constants::$ADMIN_ALLOWED_TAGS);
+                } else {
+                    $safeAdsContent = removeEvilHtmlTags($adsContent, You_Dzit_Constants::$BASED_ALLOWED_TAGS);
+                }
                 $this->ads->setIsHtml($form->getField('html'));
                 $this->ads->setCategoryId($catId);
                 $this->ads->setCategory($cat);
                 $this->ads->setTitle($adsTitle);
-                $this->ads->setContent(removeEvilHtmlTags($adsContent));
+                $this->ads->setContent($safeAdsContent);
                 $this->ads->setType($adsType);
                 $this->ads->setPrice($adsPrice);
                 $this->ads->setLocation($adsLocation);

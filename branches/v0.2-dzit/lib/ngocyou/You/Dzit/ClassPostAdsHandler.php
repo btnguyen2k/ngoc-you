@@ -1,75 +1,91 @@
 <?php
-require_once 'dao/dbUtils.php';
 class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
 
-    const DATAMODEL_CATEGORY_TREE                = 'categoryTree';
-    const DATAMODEL_ADS_LOCATION_LIST            = 'adsLocationList';
-    const DATAMODEL_ADS_MAX_UPLOAD_FILES         = 'adsMaxUploadFiles';
-    const DATAMODEL_ADS_MAX_UPLOAD_SIZE          = 'adsMaxUploadSize';
+    const DATAMODEL_CATEGORY_TREE = 'categoryTree';
+
+    const DATAMODEL_ADS_LOCATION_LIST = 'adsLocationList';
+
+    const DATAMODEL_ADS_MAX_UPLOAD_FILES = 'adsMaxUploadFiles';
+
+    const DATAMODEL_ADS_MAX_UPLOAD_SIZE = 'adsMaxUploadSize';
+
     const DATAMODEL_ADS_ALLOWED_UPLOAD_FILETYPES = 'adsAllowedUploadFiletypes';
 
-    const FORM_FIELD_CATEGORY_ID                 = 'categoryId';
-    const FORM_FIELD_ADS_TYPE                    = 'adsType';
-    const FORM_FIELD_ADS_PRICE                   = 'adsPrice';
-    const FORM_FIELD_ADS_LOCATION                = 'adsLocation';
-    const FORM_FIELD_ADS_TITLE                   = 'adsTitle';
-    const FORM_FIELD_ADS_CONTENT                 = 'adsContent';
-    const FORM_FIELD_ADS_ATTACHMENT              = 'adsAttachment';
+    const FORM_FIELD_CATEGORY_ID = 'categoryId';
+
+    const FORM_FIELD_ADS_TYPE = 'adsType';
+
+    const FORM_FIELD_ADS_PRICE = 'adsPrice';
+
+    const FORM_FIELD_ADS_LOCATION = 'adsLocation';
+
+    const FORM_FIELD_ADS_TITLE = 'adsTitle';
+
+    const FORM_FIELD_ADS_CONTENT = 'adsContent';
+
+    const FORM_FIELD_ADS_ATTACHMENT = 'adsAttachment';
 
     private $form;
+    
+    private $LOGGER;
+
+    public function __construct() {
+        parent::__construct();
+        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog('You_Dzit_PostAdsHandler');
+    }
 
     private function checkUploadFiles($form, $maxUploadFiles, $maxUploadSize) {
         $uploadFiles = Array();
         if ( $maxUploadFiles > 0 && count($_FILES) > 0 ) {
-            $app = $this->getApplication();
+            //$app = $this->getApplication();
             $lang = $this->getLanguage();
             $totalSize = 0;
             $fileTypes = getConfig(You_Dzit_Constants::CONFIG_ALLOWED_UPLOAD_FILE_TYPES);
             $allowedFileTypes = preg_split('/[\s,;|]+/', strtolower(trim($fileTypes)));
-
+            
             for ( $i = 0; $i < count($allowedFileTypes); $i++ ) {
                 //normalize file types
-                $allowedFileTypes[$i] = '.'.preg_replace('/^\.+/', '', $allowedFileTypes[$i]);
+                $allowedFileTypes[$i] = '.' . preg_replace('/^\.+/', '', $allowedFileTypes[$i]);
             }
             //check upload files
             for ( $i = 0; $i < $maxUploadFiles; $i++ ) {
-                $token = self::FORM_FIELD_ADS_ATTACHMENT.$i;
-                if ( !isset($_FILES[$token]) || $_FILES[$token]['error']===4 ) {
+                $token = self::FORM_FIELD_ADS_ATTACHMENT . $i;
+                if ( !isset($_FILES[$token]) || $_FILES[$token]['error'] === 4 ) {
                     continue;
                 }
                 $fileName = strtolower($_FILES[$token]['name']);
                 $allowed = false;
                 foreach ( $allowedFileTypes as $type ) {
-                    if ( substr($fileName, strlen($fileName)-strlen($type)) === $type ) {
+                    if ( substr($fileName, strlen($fileName) - strlen($type)) === $type ) {
                         $allowed = true;
                         break;
                     }
                 }
-                if  ( !$allowed ) {
+                if ( !$allowed ) {
                     $msg = $lang->getMessage('error.uploadFileNotAllowed', $fileName);
                     $form->addErrorMessage($msg);
                     break;
                 }
-                if ( $_FILES[$token]['error']===3 ) {
+                if ( $_FILES[$token]['error'] === 3 ) {
                     $form->addErrorMessage($lang->getMessage('error.uploadGeneral'));
                     break;
                 }
-                if ( $_FILES[$token]['error']===1 ) {
+                if ( $_FILES[$token]['error'] === 1 ) {
                     $form->addErrorMessage($lang->getMessage('error.uploadSizeTooLargePhpIni'));
                     break;
                 }
-                if ( $_FILES[$token]['error']===2 ) {
+                if ( $_FILES[$token]['error'] === 2 ) {
                     $form->addErrorMessage($lang->getMessage('error.uploadSizeTooLargeForm'), Array($_POST['MAX_FILE_SIZE']));
                     break;
                 }
-
+                
                 $totalSize += $_FILES[$token]['size'];
                 if ( $totalSize > $maxUploadSize ) {
                     $msg = $lang->getMessage('error.uploadTotalSizeTooLarge', Array($totalSize, $maxUploadSize));
                     $form->addErrorMessage($msg);
                     break;
                 }
-
+                
                 $uploadFiles[] = $_FILES[$token];
             }
         }
@@ -105,34 +121,34 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
                 $maxUploadSize = getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_SIZE);
                 $uploadFiles = $this->checkUploadFiles($form, $maxUploadFiles, $maxUploadSize);
                 if ( !$form->hasErrorMessage() ) {
-                    $expiry = getConfig(You_Dzit_Constants::CONFIG_ADS_EXPIRY_DAYS)*24*3600;
+                    $expiry = getConfig(You_Dzit_Constants::CONFIG_ADS_EXPIRY_DAYS) * 24 * 3600;
+                    $safeAdsContent = '';
+                    if ( $user->getGroupId() === GROUP_ADMINISTRATOR ) {
+                        $safeAdsContent = removeEvilHtmlTags($adsContent, You_Dzit_Constants::$ADMIN_ALLOWED_TAGS);
+                    } else {
+                        $safeAdsContent = removeEvilHtmlTags($adsContent, You_Dzit_Constants::$BASED_ALLOWED_TAGS);
+                    }
                     $params = Array(
-                		'category' => $cat,
-                		'user'        => $app->getCurrentUser(),
-                        'expiry'      => $expiry,
-                        'adsTitle'    => $adsTitle,
-                    	'adsContent'  => removeEvilHtmlTags($adsContent),
-                    	'adsType'     => $adsType,
-                    	'adsPrice'    => $adsPrice,
-                    	'adsLocation' => $adsLocation,
-                        'html'        => $form->getField('html')
+                    	'category' => $cat, 
+                    	'user' => $app->getCurrentUser(), 
+                    	'expiry' => $expiry, 
+                    	'adsTitle' => $adsTitle, 
+                    	'adsContent' => $safeAdsContent, 
+                    	'adsType' => $adsType, 
+                    	'adsPrice' => $adsPrice, 
+                    	'adsLocation' => $adsLocation, 
+                    	'html' => $form->getField('html')
                     );
                     $newEntry = createEntry($params);
                     addUploadFilesToEntry($newEntry, $uploadFiles);
-					indexEntry($newEntry);
-
+                    indexEntry($newEntry);
+                    
                     //notify watchers
                     $emailSubject = $lang->getMessage('email.adsWatch.subject');
-                    $urlAds = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), Array('id'=>$newEntry->getId()), "", true);
+                    $urlAds = $urlCreator->createUrl(You_Dzit_Constants::ACTION_VIEW_ADS, Array(), Array('id' => $newEntry->getId()), "", true);
                     $emailAdmin = getConfig(You_Dzit_Constants::CONFIG_EMAIL_ADMINISTRATOR);
                     $emailOutgoing = getConfig(You_Dzit_Constants::CONFIG_EMAIL_OUTGOING);
-                    $replacements = Array(
-                        'ADS_TITLE'           => $adsTitle,
-                        'CATEGORY_NAME'       => $cat->getName(),
-                        'URL_ADS'		      => $urlAds,
-                        'EMAIL_ADMINISTRATOR' => $emailAdmin,
-                    	'EMAIL_OUTGOING'      => $emailOutgoing,
-                    );
+                    $replacements = Array('ADS_TITLE' => $adsTitle, 'CATEGORY_NAME' => $cat->getName(), 'URL_ADS' => $urlAds, 'EMAIL_ADMINISTRATOR' => $emailAdmin, 'EMAIL_OUTGOING' => $emailOutgoing);
                     $emailBody = $lang->getMessage('email.adsWatch.body', $replacements);
                     $watchers = getWatcherList($cat);
                     foreach ( $watchers as $user ) {
@@ -165,51 +181,51 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
         $urlCreator = $app->getUrlCreator();
         $form->setAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_POST_ADS));
         $form->setCancelAction($urlCreator->createUrl(You_Dzit_Constants::ACTION_MEMBER_MY_ADS));
-
+        
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
             $field = self::FORM_FIELD_CATEGORY_ID;
-            $value = isset($_POST[$field]) ? $_POST[$field]+0 : 0;
+            $value = isset($_POST[$field]) ? $_POST[$field] + 0 : 0;
             $form->setField($field, $value);
-
+            
             $field = self::FORM_FIELD_ADS_TYPE;
-            $value = isset($_POST[$field]) ? $_POST[$field]+0 : 0;
+            $value = isset($_POST[$field]) ? $_POST[$field] + 0 : 0;
             $form->setField($field, $value);
-
+            
             $field = self::FORM_FIELD_ADS_PRICE;
-            $value = isset($_POST[$field]) ? (trim($_POST[$field])!=='' ? $_POST[$field]+0 : NULL) : NULL;
+            $value = isset($_POST[$field]) ? (trim($_POST[$field]) !== '' ? $_POST[$field] + 0 : NULL) : NULL;
             $form->setField($field, $value);
-
+            
             $field = self::FORM_FIELD_ADS_LOCATION;
-            $value = isset($_POST[$field]) ? $_POST[$field]+0 : 0;
+            $value = isset($_POST[$field]) ? $_POST[$field] + 0 : 0;
             $form->setField($field, $value);
-
+            
             $field = self::FORM_FIELD_ADS_TITLE;
             $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
             $form->setField($field, $value);
-
+            
             $field = self::FORM_FIELD_ADS_CONTENT;
             $value = isset($_POST[$field]) ? trim($_POST[$field]) : '';
             $form->setField($field, $value);
-
+            
             $field = 'html';
-            $value = isset($_POST[$field]) ? $_POST[$field]+0 : 0;
+            $value = isset($_POST[$field]) ? $_POST[$field] + 0 : 0;
             $form->setField($field, $value);
         } else {
             $field = self::FORM_FIELD_CATEGORY_ID;
             $form->setField($field, 0);
-
+            
             $field = self::FORM_FIELD_ADS_TYPE;
             $form->setField($field, 0);
-
+            
             $field = self::FORM_FIELD_ADS_PRICE;
             $form->setField($field, '');
-
+            
             $field = self::FORM_FIELD_ADS_LOCATION;
             $form->setField($field, 0);
-
+            
             $field = self::FORM_FIELD_ADS_TITLE;
             $form->setField($field, '');
-
+            
             $field = self::FORM_FIELD_ADS_CONTENT;
             $form->setField($field, '');
         }
@@ -229,10 +245,10 @@ class You_Dzit_PostAdsHandler extends You_Dzit_RequireLoggedInHandler {
         $locationNode = new Ddth_Template_DataModel_List(self::DATAMODEL_ADS_LOCATION_LIST);
         $node->addChild(self::DATAMODEL_ADS_LOCATION_LIST, $locationNode);
         $locations = getAllLocations();
-        foreach ( $locations as $k=>$v ) {
-            $locationNode->addChild(new Ddth_Template_DataModel_Map('', Array('key'=>$k, 'value'=>$v)));
+        foreach ( $locations as $k => $v ) {
+            $locationNode->addChild(new Ddth_Template_DataModel_Map('', Array('key' => $k, 'value' => $v)));
         }
-
+        
         $app = $this->getApplication();
         $node->addChild(self::DATAMODEL_ADS_MAX_UPLOAD_FILES, getConfig(You_Dzit_Constants::CONFIG_MAX_UPLOAD_FILES));
         $node->addChild(self::DATAMODEL_ADS_ALLOWED_UPLOAD_FILETYPES, getConfig(You_Dzit_Constants::CONFIG_ALLOWED_UPLOAD_FILE_TYPES));

@@ -50,6 +50,12 @@ abstract class You_Dzit_BaseActionHandler extends Ddth_Dzit_ActionHandler_Abstra
     const DATAMODEL_COMMON_URLS_MYPROFILE = 'myprofile';
 
     const DATAMODEL_COMMON_URLS_ADMINCP = 'adminCp';
+    
+    /**
+     * Constructs a new You_Dzit_BaseActionHandler object.
+     */
+    public function __construct() {
+    }
 
     /**
      * {@see Ddth_Dzit_IActionHandler::execute()}

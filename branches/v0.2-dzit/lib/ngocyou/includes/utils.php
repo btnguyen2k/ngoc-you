@@ -101,18 +101,22 @@ function createThumbnail($mimeType, $imageData) {
     return $newImg;
 }
 
-function removeEvilHtmlTags($input) {
-	$allowedTags = array(
-		'<a>', '<p>', '<div>', '<blockquote>',
-		'<b>', '<strong>', '<i>', '<em>', '<u>', '<strike>', '<del>',
-	 	'<font>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>',
-		'<sup>', '<sub>',
-		'<ul>', '<ol>', '<li>',
-		'<img>', '<br>',
-		'<table>', '<thead>', '<th>', '<tbody>', '<tr>', '<td>',
-	);
+$BASE_ALLOWED_TAGS = Array(
+	'<a>', '<p>', '<div>', '<blockquote>',
+	'<b>', '<strong>', '<i>', '<em>', '<u>', '<strike>', '<del>',
+	'<font>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>',
+	'<sup>', '<sub>',
+	'<ul>', '<ol>', '<li>',
+	'<img>', '<br>',
+	'<table>', '<thead>', '<th>', '<tbody>', '<tr>', '<td>',
+);
+
+function removeEvilHtmlTags($input, $allowedTags) {
+    global $BASE_ALLOWED_TAGS;
+    if ( !isset($allowedTags) || !is_array($allowedTags) ) {
+        $allowedTags = $BASE_ALLOWED_TAGS;
+    }
 	$disabledAttrs = array('on\\w+');
-	
 	return preg_replace('/<(.*?)>/ie', 
 		"'<' . preg_replace(array('/javascript:[^\"\']*/i', '/(" . implode('|', $disabledAttrs) . ")=[\"\'][^\"\']*[\"\']/i', '/\s+/'), array('', '', ' '), stripslashes('\\1')) . '>'", 
 		strip_tags($input, implode('', $allowedTags)));
