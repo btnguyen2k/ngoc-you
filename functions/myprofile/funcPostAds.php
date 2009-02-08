@@ -132,6 +132,8 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
             //                $adsContent = str_replace("\n", "<br>", $adsContent);
             //            }
             $expiry = 7*24*3600; //expires in 7 days!
+            $safeAdsContent = '';
+            
             $params = Array(
                 'category' => $cat,
                 'user' => $CURRENT_USER,

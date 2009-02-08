@@ -1,6 +1,5 @@
 <?php
-class You_Dzit_Constants {
-    
+class You_Dzit_Constants {   
     const CONFIG_SITE_NAME				    = 'SITE_NAME';
     const CONFIG_SITE_TITLE			        = 'SITE_TITLE';
     const CONFIG_SITE_KEYWORDS			    = 'SITE_KEYWORDS';
@@ -73,5 +72,23 @@ class You_Dzit_Constants {
     const ACTION_MEMBER_CHANGE_PASSWORD             = 'changePassword';
     const ACTION_MEMBER_MY_ADS                      = 'myAds';
     const ACTION_MEMBER_POST_ADS                    = 'postAds';
+    
+    public static $BASED_ALLOWED_TAGS = Array('<a>', '<p>', '<div>', '<blockquote>',
+    	'<b>', '<strong>', '<i>', '<em>', '<u>', '<strike>', '<del>',
+		'<font>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>',
+		'<sup>', '<sub>',
+		'<ul>', '<ol>', '<li>',
+		'<img>', '<br>',
+		'<table>', '<thead>', '<th>', '<tbody>', '<tr>', '<td>'
+    );
+    public static $ADMIN_ALLOWED_TAGS = Array('<a>', '<p>', '<div>', '<blockquote>',
+    	'<b>', '<strong>', '<i>', '<em>', '<u>', '<strike>', '<del>',
+		'<font>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>',
+		'<sup>', '<sub>',
+		'<ul>', '<ol>', '<li>',
+		'<img>', '<br>',
+		'<table>', '<thead>', '<th>', '<tbody>', '<tr>', '<td>',
+        '<object>', '<embed>', '<param>'
+    );
 }
 ?>

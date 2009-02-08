@@ -170,7 +170,7 @@ FCKConfig.ImageDlgHideAdvanced	= false ;
 
 FCKConfig.FlashDlgHideAdvanced	= false ;
 
-FCKConfig.ProtectedTags = '' ;
+FCKConfig.ProtectedTags = 'object|embed|param' ;
 
 // This will be applied to the body element of the editor
 FCKConfig.BodyId = '' ;
